@@ -1,0 +1,207 @@
+/* ------------------------------------------------------------------
+   Per-project identity — colours and display face, carried over from
+   jeffreyko.com.
+
+   Each project page sets data-project="<slug>", which re-points the same
+   site tokens every component already consumes. No component needs to know
+   a colour: it keeps using text-text-primary / bg-accent and inherits
+   whichever project it sits inside.
+
+   Palettes are the contrast-audited ones from the previous build — small
+   text clears 7:1 and display text 4.5:1 against its own surface, in both
+   themes.
+
+   Note: in this codebase `.dark` is the CREAM/light theme (see Navbar).
+   ------------------------------------------------------------------ */
+
+/* iDriver · #1a365d */
+[data-project='idriver'] {
+  --project-font: var(--font-barlow), 'Arial Narrow', sans-serif;
+  --project-display-tracking: -0.02em;
+  --project-heading-tracking: -0.02em;
+  --project-display-scale: 1.2;
+  --site-primary: #1c232c;
+  --site-text-primary: #eee2d4;
+  --site-text-muted: #bcb4ac;
+  --site-highlight: #1b293c;
+  --site-accent: #99b8e2;
+  --site-accent-ink: #1f2329;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(26, 54, 93, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(26, 54, 93, 0.03), transparent 30%), linear-gradient(135deg, #1c232c 0%, #1c242e 48%, #1c232c 100%);
+}
+.dark [data-project='idriver'] {
+  --site-primary: #dde4ec;
+  --site-text-primary: #202123;
+  --site-text-muted: #262729;
+  --site-highlight: #9facbe;
+  --site-accent: #142947;
+  --site-accent-ink: #e0e4e9;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(26, 54, 93, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(26, 54, 93, 0.03), transparent 30%), linear-gradient(135deg, #dde4ec 0%, #d3dbe5 48%, #dde4ec 100%);
+}
+
+/* Port Jeffrey · #e0e074 */
+[data-project='port-jeffrey'] {
+  --project-font: var(--font-outfit), system-ui, sans-serif;
+  --project-display-tracking: -0.06em;
+  --project-heading-tracking: -0.05em;
+  --project-display-scale: 1.0;
+  --site-primary: #141c34;
+  --site-text-primary: #ebeba4;
+  --site-text-muted: #ebeba4;
+  --site-highlight: #555b48;
+  --site-accent: #eeeeb3;
+  --site-accent-ink: #1a1f2e;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(224, 224, 116, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(224, 224, 116, 0.03), transparent 30%), linear-gradient(135deg, #141c34 0%, #1e2637 48%, #141c34 100%);
+}
+.dark [data-project='port-jeffrey'] {
+  --site-primary: #e0e074;
+  --site-text-primary: #141c34;
+  --site-text-muted: #33393e;
+  --site-highlight: #9fa160;
+  --site-accent: #141c34;
+  --site-accent-ink: #caca8a;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(167, 169, 98, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(167, 169, 98, 0.03), transparent 30%), linear-gradient(135deg, #e0e074 0%, #dddd73 48%, #e0e074 100%);
+}
+
+/* Peter Parking · #085d68 */
+[data-project='peter-parking'] {
+  --project-font: var(--font-archivo), system-ui, sans-serif;
+  --project-display-tracking: -0.055em;
+  --project-heading-tracking: -0.05em;
+  --project-display-scale: 1.0;
+  --site-primary: #1a2c2e;
+  --site-text-primary: #eee4d5;
+  --site-text-muted: #cac5b9;
+  --site-highlight: #143c41;
+  --site-accent: #27d8ee;
+  --site-accent-ink: #1e292a;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(8, 93, 104, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(8, 93, 104, 0.03), transparent 30%), linear-gradient(135deg, #1a2c2e 0%, #192e31 48%, #1a2c2e 100%);
+}
+.dark [data-project='peter-parking'] {
+  --site-primary: #ddecec;
+  --site-text-primary: #1f2323;
+  --site-text-muted: #2c3131;
+  --site-highlight: #99bec2;
+  --site-accent: #05373d;
+  --site-accent-ink: #e0e9e9;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(8, 93, 104, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(8, 93, 104, 0.03), transparent 30%), linear-gradient(135deg, #ddecec 0%, #d2e5e5 48%, #ddecec 100%);
+}
+
+/* Sigma · #576f9d */
+[data-project='sigma'] {
+  --project-font: var(--font-jetbrains), ui-monospace, monospace;
+  --project-display-tracking: -0.04em;
+  --project-heading-tracking: -0.04em;
+  --project-display-scale: 1.0;
+  --site-primary: #163777;
+  --site-text-primary: #ffffff;
+  --site-text-muted: #dee3ec;
+  --site-highlight: #6177a3;
+  --site-accent: #ffffff;
+  --site-accent-ink: #293d64;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(87, 111, 157, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(87, 111, 157, 0.03), transparent 30%), linear-gradient(135deg, #163777 0%, #193a79 48%, #163777 100%);
+}
+.dark [data-project='sigma'] {
+  --site-primary: #ffffff;
+  --site-text-primary: #163777;
+  --site-text-muted: #304d86;
+  --site-highlight: #b4bfd3;
+  --site-accent: #163777;
+  --site-accent-ink: #ffffff;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(190, 199, 217, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(190, 199, 217, 0.03), transparent 30%), linear-gradient(135deg, #ffffff 0%, #fcfcfd 48%, #ffffff 100%);
+}
+
+/* Revo Fitness · #e04848 */
+[data-project='revo-fitness'] {
+  --project-font: var(--font-anton), Impact, sans-serif;
+  --project-display-tracking: -0.005em;
+  --project-heading-tracking: 0em;
+  --project-display-scale: 1.0;
+  --site-primary: #2e1a1a;
+  --site-text-primary: #f2e0d1;
+  --site-text-muted: #d9c6b9;
+  --site-highlight: #672929;
+  --site-accent: #f4bcbc;
+  --site-accent-ink: #2a1e1e;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(224, 72, 72, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(224, 72, 72, 0.03), transparent 30%), linear-gradient(135deg, #2e1a1a 0%, #371c1c 48%, #2e1a1a 100%);
+}
+.dark [data-project='revo-fitness'] {
+  --site-primary: #f1dbd9;
+  --site-text-primary: #231f1f;
+  --site-text-muted: #363030;
+  --site-highlight: #ecacab;
+  --site-accent: #641111;
+  --site-accent-ink: #ecdfde;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(224, 72, 72, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(224, 72, 72, 0.03), transparent 30%), linear-gradient(135deg, #f1dbd9 0%, #f0d4d2 48%, #f1dbd9 100%);
+}
+
+/* Rooted · #5c9e54 */
+[data-project='rooted'] {
+  --project-font: var(--font-fraunces), Georgia, serif;
+  --project-display-tracking: -0.03em;
+  --project-heading-tracking: -0.03em;
+  --project-display-scale: 1.0;
+  --site-primary: #212920;
+  --site-text-primary: #efe3d2;
+  --site-text-muted: #e3d8c7;
+  --site-highlight: #344e31;
+  --site-accent: #c8e0c5;
+  --site-accent-ink: #222722;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(92, 158, 84, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(92, 158, 84, 0.03), transparent 30%), linear-gradient(135deg, #212920 0%, #242f23 48%, #212920 100%);
+}
+.dark [data-project='rooted'] {
+  --site-primary: #e2ebdc;
+  --site-text-primary: #202220;
+  --site-text-muted: #393c38;
+  --site-highlight: #b7d2b0;
+  --site-accent: #274223;
+  --site-accent-ink: #e3e8df;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(92, 158, 84, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(92, 158, 84, 0.03), transparent 30%), linear-gradient(135deg, #e2ebdc 0%, #dbe7d5 48%, #e2ebdc 100%);
+}
+
+/* Katsu Seiba · #f1e2d1 */
+[data-project='katsu-seiba'] {
+  --project-font: var(--font-mincho), Georgia, serif;
+  --project-display-tracking: -0.025em;
+  --project-heading-tracking: -0.02em;
+  --project-display-scale: 1.02;
+  --site-primary: #222222;
+  --site-text-primary: #f9f3ec;
+  --site-text-muted: #f9f3ec;
+  --site-highlight: #645f5a;
+  --site-accent: #fbf7f2;
+  --site-accent-ink: #222222;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(241, 226, 209, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(241, 226, 209, 0.03), transparent 30%), linear-gradient(135deg, #222222 0%, #2c2c2b 48%, #222222 100%);
+}
+.dark [data-project='katsu-seiba'] {
+  --site-primary: #f1e2d1;
+  --site-text-primary: #222222;
+  --site-text-muted: #3f3d3a;
+  --site-highlight: #afa599;
+  --site-accent: #222222;
+  --site-accent-ink: #ebe2d7;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(183, 172, 160, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(183, 172, 160, 0.03), transparent 30%), linear-gradient(135deg, #f1e2d1 0%, #eedfcf 48%, #f1e2d1 100%);
+}
+
+/* Fruitea · #e08a3c */
+[data-project='fruitea'] {
+  --project-font: var(--font-baloo), system-ui, sans-serif;
+  --project-display-tracking: -0.025em;
+  --project-heading-tracking: -0.025em;
+  --project-display-scale: 1.0;
+  --site-primary: #2e241a;
+  --site-text-primary: #f2e2d1;
+  --site-text-muted: #ecdccc;
+  --site-highlight: #674525;
+  --site-accent: #f5d9c0;
+  --site-accent-ink: #2a241e;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(224, 138, 60, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(224, 138, 60, 0.03), transparent 30%), linear-gradient(135deg, #2e241a 0%, #37291c 48%, #2e241a 100%);
+}
+.dark [data-project='fruitea'] {
+  --site-primary: #f1e5d9;
+  --site-text-primary: #23211f;
+  --site-text-muted: #403c39;
+  --site-highlight: #ecc8a7;
+  --site-accent: #5b330e;
+  --site-accent-ink: #ece5de;
+  --site-surface-gradient: radial-gradient(circle at 12% 8%, rgba(224, 138, 60, 0.05), transparent 34%), radial-gradient(circle at 92% 18%, rgba(224, 138, 60, 0.03), transparent 30%), linear-gradient(135deg, #f1e5d9 0%, #f0e0d1 48%, #f1e5d9 100%);
+}
