@@ -33,8 +33,8 @@ export const PillNav = ({
   className,
 }: PillNavProps) => {
   const isVertical = orientation === 'vertical';
-  // `grid` lays the eight projects out two per row (01 02 / 03 04 / …) so the
-  // switcher stays a compact block instead of a tall single column.
+  // `grid` lays the eight projects out four per row (01–04 / 05–08), a
+  // compact block about the height of the logo it sits beside.
   const isGrid = orientation === 'grid';
 
   return (
@@ -42,7 +42,7 @@ export const PillNav = ({
       <div
         className={`${shellClassName} gap-1.5 ${
           isGrid
-            ? 'grid grid-cols-2'
+            ? 'grid grid-cols-4'
             : isVertical
               ? 'flex flex-col'
               : 'flex max-w-full flex-wrap items-center justify-center md:flex-nowrap'
@@ -55,9 +55,11 @@ export const PillNav = ({
               ? 'inline-flex h-9 w-9 items-center justify-center md:h-10 md:w-10'
               : 'px-3 py-2 md:px-4'
           } ${
+            // Hover previews the same accent as the current item, so every
+            // project page highlights in its own colour, not its text colour.
             isActive
               ? 'bg-accent text-accent-ink'
-              : 'text-text-muted hover:bg-text-primary hover:text-primary'
+              : 'text-text-muted hover:bg-accent hover:text-accent-ink'
           }`;
 
           const content = <span className='relative z-10'>{item.label}</span>;

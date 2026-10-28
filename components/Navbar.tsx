@@ -51,7 +51,7 @@ const LogoButton = ({ isHome }: { isHome: boolean }) => {
     <Link
       href='/'
       onClick={handleClick}
-      className='fixed top-6 left-6 z-[60] inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-3xl bg-transparent shadow-2xl drop-shadow-2xl transition-all duration-200 hover:scale-105 md:h-28 md:w-28'
+      className='inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-3xl bg-transparent shadow-2xl drop-shadow-2xl transition-all duration-200 hover:scale-105 md:h-28 md:w-28'
       aria-label={isHome ? 'Back to top' : 'Jeffrey Ko home'}
     >
       <LogoMark className='h-24 w-24 md:h-28 md:w-28' />
@@ -117,21 +117,23 @@ export const Navbar = () => {
      falls back to the site palette untouched. */
   return (
     <div data-project={activeProject?.slug}>
-      <LogoButton isHome={pathname === '/'} />
-      {activeProject ? (
-        <PillNav
-          aria-label='Jump to project'
-          orientation='grid'
-          activeId={activeProject.slug}
-          className='fixed top-[8.75rem] left-6 z-[60] md:top-[9.75rem]'
-          items={PROJECTS.map((project) => ({
-            id: project.slug,
-            label: project.id,
-            title: project.title,
-            href: `/pj/${project.slug}`,
-          }))}
-        />
-      ) : null}
+      {/* One fixed row: the project pager sits beside the logo, centred on it. */}
+      <div className='fixed top-6 left-6 z-[60] flex items-center gap-3'>
+        <LogoButton isHome={pathname === '/'} />
+        {activeProject ? (
+          <PillNav
+            aria-label='Jump to project'
+            orientation='grid'
+            activeId={activeProject.slug}
+            items={PROJECTS.map((project) => ({
+              id: project.slug,
+              label: project.id,
+              title: project.title,
+              href: `/pj/${project.slug}`,
+            }))}
+          />
+        ) : null}
+      </div>
       <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleTheme} />
     </div>
   );
