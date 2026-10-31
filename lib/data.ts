@@ -75,7 +75,7 @@ export const PROJECTS: ProjectData[] = [
     outcome: '4 labelled landmarks. One look, no extra click.',
     externalUrl: 'https://portjeffrey.vercel.app/',
     codeUrl: 'https://github.com/jeffreykosasih/jk_it_port',
-    workImage: '/pj_03/pj_03_profile.png',
+    workImage: '/pj_03/pj_03_island.jpg',
     stages: {
       Problem: {
         content: `A grid of IT projects gets scanned and skipped. Recruiters decide in seconds whether a portfolio is worth opening, and a list that looks like every other student site does not get that second.`,
