@@ -1,6 +1,6 @@
 export const About = () => {
   return (
-    <section id='about' className='px-6 py-24'>
+    <section id='about' className='scroll-mt-16 px-6 py-24'>
       <div className='mx-auto grid max-w-7xl gap-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center'>
         <div className='max-w-[70ch] space-y-5 text-lg leading-[1.6] text-text-primary'>
           <p>

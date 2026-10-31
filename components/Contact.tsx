@@ -225,7 +225,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id='contact' className='py-24 px-6 flex items-center'>
+    <section id='contact' className='scroll-mt-16 py-24 px-6 flex items-center'>
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
