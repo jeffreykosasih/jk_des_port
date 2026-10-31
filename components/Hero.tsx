@@ -18,9 +18,8 @@ export const Hero = () => {
           <div className='mt-12 flex flex-col gap-8 md:max-w-5xl'>
             <div className='flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-8 xl:gap-12'>
               <p className='text-lg leading-[1.6] text-text-primary lg:min-w-[19rem] lg:max-w-[40ch] lg:flex-1'>
-                Computer Science degree. A year as Product Owner. I design
-                products that are easy to use — and I sit with engineering
-                without a translator.
+                I design products that are easy to use and I sit with
+                engineering without a translator.
               </p>
 
               <nav

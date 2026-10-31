@@ -108,11 +108,11 @@ export const metadata: Metadata = {
     template: '%s — Jeffrey Ko',
   },
   description:
-    'UX/UI designer with a Computer Science degree and a year as Product Owner. Digital products that are easy to use — and conversations with engineering that do not need a translator.',
+    'UX/UI designer in Melbourne. I design products that are easy to use and I sit with engineering without a translator.',
   openGraph: {
     title: 'Jeffrey Ko — UX/UI Designer',
     description:
-      'UX/UI designer with a Computer Science degree and a year as Product Owner.',
+      'UX/UI designer in Melbourne. I design products that are easy to use and I sit with engineering without a translator.',
     url: 'https://www.jeffreyko.com',
     siteName: 'Jeffrey Ko',
     type: 'website',
@@ -122,7 +122,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Jeffrey Ko — UX/UI Designer',
     description:
-      'UX/UI designer with a Computer Science degree and a year as Product Owner.',
+      'UX/UI designer in Melbourne. I design products that are easy to use and I sit with engineering without a translator.',
     images: ['/profile-portrait.jpg'],
   },
   icons: {
