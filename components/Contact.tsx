@@ -3,7 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { IconType } from 'react-icons';
-import { FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from 'react-icons/fa';
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaTiktok,
+  FaYoutube,
+} from 'react-icons/fa';
 import { IoDocumentText, IoMail } from 'react-icons/io5';
 
 type ContactItem = {
@@ -122,9 +128,15 @@ export const Contact = () => {
   const email = 'jefpkos@gmail.com';
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText(email);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      // No clipboard access (older browsers, some in-app views):
+      // open the mail app instead of failing silently.
+      window.location.href = `mailto:${email}`;
+    }
   };
 
   const workLinks: ContactItem[] = [
@@ -132,6 +144,11 @@ export const Contact = () => {
       label: 'LinkedIn',
       href: 'https://www.linkedin.com/in/jeffreykosasih/',
       icon: FaLinkedin,
+    },
+    {
+      label: 'GitHub',
+      href: 'https://github.com/jeffreykosasih',
+      icon: FaGithub,
     },
     {
       label: 'Email',
@@ -168,8 +185,8 @@ export const Contact = () => {
           <button
             type='button'
             onClick={item.onClick}
-            aria-label={item.label}
-            title={item.label}
+            aria-label={item.label === 'Email' ? 'Copy email address' : item.label}
+            title={item.label === 'Email' ? 'Copy email address' : item.label}
             className={itemClass}
           >
             {iconEl}
@@ -217,9 +234,25 @@ export const Contact = () => {
         className='max-w-7xl mx-auto w-full py-8'
       >
         <div className='flex flex-col gap-8 md:flex-row md:items-center md:justify-between'>
-          <h2 className='text-[clamp(3rem,7vw,4.75rem)] font-bold uppercase leading-[0.95] tracking-tight text-text-primary'>
-            Connect
-          </h2>
+          <div className='flex flex-col gap-5'>
+            <h2 className='text-[clamp(3rem,7vw,4.75rem)] font-bold uppercase leading-[0.95] tracking-tight text-text-primary'>
+              Connect
+            </h2>
+            {/* The address itself, readable and selectable, not only behind an icon. */}
+            <p className='max-w-[42ch] text-lg leading-[1.6] text-text-primary'>
+              Hiring for a UX/UI or product design role? Email me at{' '}
+              <a
+                href={`mailto:${email}`}
+                className='font-bold underline underline-offset-4 transition-colors hover:text-accent'
+              >
+                {email}
+              </a>
+              .
+            </p>
+            <span className='sr-only' aria-live='polite'>
+              {copied ? 'Email address copied' : ''}
+            </span>
+          </div>
 
           <div className='flex flex-col gap-6 md:items-end'>
             <div className='flex flex-wrap items-center gap-5 md:justify-end md:gap-7'>
