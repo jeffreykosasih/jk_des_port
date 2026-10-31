@@ -16,6 +16,9 @@ export const YoutubeShowcase = () => {
             className='h-full w-full'
             src='https://www.youtube.com/embed/42I_fxcanxo'
             title='In The Summer — live loop by Jefri'
+            // The player is near the bottom of the page; don't make every
+            // visitor download it up front.
+            loading='lazy'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
             referrerPolicy='strict-origin-when-cross-origin'
             allowFullScreen
