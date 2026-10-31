@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { IconType } from 'react-icons';
-import {
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaTiktok,
-  FaYoutube,
-} from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from 'react-icons/fa';
 import { IoDocumentText, IoMail } from 'react-icons/io5';
 
 type ContactItem = {
@@ -144,11 +138,6 @@ export const Contact = () => {
       label: 'LinkedIn',
       href: 'https://www.linkedin.com/in/jeffreykosasih/',
       icon: FaLinkedin,
-    },
-    {
-      label: 'GitHub',
-      href: 'https://github.com/jeffreykosasih',
-      icon: FaGithub,
     },
     {
       label: 'Email',

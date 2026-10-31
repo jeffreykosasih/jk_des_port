@@ -129,15 +129,10 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
 
   const heroTitle = currentProject.title;
 
-  // Spelled-out links, so nobody has to discover that the title was a link.
-  const projectLinks = [
-    currentProject.externalUrl
-      ? { label: 'Visit live site', href: currentProject.externalUrl }
-      : null,
-    currentProject.codeUrl
-      ? { label: 'See the code', href: currentProject.codeUrl }
-      : null,
-  ].filter((link): link is { label: string; href: string } => link !== null);
+  // Spelled out, so nobody has to discover that the title was a link.
+  const projectLinks = currentProject.externalUrl
+    ? [{ label: 'Visit live site', href: currentProject.externalUrl }]
+    : [];
 
   const goToNextImage = (stage: Stage, totalImages: number) => {
     setActiveImageByStage((prev) => ({

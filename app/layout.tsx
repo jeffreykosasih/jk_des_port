@@ -178,18 +178,9 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         {/* Extra bottom room on phones so the fixed theme button never sits
-            on top of the footer link. */}
+            on top of the footer. */}
         <footer className='px-6 pb-28 pt-8 text-center text-sm font-bold text-text-muted md:pb-8'>
           Designed and coded by Jeffrey Ko
-          <span className='hidden md:inline'> · </span>
-          <a
-            href='https://github.com/jeffreykosasih/jk_des_port'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='mt-1 block whitespace-nowrap underline underline-offset-4 transition-colors hover:text-accent md:mt-0 md:inline'
-          >
-            See the code ↗
-          </a>
         </footer>
       </body>
     </html>

@@ -10,8 +10,6 @@ export interface ProjectData {
   /** One interview-defensible number, shown under the title. */
   outcome: string;
   externalUrl?: string;
-  /** Public source code, for the projects that were built. */
-  codeUrl?: string;
   workImage?: string;
   credit?: string;
   /** Thin entries render only the stages they have. */
@@ -74,7 +72,6 @@ export const PROJECTS: ProjectData[] = [
       'A Three.js island where every project is labelled in the scene — visitors know what they are looking at without opening a menu.',
     outcome: '4 labelled landmarks. One look, no extra click.',
     externalUrl: 'https://portjeffrey.vercel.app/',
-    codeUrl: 'https://github.com/jeffreykosasih/jk_it_port',
     workImage: '/pj_03/pj_03_island.jpg',
     stages: {
       Problem: {
@@ -223,7 +220,6 @@ export const PROJECTS: ProjectData[] = [
     blurb: 'A restaurant site built around booking, not atmosphere for its own sake.',
     outcome: 'Booking stays one action away from every section.',
     externalUrl: 'https://katsuseiba.vercel.app',
-    codeUrl: 'https://github.com/jeffreykosasih/katsuseiba',
     workImage: '/pj_04/pj_04_home_01.png',
     stages: {
       Problem: {
