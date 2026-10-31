@@ -45,13 +45,19 @@ export const WorkGrid = () => {
                     >
                       {project.id}
                     </span>
-                    <h3
-                      className={`text-xl font-bold uppercase tracking-tight ${
-                        isActive ? 'text-text-primary' : 'text-text-muted'
-                      }`}
-                    >
-                      {project.title}
-                    </h3>
+                    <div className='flex min-w-0 flex-col gap-1'>
+                      <h3
+                        className={`text-xl font-bold uppercase tracking-tight ${
+                          isActive ? 'text-text-primary' : 'text-text-muted'
+                        }`}
+                      >
+                        {project.title}
+                      </h3>
+                      {/* Concept or real build, readable before anyone clicks. */}
+                      <p className='text-sm font-bold text-text-muted'>
+                        {project.kind}
+                      </p>
+                    </div>
                   </Link>
 
                   {project.externalUrl ? (
@@ -88,9 +94,10 @@ export const WorkGrid = () => {
                     ) : null}
                   </div>
                 </Link>
-                <p className='mb-6 mt-4 max-w-[70ch] text-base leading-[1.6] text-text-primary md:hidden'>
-                  {project.blurb}
-                </p>
+                <div className='mb-6 mt-4 max-w-[70ch] space-y-2 text-base leading-[1.6] text-text-primary md:hidden'>
+                  <p>{project.blurb}</p>
+                  <p className='font-bold'>{project.outcome}</p>
+                </div>
               </li>
             );
           })}
@@ -109,7 +116,9 @@ export const WorkGrid = () => {
                 {showAlsoBuilt ? '\u2013' : '\u22ef'}
               </span>
               <span className='text-sm font-bold uppercase tracking-[0.2em] text-text-muted transition-colors hover:text-text-primary'>
-                {showAlsoBuilt ? 'Less' : 'More'}
+                {showAlsoBuilt
+                  ? 'Show fewer'
+                  : `${SECONDARY_PROJECTS.length} more projects`}
               </span>
             </button>
           </li>
@@ -146,16 +155,17 @@ export const WorkGrid = () => {
             </div>
           </Link>
           <AnimatePresence mode='wait'>
-            <motion.p
+            <motion.div
               key={activeProject.slug}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className='mt-8 max-w-[70ch] text-lg leading-[1.6] text-text-primary'
+              className='mt-8 max-w-[70ch] space-y-3 text-lg leading-[1.6] text-text-primary'
             >
-              {activeProject.blurb}
-            </motion.p>
+              <p>{activeProject.blurb}</p>
+              <p className='font-bold'>{activeProject.outcome}</p>
+            </motion.div>
           </AnimatePresence>
         </div>
       </div>
@@ -196,7 +206,13 @@ export const WorkGrid = () => {
                     >
                       {project.title}
                     </Link>
-                    <span className='text-text-muted'> — {project.blurb}</span>
+                    <span className='text-sm font-bold text-text-muted'>
+                      {' '}
+                      · {project.kind}
+                    </span>
+                    <span className='block text-text-muted'>
+                      {project.blurb}
+                    </span>
                   </motion.li>
                 ))}
               </ul>

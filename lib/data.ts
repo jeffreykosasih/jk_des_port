@@ -4,10 +4,14 @@ export interface ProjectData {
   id: string;
   slug: string;
   title: string;
+  /** What it is and how far it went (concept, redesign, built), shown with the title. */
+  kind: string;
   blurb: string;
   /** One interview-defensible number, shown under the title. */
   outcome: string;
   externalUrl?: string;
+  /** Public source code, for the projects that were built. */
+  codeUrl?: string;
   workImage?: string;
   credit?: string;
   /** Thin entries render only the stages they have. */
@@ -37,6 +41,7 @@ export const PROJECTS: ProjectData[] = [
     id: '01',
     slug: 'idriver',
     title: 'iDriver',
+    kind: 'Delivery app · Self-initiated redesign',
     blurb:
       'Newspaper delivery, rebuilt so drivers start a run in two steps — with the map, the list, and proof-of-delivery on the right stop.',
     outcome: 'Login-to-route is 2 steps instead of 4.',
@@ -64,10 +69,12 @@ export const PROJECTS: ProjectData[] = [
     id: '02',
     slug: 'port-jeffrey',
     title: 'Port Jeffrey',
+    kind: '3D portfolio · Designed and built',
     blurb:
       'A Three.js island where every project is labelled in the scene — visitors know what they are looking at without opening a menu.',
     outcome: '4 labelled landmarks. One look, no extra click.',
     externalUrl: 'https://portjeffrey.vercel.app/',
+    codeUrl: 'https://github.com/jeffreykosasih/jk_it_port',
     workImage: '/pj_03/pj_03_profile.png',
     stages: {
       Problem: {
@@ -90,6 +97,7 @@ export const PROJECTS: ProjectData[] = [
     id: '03',
     slug: 'peter-parking',
     title: 'Peter Parking',
+    kind: 'Parking app · Concept',
     blurb:
       'One app that pays every street-parking operator, so drivers stop installing a new parking app for every street.',
     outcome: 'Setup once. Paying is 3 taps — not a fifth app.',
@@ -117,6 +125,7 @@ export const PROJECTS: ProjectData[] = [
     id: '04',
     slug: 'sigma',
     title: 'Sigma',
+    kind: 'Finance app · Concept',
     blurb:
       'Most finance apps tell you what you spent. Sigma tells you what you can spend — before you spend it.',
     outcome: 'Every payment is 1 tap to approve or reject.',
@@ -148,6 +157,7 @@ export const PROJECTS: ProjectData[] = [
     id: '05',
     slug: 'revo-fitness',
     title: 'Revo Fitness',
+    kind: 'Gym app · Self-initiated redesign',
     blurb:
       'Restructured the member app so plan perks and public info are no longer on the same screen.',
     outcome: 'Perks and public info split into separate screens.',
@@ -176,6 +186,7 @@ export const PROJECTS: ProjectData[] = [
     id: '06',
     slug: 'rooted',
     title: 'Rooted',
+    kind: 'Habit app · Concept',
     blurb:
       'A habit app that splits what you grow from what you uproot, with a plant metaphor instead of a streak counter.',
     outcome: '5 testers, 4 positive — 2 asked for a widget.',
@@ -208,9 +219,11 @@ export const PROJECTS: ProjectData[] = [
     id: '07',
     slug: 'katsu-seiba',
     title: 'Katsu Seiba',
+    kind: 'Restaurant website · Concept',
     blurb: 'A restaurant site built around booking, not atmosphere for its own sake.',
     outcome: 'Booking stays one action away from every section.',
     externalUrl: 'https://katsuseiba.vercel.app',
+    codeUrl: 'https://github.com/jeffreykosasih/katsuseiba',
     workImage: '/pj_04/pj_04_home_01.png',
     stages: {
       Problem: {
@@ -235,6 +248,7 @@ export const PROJECTS: ProjectData[] = [
     id: '08',
     slug: 'fruitea',
     title: 'Fruitea',
+    kind: 'Food reference website',
     blurb:
       'A produce reference that answers what something does to you and what to make with it, in one read.',
     outcome: 'One page per item: benefits, risks, and what to cook.',

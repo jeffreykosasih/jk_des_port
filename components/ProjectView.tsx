@@ -128,9 +128,16 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
   };
 
   const heroTitle = currentProject.title;
-  const heroTitleWords = heroTitle.split(' ');
-  const heroTitleLead = heroTitleWords.slice(0, -1).join(' ');
-  const heroTitleLast = heroTitleWords[heroTitleWords.length - 1];
+
+  // Spelled-out links, so nobody has to discover that the title was a link.
+  const projectLinks = [
+    currentProject.externalUrl
+      ? { label: 'Visit live site', href: currentProject.externalUrl }
+      : null,
+    currentProject.codeUrl
+      ? { label: 'See the code', href: currentProject.codeUrl }
+      : null,
+  ].filter((link): link is { label: string; href: string } => link !== null);
 
   const goToNextImage = (stage: Stage, totalImages: number) => {
     setActiveImageByStage((prev) => ({
@@ -145,21 +152,6 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
       [stage]: ((prev[stage] ?? 0) - 1 + totalImages) % totalImages,
     }));
   };
-
-  const titleNode = currentProject.externalUrl ? (
-    <>
-      {heroTitleLead ? `${heroTitleLead} ` : ''}
-      <span className='relative inline-block whitespace-nowrap pr-[0.55em]'>
-        {heroTitleLast}
-        <ArrowUpRight
-          className='absolute right-0 top-0 h-[0.38em] w-[0.38em] -translate-y-[0.04em] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1'
-          strokeWidth={2.5}
-        />
-      </span>
-    </>
-  ) : (
-    heroTitle
-  );
 
   const titleClassName =
     'font-project text-center text-2xl font-bold uppercase leading-[1.1] text-text-primary';
@@ -193,30 +185,36 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
           <p className='mb-4 text-sm font-bold uppercase tracking-[0.35em] text-text-muted'>
             Project {currentProject.id}
           </p>
-          {currentProject.externalUrl ? (
-            <a
-              href={currentProject.externalUrl}
-              target='_blank'
-              rel='noopener noreferrer'
-              title='Visit live site'
-              aria-label={`${heroTitle} — visit live site`}
-              className='group'
-            >
-              <h1
-                style={titleStyle}
-                className={`${titleClassName} transition-colors group-hover:text-accent`}
-              >
-                {titleNode}
-              </h1>
-            </a>
-          ) : (
-            <h1 style={titleStyle} className={titleClassName}>
-              {titleNode}
-            </h1>
-          )}
+          <h1 style={titleStyle} className={titleClassName}>
+            {heroTitle}
+          </h1>
+          <p className='mt-4 text-base font-bold text-text-muted'>
+            {currentProject.kind}
+          </p>
           <p className='mx-auto mt-6 max-w-[60ch] text-lg font-bold leading-[1.5] text-text-primary'>
             {currentProject.outcome}
           </p>
+          {projectLinks.length > 0 ? (
+            <div className='mt-8 flex flex-wrap justify-center gap-3'>
+              {projectLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label={`${heroTitle}: ${link.label} (opens in a new tab)`}
+                  className='inline-flex items-center gap-1.5 rounded-2xl bg-text-primary px-4 py-2.5 text-base font-bold text-primary transition-all hover:-translate-y-1 hover:bg-accent hover:text-accent-ink'
+                >
+                  {link.label}
+                  <ArrowUpRight
+                    className='h-4 w-4'
+                    strokeWidth={2.5}
+                    aria-hidden='true'
+                  />
+                </a>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         <div className='mx-auto mb-28 flex w-full max-w-5xl grow flex-col gap-24 md:gap-32'>
@@ -278,7 +276,7 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
                       >
                         <Image
                           src={visibleImage}
-                          alt={`${stage} visual ${activeImageIndex + 1}`}
+                          alt={`${currentProject.title}, ${stage.toLowerCase()}: image ${activeImageIndex + 1} of ${stageImages.length}`}
                           fill
                           sizes='(min-width: 1024px) 1024px, 100vw'
                           className={
