@@ -135,7 +135,7 @@ export const Contact = () => {
     } catch {
       // No clipboard access (older browsers, some in-app views):
       // open the mail app instead of failing silently.
-      window.location.href = `mailto:${email}`;
+      window.location.assign(`mailto:${email}`);
     }
   };
 
