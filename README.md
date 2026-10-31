@@ -7,16 +7,19 @@ Built with Next.js (App Router), TypeScript, Tailwind CSS v4, and Framer Motion.
 
 ## Work
 
-| # | Project | What it is | Live |
-| --- | --- | --- | --- |
-| 01 | Revo Fitness | Gym app restructured so members can see what their plan includes | — |
-| 02 | iDriver | Delivery app with clearer maps and reliable proof-of-delivery | — |
-| 03 | Port Jeffrey | Explorable 3D island built with Three.js | [portjeffrey.vercel.app](https://portjeffrey.vercel.app/) |
-| 04 | Katsu Seiba | Japanese restaurant concept — menu browsing and reservations | [katsuseiba.vercel.app](https://katsuseiba.vercel.app) |
-| 05 | Rooted | Habit tracker framed through a plant metaphor | — |
-| 06 | Fruitea | Learning site for produce benefits, risks, and recipes | [fruitea.vercel.app](https://fruitea.vercel.app) |
-| 07 | Peter Parking | One app for street parking across every operator | — |
-| 08 | Sigma | Finance app that forecasts what you *can* spend | — |
+| # | Project | What it is | Type | Live |
+| --- | --- | --- | --- | --- |
+| 01 | iDriver | Delivery app with clearer maps and reliable proof-of-delivery | Self-initiated redesign | — |
+| 02 | Port Jeffrey | Explorable 3D island built with Three.js | Designed and built | [portjeffrey.vercel.app](https://portjeffrey.vercel.app/) |
+| 03 | Peter Parking | One app for street parking across every operator | Concept | — |
+| 04 | Sigma | Finance app that forecasts what you *can* spend | Concept | — |
+| 05 | Revo Fitness | Gym app restructured so members can see what their plan includes | Self-initiated redesign | — |
+| 06 | Rooted | Habit tracker framed through a plant metaphor | Concept | — |
+| 07 | Katsu Seiba | Japanese restaurant concept — menu browsing and reservations | Concept | [katsuseiba.vercel.app](https://katsuseiba.vercel.app) |
+| 08 | Fruitea | Learning site for produce benefits, risks, and recipes | — | [fruitea.vercel.app](https://fruitea.vercel.app) |
+
+The numbers match the order on the site. The type label is the `kind` field
+in `lib/data.ts`.
 
 ## Running it locally
 
