@@ -15,7 +15,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const project = PROJECTS.find((item) => item.slug === slug);
   if (!project) return { title: 'Project' };
-  return { title: project.title };
+
+  // Each case study gets its own link preview: what it is, the one-line
+  // summary, and its own image instead of the site portrait.
+  const title = `${project.title} — Jeffrey Ko`;
+  const description = `${project.kind}. ${project.blurb}`;
+  const images = project.workImage
+    ? [{ url: project.workImage, alt: `${project.title} preview` }]
+    : undefined;
+
+  return {
+    title: project.title,
+    description,
+    alternates: { canonical: `/pj/${project.slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `/pj/${project.slug}`,
+      siteName: 'Jeffrey Ko',
+      type: 'article',
+      images,
+    },
+    twitter: { card: 'summary_large_image', title, description, images },
+  };
 }
 
 export default async function ProjectPage({ params }: PageProps) {

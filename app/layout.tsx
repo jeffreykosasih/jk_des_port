@@ -116,15 +116,25 @@ export const metadata: Metadata = {
     url: 'https://www.jeffreyko.com',
     siteName: 'Jeffrey Ko',
     type: 'website',
-    images: [{ url: '/profile-portrait.jpg', alt: 'Jeffrey Ko — UX/UI Designer' }],
+    // 1200×630, the size LinkedIn and Slack crop to. The tall portrait it
+    // replaces came out as a cropped strip of trees.
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Jeffrey Ko, UX/UI designer in Melbourne',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Jeffrey Ko — UX/UI Designer',
     description:
       'UX/UI designer in Melbourne. I design products that are easy to use and I sit with engineering without a translator.',
-    images: ['/profile-portrait.jpg'],
+    images: ['/og-image.jpg'],
   },
+  alternates: { canonical: '/' },
   icons: {
     icon: [
       {
