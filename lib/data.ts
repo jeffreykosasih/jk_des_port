@@ -43,7 +43,7 @@ export const PROJECTS: ProjectData[] = [
     title: 'iDriver',
     kind: 'Delivery app · Self-initiated redesign',
     blurb:
-      'Newspaper delivery, rebuilt so drivers start a run in two steps — with the map, the list, and proof-of-delivery on the right stop.',
+      'Newspaper delivery, redesigned so drivers start a run in two steps — with the map, the list, and proof-of-delivery on the right stop.',
     outcome: 'Login-to-route is 2 steps instead of 4.',
     workImage: '/pj_02/pj_01_test_02.png',
     stages: {
@@ -59,7 +59,7 @@ export const PROJECTS: ProjectData[] = [
         content: `I rebuilt the flow around the run, not the menu. The per-login compliance gate came out. Map and list sit together, with package counts and delivered status on every stop, so a photo is taken against the address it belongs to. Drivers who already know the area can stay in the list; drivers who don't can stay on the map.`,
       },
       Outcome: {
-        content: `Drivers who walked the prototype understood the flow from the first screen. They no longer repeat a compliance check to start work, and they can see yesterday's performance before they leave the depot. Login-to-route is 2 steps instead of 4.`,
+        content: `Drivers who walked the prototype understood the flow from the first screen. In the prototype there is no compliance check to repeat before a run, and drivers can see yesterday's performance before they leave the depot. Login-to-route is 2 steps instead of 4.`,
         image: '/pj_02/pj_02_test_01.png',
         images: ['/pj_02/pj_02_test_01.png', '/pj_02/pj_01_test_02.png'],
       },
