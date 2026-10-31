@@ -16,10 +16,19 @@ const nextConfig: NextConfig = {
       '08': '/pj/sigma',
     };
 
-    return Object.entries(remaps).flatMap(([id, destination]) => [
-      { source: `/pj${id}`, destination, permanent: true },
-      { source: `/cs${id}`, destination, permanent: true },
-    ]);
+    return [
+      ...Object.entries(remaps).flatMap(([id, destination]) => [
+        { source: `/pj${id}`, destination, permanent: true },
+        { source: `/cs${id}`, destination, permanent: true },
+      ]),
+      // Older résumé that still said "Computer Science graduate". Links sent
+      // out with it now land on the current design résumé.
+      {
+        source: '/Jeffrey-Ko-UXUI-Designer-Resume.pdf',
+        destination: '/Jeffrey-Ko-Design-Resume.pdf',
+        permanent: true,
+      },
+    ];
   },
 };
 
