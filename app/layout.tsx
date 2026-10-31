@@ -156,7 +156,15 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <footer className='px-6 py-8 text-center text-sm font-bold text-text-muted'>
-          Designed and coded by Jeffrey Ko
+          Designed and coded by Jeffrey Ko ·{' '}
+          <a
+            href='https://github.com/jeffreykosasih/jk_des_port'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='underline underline-offset-4 transition-colors hover:text-accent'
+          >
+            See the code ↗
+          </a>
         </footer>
       </body>
     </html>

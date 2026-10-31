@@ -1,6 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+const DESIGN_RESUME = '/Jeffrey-Ko-Design-Resume.pdf';
+
+const pillClass =
+  'whitespace-nowrap rounded-2xl bg-text-primary px-4 py-2.5 text-primary transition-all hover:-translate-y-1 hover:bg-accent hover:text-accent-ink lg:px-4 xl:px-5 xl:py-3';
+
 export const Hero = () => {
   return (
     <section id='home' className='min-h-screen overflow-hidden'>
@@ -8,7 +13,7 @@ export const Hero = () => {
         <div className='flex flex-col justify-between px-6 pb-12 pt-32 md:px-10 md:pt-40 lg:px-12 xl:px-16'>
           <div className='py-10'>
             <p className='mb-6 text-sm font-bold uppercase tracking-[0.35em] text-text-muted'>
-              UX/UI Designer
+              UX/UI Designer · Melbourne
             </p>
             <h1 className='max-w-4xl text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.05em] text-text-primary sm:text-[10vw] md:text-[5.5rem] lg:text-[7rem] xl:text-[8rem]'>
               Jeffrey Ko
@@ -23,22 +28,28 @@ export const Hero = () => {
               </p>
 
               <nav
-                aria-label='Section navigation'
-                className='flex flex-nowrap items-center gap-2.5 text-base font-bold sm:ml-auto lg:shrink-0 lg:text-sm xl:text-base'
+                aria-label='Quick links'
+                className='flex flex-wrap items-center gap-2.5 text-base font-bold sm:ml-auto lg:shrink-0 lg:flex-nowrap lg:text-sm xl:text-base'
               >
                 {[
                   { label: 'Work', href: '#work' },
                   { label: 'About', href: '#about' },
                   { label: 'Connect', href: '#contact' },
                 ].map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className='whitespace-nowrap rounded-2xl bg-text-primary px-4 py-2.5 text-primary transition-all hover:-translate-y-1 hover:bg-accent hover:text-accent-ink lg:px-4 xl:px-5 xl:py-3'
-                  >
+                  <Link key={item.label} href={item.href} className={pillClass}>
                     {item.label}
                   </Link>
                 ))}
+                {/* The design résumé is one click from the top, not three. */}
+                <a
+                  href={DESIGN_RESUME}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label='Résumé (PDF, opens in a new tab)'
+                  className={pillClass}
+                >
+                  Résumé ↗
+                </a>
               </nav>
             </div>
           </div>
