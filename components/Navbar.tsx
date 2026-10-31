@@ -1,7 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { flushSync } from 'react-dom';
+import { useCallback, useRef, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Moon, Sun } from 'lucide-react';
@@ -9,21 +8,38 @@ import { PROJECTS } from '@/lib/data';
 import { PillNav } from '@/components/PillNav';
 import { LogoMark } from '@/components/LogoMark';
 
+/* `.dark` on <html> is the CREAM theme here (see globals.css), so "dark" in
+   the class and in localStorage means cream. The class is the one source of
+   truth: app/layout.tsx restores the saved choice before first paint, and
+   the toggle below only reads and flips it. */
+const THEME_KEY = 'theme';
+
+const subscribeToTheme = (onChange: () => void) => {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+  return () => observer.disconnect();
+};
+const readIsCream = () => document.documentElement.classList.contains('dark');
+const readIsCreamOnServer = () => false;
+
 const ThemeToggle = ({
-  isDarkMode,
+  isCream,
   onToggle,
 }: {
-  isDarkMode: boolean;
+  isCream: boolean;
   onToggle: () => void;
 }) => (
   <button
     type='button'
     onClick={onToggle}
     className='fixed bottom-6 right-6 z-[60] inline-flex h-16 w-16 items-center justify-center rounded-full bg-text-primary text-primary shadow-lg transition-all hover:scale-105 hover:bg-accent hover:text-accent-ink'
-    aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-    aria-pressed={isDarkMode}
+    // Names the theme it switches to; the old label named the opposite one.
+    aria-label={isCream ? 'Switch to dark theme' : 'Switch to light theme'}
   >
-    {isDarkMode ? (
+    {isCream ? (
       <Moon className='h-7 w-7' fill='currentColor' />
     ) : (
       <Sun className='h-7 w-7' fill='currentColor' />
@@ -61,25 +77,28 @@ const LogoButton = ({ isHome }: { isHome: boolean }) => {
 
 export const Navbar = () => {
   const pathname = usePathname();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const isCream = useSyncExternalStore(
+    subscribeToTheme,
+    readIsCream,
+    readIsCreamOnServer,
+  );
   const isTransitioning = useRef(false);
   const activeSlug = pathname.match(/^\/pj\/([^/]+)/)?.[1] ?? null;
   const activeProject = PROJECTS.find((project) => project.slug === activeSlug);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDarkMode);
-    window.localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
-
   /* The class has to flip inside the view transition's callback, so the API
-     can snapshot the before and after frames. flushSync forces React to commit
-     synchronously — without it the callback returns before the DOM changes and
-     the transition captures two identical frames. */
+     can snapshot the before and after frames. Flipping it directly is
+     synchronous; the toggle's icon follows through the store above. The
+     choice is saved, so the next visit opens in the same theme. */
   const toggleTheme = useCallback(() => {
-    const next = !isDarkMode;
     const commit = () => {
-      flushSync(() => setIsDarkMode(next));
+      const next = !document.documentElement.classList.contains('dark');
       document.documentElement.classList.toggle('dark', next);
+      try {
+        window.localStorage.setItem(THEME_KEY, next ? 'dark' : 'light');
+      } catch {
+        // Storage blocked (private mode): the theme still switches.
+      }
     };
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -107,7 +126,7 @@ export const Navbar = () => {
       .finally(() => {
         isTransitioning.current = false;
       });
-  }, [isDarkMode]);
+  }, []);
 
   /* The nav is fixed and lives outside ProjectView, so without this it kept
      the site palette while `.project-surface` painted the project colour
@@ -134,7 +153,7 @@ export const Navbar = () => {
           />
         ) : null}
       </div>
-      <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleTheme} />
+      <ThemeToggle isCream={isCream} onToggle={toggleTheme} />
     </div>
   );
 };

@@ -149,7 +149,19 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang='en' data-scroll-behavior='smooth'>
+    // suppressHydrationWarning: the script below may add the theme class to
+    // <html> before React hydrates it.
+    <html lang='en' data-scroll-behavior='smooth' suppressHydrationWarning>
+      <head>
+        {/* Restore the visitor's saved theme before first paint, so there is
+            no flash of the default. `.dark` is the cream theme. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}",
+          }}
+        />
+      </head>
       <body
         className={`${syne.variable} ${projectFontVariables} antialiased text-text-primary font-normal`}
       >
