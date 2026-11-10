@@ -1,7 +1,7 @@
 import { Hero } from '@/components/Hero';
 import { WorkGrid } from '@/components/WorkGrid';
 import { About } from '@/components/About';
-import { YoutubeShowcase } from '@/components/YoutubeShowcase';
+import { ReelsShowcase } from '@/components/ReelsShowcase';
 import { Contact } from '@/components/Contact';
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
       <Hero />
       <WorkGrid />
       <About />
-      <YoutubeShowcase />
+      <ReelsShowcase />
       <Contact />
     </div>
   );
