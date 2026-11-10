@@ -1,23 +1,17 @@
 /**
- * The clips in the row, left to right — newest first.
+ * The clips in the row, left to right.
  *
- * `id` is the number at the end of a TikTok link:
- * tiktok.com/@sijefrii/video/7671101148333346066 → '7671101148333346066'.
- * `title` is what a screen reader announces for that clip. Four fill the row
- * on a laptop; a fifth makes the row scroll sideways rather than squeezing
- * the others.
+ * `id` is the end of a YouTube Shorts link:
+ * youtube.com/shorts/6nVGH-dI_oQ → '6nVGH-dI_oQ'. `title` is what a screen
+ * reader announces for that clip. Up to four fit across on a laptop; a fifth
+ * makes the row scroll sideways rather than squeezing the others.
  */
 const CLIPS = [
-  { id: '7671101148333346066', title: 'In The Summer' },
-  { id: '7657831985112435976', title: 'Take a Pic' },
-  { id: '7652956900769697031', title: 'Cuddle Puddle' },
-  { id: '7645888350955605266', title: 'Silly Room' },
+  { id: '6nVGH-dI_oQ', title: 'Bisa' },
+  { id: 'FiLmzJQYyS8', title: 'Aqua' },
+  { id: 'v8TviL3pqnk', title: 'Lala' },
+  { id: 'jYE8eKrabko', title: 'Kapan Lagi' },
 ];
-
-/* TikTok's bare player: the video and its controls, without the caption,
-   sound credit or the grid of other people's videos at the end. */
-const playerUrl = (id: string) =>
-  `https://www.tiktok.com/player/v1/${id}?description=0&music_info=0&rel=0`;
 
 export const ReelsShowcase = () => {
   return (
@@ -46,12 +40,13 @@ export const ReelsShowcase = () => {
               <div className='aspect-[9/16] overflow-hidden rounded-2xl bg-text-primary/10 shadow-xl'>
                 <iframe
                   className='h-full w-full'
-                  src={playerUrl(clip.id)}
+                  src={`https://www.youtube.com/embed/${clip.id}`}
                   title={`${clip.title} — live loop by Jefri`}
                   // The row is near the bottom of the page and each player is
-                  // heavy; don't make every visitor download four up front.
+                  // heavy; don't make every visitor download them up front.
                   loading='lazy'
-                  allow='fullscreen'
+                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+                  referrerPolicy='strict-origin-when-cross-origin'
                   allowFullScreen
                 />
               </div>
