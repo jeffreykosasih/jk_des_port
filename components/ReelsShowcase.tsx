@@ -10,7 +10,7 @@ const CLIPS = [
   { id: '6nVGH-dI_oQ', title: 'Bisa' },
   { id: 'FiLmzJQYyS8', title: 'Aqua' },
   { id: 'v8TviL3pqnk', title: 'Lala' },
-  { id: 'jYE8eKrabko', title: 'Kapan Lagi' },
+  { id: 'vEcsTJFBWik', title: 'In The Summer' },
 ];
 
 export const ReelsShowcase = () => {
