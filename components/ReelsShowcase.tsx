@@ -1,78 +1,23 @@
-'use client';
-
-import { useEffect, useRef, useState } from 'react';
-
 /**
- * The reels in the row, left to right — newest first.
+ * The clips in the row, left to right — newest first.
  *
- * `code` is the part of a reel's link after /reel/:
- * instagram.com/reel/DbuI2ncT7c7/ → 'DbuI2ncT7c7'. `title` is what a screen
- * reader announces for that reel. Four fill the row on a laptop; a fifth makes
- * the row scroll sideways rather than squeezing the others.
+ * `id` is the number at the end of a TikTok link:
+ * tiktok.com/@sijefrii/video/7671101148333346066 → '7671101148333346066'.
+ * `title` is what a screen reader announces for that clip. Four fill the row
+ * on a laptop; a fifth makes the row scroll sideways rather than squeezing
+ * the others.
  */
-const REELS = [
-  { code: 'DbuI2ncT7c7', title: 'In The Summer' },
-  { code: 'DaSElNiTMlB', title: 'Take a Pic' },
-  { code: 'DZwPhBmzQJa', title: 'Cuddle Puddle' },
-  { code: 'DY_MfB6zLtd', title: 'Silly Room' },
+const CLIPS = [
+  { id: '7671101148333346066', title: 'In The Summer' },
+  { id: '7657831985112435976', title: 'Take a Pic' },
+  { id: '7652956900769697031', title: 'Cuddle Puddle' },
+  { id: '7645888350955605266', title: 'Silly Room' },
 ];
 
-const ReelEmbed = ({ code, title }: (typeof REELS)[number]) => {
-  const frameRef = useRef<HTMLIFrameElement>(null);
-  const [height, setHeight] = useState<number | null>(null);
-
-  /* Once it has drawn, the embed posts its real height to the page — the same
-     message Instagram's embed.js sizes its iframes from. It only takes over
-     when it disagrees with the shape reserved below, which would mean
-     Instagram changed its layout or this reel is not the usual shape. */
-  useEffect(() => {
-    const onMessage = (event: MessageEvent) => {
-      const frame = frameRef.current;
-      if (!frame || event.source !== frame.contentWindow) return;
-      if (event.origin !== 'https://www.instagram.com') return;
-      if (typeof event.data !== 'string') return;
-
-      try {
-        const message: { type?: string; details?: { height?: unknown } } =
-          JSON.parse(event.data);
-        const measured = message?.details?.height;
-        if (message?.type !== 'MEASURE' || typeof measured !== 'number') return;
-        if (measured > 0 && Math.abs(measured - frame.offsetHeight) > 1) {
-          setHeight(measured);
-        }
-      } catch {
-        // Not one of the embed's JSON messages.
-      }
-    };
-
-    window.addEventListener('message', onMessage);
-    return () => window.removeEventListener('message', onMessage);
-  }, []);
-
-  return (
-    <li className='min-w-70 max-w-80 flex-1 snap-start first:ml-auto last:mr-auto'>
-      {/* Reserve the shape the embed is known to take at any width: a 4:5 video
-          frame plus 208px of Instagram's own header and footer. The row then
-          holds its height while the embeds load, instead of jumping. */}
-      <div
-        className='relative overflow-hidden rounded-2xl bg-text-primary/10 shadow-xl'
-        style={height ? { height } : { paddingBottom: 'calc(125% + 208px)' }}
-      >
-        <iframe
-          ref={frameRef}
-          className='absolute inset-0 h-full w-full'
-          src={`https://www.instagram.com/reel/${code}/embed`}
-          title={`${title} — live loop by Jefri`}
-          // The row is near the bottom of the page and each embed is heavy;
-          // don't make every visitor download four of them up front.
-          loading='lazy'
-          scrolling='no'
-          allowFullScreen
-        />
-      </div>
-    </li>
-  );
-};
+/* TikTok's bare player: the video and its controls, without the caption,
+   sound credit or the grid of other people's videos at the end. */
+const playerUrl = (id: string) =>
+  `https://www.tiktok.com/player/v1/${id}?description=0&music_info=0&rel=0`;
 
 export const ReelsShowcase = () => {
   return (
@@ -87,14 +32,30 @@ export const ReelsShowcase = () => {
       </div>
 
       <div className='mx-auto max-w-7xl'>
-        {/* One row at every width. The cards share it down to 280px each, the
-            narrowest Instagram's header stays tidy; below that the row scrolls
-            sideways inside itself, so the page never does. -mx-6/px-6 lets it
-            scroll out to the screen edge, and pb-10 leaves room for the card
-            shadows, which a scroll container would otherwise clip. */}
+        {/* One row at every width. The cards share it down to 280px each;
+            below that the row scrolls sideways inside itself, so the page
+            never does. -mx-6/px-6 lets it scroll out to the screen edge, and
+            pb-10 leaves room for the card shadows, which a scroll container
+            would otherwise clip. */}
         <ul className='-mx-6 flex snap-x snap-mandatory scroll-px-6 gap-6 overflow-x-auto px-6 pb-10 [scrollbar-color:var(--site-highlight)_transparent] [scrollbar-width:thin]'>
-          {REELS.map((reel) => (
-            <ReelEmbed key={reel.code} {...reel} />
+          {CLIPS.map((clip) => (
+            <li
+              key={clip.id}
+              className='min-w-70 max-w-80 flex-1 snap-start first:ml-auto last:mr-auto'
+            >
+              <div className='aspect-[9/16] overflow-hidden rounded-2xl bg-text-primary/10 shadow-xl'>
+                <iframe
+                  className='h-full w-full'
+                  src={playerUrl(clip.id)}
+                  title={`${clip.title} — live loop by Jefri`}
+                  // The row is near the bottom of the page and each player is
+                  // heavy; don't make every visitor download four up front.
+                  loading='lazy'
+                  allow='fullscreen'
+                  allowFullScreen
+                />
+              </div>
+            </li>
           ))}
         </ul>
       </div>
