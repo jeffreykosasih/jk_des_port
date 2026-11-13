@@ -1,28 +1,76 @@
+import { Fragment, type CSSProperties } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const DESIGN_RESUME = '/Jeffrey-Ko-Design-Resume.pdf';
 
-const pillClass =
-  'whitespace-nowrap rounded-2xl bg-text-primary px-4 py-2.5 text-primary transition-all hover:-translate-y-1 hover:bg-accent hover:text-accent-ink lg:px-4 xl:px-5 xl:py-3';
+const NAME = ['Jeffrey', 'Ko'];
+
+const pillBase =
+  'intro-fade whitespace-nowrap rounded-control px-4 py-2.5 transition-all hover:-translate-y-1 lg:px-4 xl:px-5 xl:py-3';
+const pillClass = `${pillBase} bg-text-primary text-primary hover:bg-accent hover:text-accent-ink`;
+/* The resume is the one thing this page most wants opened, so it alone wears
+   the accent at rest; the section links only take it on hover. */
+const resumePillClass = `${pillBase} bg-accent text-accent-ink hover:bg-text-primary hover:text-primary`;
+
+/* Where a piece joins the load sequence, counted from the moment the curtain
+   has cleared the name. The classes and the timing live under "Home-page load
+   sequence" in globals.css. */
+const joinsAt = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
 
 export const Hero = () => {
   return (
-    <section id='home' className='min-h-screen overflow-hidden'>
+    <section
+      id='home'
+      className='intro tone-violet min-h-screen overflow-hidden'
+    >
       <div className='grid min-h-screen md:grid-cols-[minmax(0,1fr)_minmax(300px,40vw)]'>
         <div className='flex flex-col justify-between px-6 pb-12 pt-32 md:px-10 md:pt-40 lg:px-12 xl:px-16'>
           <div className='py-10'>
-            <p className='mb-6 text-sm font-bold uppercase tracking-[0.35em] text-text-muted'>
-              UX/UI Designer · Melbourne
+            {/* The padding gives the italic's descenders and overhang room
+                inside the window the line rises into. */}
+            <p className='type-aside -mx-1 mb-4 overflow-hidden px-1 pb-1.5 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.15] text-accent'>
+              <span className='intro-line'>UX/UI designer in Melbourne</span>
             </p>
-            <h1 className='max-w-4xl text-[13vw] font-bold uppercase leading-[0.82] tracking-[-0.05em] text-text-primary sm:text-[10vw] md:text-[5.5rem] lg:text-[7rem] xl:text-[8rem]'>
-              Jeffrey Ko
+            {/* Each letter is its own box so it can rise on its own beat. The
+                label gives screen readers the name as one word pair instead
+                of ten letters. */}
+            <h1
+              aria-label={NAME.join(' ')}
+              className='type-display max-w-4xl text-[17vw] uppercase leading-[0.82] tracking-[-0.03em] text-text-primary sm:text-[13vw] md:text-[7.5rem] lg:text-[9.5rem] xl:text-[11rem]'
+            >
+              {NAME.map((word, wordIndex) => {
+                const lettersBefore = NAME.slice(0, wordIndex).join('').length;
+
+                return (
+                  <Fragment key={word}>
+                    {wordIndex > 0 ? ' ' : null}
+                    <span aria-hidden='true' className='intro-mask'>
+                      {Array.from(word).map((letter, letterIndex) => (
+                        <span
+                          key={letterIndex}
+                          className='intro-char'
+                          style={joinsAt(60 + (lettersBefore + letterIndex) * 40)}
+                        >
+                          {letter}
+                        </span>
+                      ))}
+                    </span>
+                  </Fragment>
+                );
+              })}
             </h1>
           </div>
 
           <div className='mt-12 flex flex-col gap-8 md:max-w-5xl'>
-            <div className='flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-8 xl:gap-12'>
-              <p className='text-lg leading-[1.6] text-text-primary lg:min-w-[19rem] lg:max-w-[40ch] lg:flex-1'>
+            {/* lg:flex-wrap: four links and the sentence only fit side by side
+                from about 1440px. Without the wrap the links ran on under the
+                photo and hid the resume link on laptop-width screens. */}
+            <div className='flex flex-col gap-8 lg:flex-row lg:flex-wrap lg:items-center lg:gap-8 xl:gap-12'>
+              <p
+                className='intro-fade text-lg leading-[1.6] text-text-primary lg:min-w-[19rem] lg:max-w-[40ch] lg:flex-1'
+                style={joinsAt(520)}
+              >
                 I design products that are easy to use and I sit with
                 engineering without a translator.
               </p>
@@ -35,34 +83,40 @@ export const Hero = () => {
                   { label: 'Work', href: '#work' },
                   { label: 'About', href: '#about' },
                   { label: 'Connect', href: '#contact' },
-                ].map((item) => (
-                  <Link key={item.label} href={item.href} className={pillClass}>
+                ].map((item, index) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={pillClass}
+                    style={joinsAt(640 + index * 60)}
+                  >
                     {item.label}
                   </Link>
                 ))}
-                {/* The design résumé is one click from the top, not three. */}
+                {/* The design resume is one click from the top, not three. */}
                 <a
                   href={DESIGN_RESUME}
                   target='_blank'
                   rel='noopener noreferrer'
-                  aria-label='Résumé (PDF, opens in a new tab)'
-                  className={pillClass}
+                  aria-label='Resume (PDF, opens in a new tab)'
+                  className={resumePillClass}
+                  style={joinsAt(820)}
                 >
-                  Résumé ↗
+                  Resume ↗
                 </a>
               </nav>
             </div>
           </div>
         </div>
 
-        <div className='relative min-h-[70vh] md:min-h-screen'>
+        <div className='relative min-h-[70vh] overflow-hidden md:min-h-screen'>
           <Image
             src='/profile-portrait.jpg'
             alt='Profile picture of Jeffrey Ko'
             fill
             sizes='(min-width: 768px) 40vw, 100vw'
             priority
-            className='object-cover object-center'
+            className='intro-portrait object-cover object-center'
           />
         </div>
       </div>

@@ -14,8 +14,8 @@ export const WorkGrid = () => {
   const activeImage = activeProject.workImage;
 
   return (
-    <section id='work' className='py-20 md:py-28'>
-      <h2 className='px-6 pb-10 pt-10 text-center text-[clamp(3rem,7vw,4.75rem)] font-bold uppercase leading-[0.95] tracking-tight text-text-primary md:pb-20 md:pt-16'>
+    <section id='work' className='tone-marigold py-20 md:py-28'>
+      <h2 className='type-display px-6 pb-10 pt-10 text-center text-[clamp(4rem,10vw,7.5rem)] uppercase leading-[0.9] tracking-[-0.02em] text-essence md:pb-20 md:pt-16'>
         Work
       </h2>
 
@@ -47,14 +47,14 @@ export const WorkGrid = () => {
                     </span>
                     <div className='flex min-w-0 flex-col gap-1'>
                       <h3
-                        className={`text-xl font-bold uppercase tracking-tight ${
+                        className={`type-display text-[2.5rem] uppercase leading-none tracking-[-0.01em] ${
                           isActive ? 'text-text-primary' : 'text-text-muted'
                         }`}
                       >
                         {project.title}
                       </h3>
                       {/* Concept or real build, readable before anyone clicks. */}
-                      <p className='text-sm font-bold text-text-muted'>
+                      <p className='type-aside text-base text-text-muted'>
                         {project.kind}
                       </p>
                     </div>
@@ -82,7 +82,7 @@ export const WorkGrid = () => {
                   tabIndex={-1}
                   className='mt-4 block md:hidden'
                 >
-                  <div className='relative aspect-video w-full overflow-hidden rounded-xl border border-highlight bg-black/10 shadow-xl'>
+                  <div className='relative aspect-video w-full overflow-hidden rounded-frame border border-highlight bg-black/10 shadow-xl'>
                     {image ? (
                       <Image
                         src={image}
@@ -96,7 +96,9 @@ export const WorkGrid = () => {
                 </Link>
                 <div className='mb-6 mt-4 max-w-[70ch] space-y-2 text-base leading-[1.6] text-text-primary md:hidden'>
                   <p>{project.blurb}</p>
-                  <p className='font-bold'>{project.outcome}</p>
+                  <p className='type-aside text-[1.375rem] leading-snug text-accent'>
+                    {project.outcome}
+                  </p>
                 </div>
               </li>
             );
@@ -130,7 +132,7 @@ export const WorkGrid = () => {
             aria-label={`${activeProject.title} project`}
             className='block'
           >
-            <div className='relative aspect-video w-full overflow-hidden rounded-2xl border border-highlight bg-black/10 shadow-2xl'>
+            <div className='relative aspect-video w-full overflow-hidden rounded-frame border border-highlight bg-black/10 shadow-2xl'>
               <AnimatePresence mode='wait'>
                 <motion.div
                   key={activeProject.slug}
@@ -164,7 +166,9 @@ export const WorkGrid = () => {
               className='mt-8 max-w-[70ch] space-y-3 text-lg leading-[1.6] text-text-primary'
             >
               <p>{activeProject.blurb}</p>
-              <p className='font-bold'>{activeProject.outcome}</p>
+              <p className='type-aside text-[1.5rem] leading-snug text-accent'>
+                {activeProject.outcome}
+              </p>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -182,7 +186,7 @@ export const WorkGrid = () => {
             className='overflow-hidden'
           >
             <div className='mx-auto mt-16 max-w-[70ch] px-6 sm:px-8 md:px-16'>
-              <h3 className='text-lg font-bold uppercase tracking-tight text-text-primary'>
+              <h3 className='type-display text-xl uppercase tracking-[-0.01em] text-text-primary'>
                 Also built
               </h3>
               <ul className='mt-6 space-y-4'>
@@ -206,7 +210,7 @@ export const WorkGrid = () => {
                     >
                       {project.title}
                     </Link>
-                    <span className='text-sm font-bold text-text-muted'>
+                    <span className='type-aside text-base text-text-muted'>
                       {' '}
                       · {project.kind}
                     </span>

@@ -5,19 +5,37 @@ import {
   Archivo,
   Baloo_2,
   Barlow_Condensed,
+  Bodoni_Moda,
+  Bricolage_Grotesque,
   Fraunces,
   JetBrains_Mono,
   Outfit,
   Shippori_Mincho,
-  Syne,
 } from 'next/font/google';
 import './globals.css';
+import { IntroCover } from '@/components/IntroCover';
 import { Navbar } from '@/components/Navbar';
 
-const syne = Syne({
-  variable: '--font-syne',
+/**
+ * The site's two voices (see "Two voices" in globals.css).
+ *
+ * Bricolage Grotesque is the site face. It is loaded as a variable font with
+ * its width axis, so the same file sets body text at normal width and the
+ * display type narrow and heavy. Bodoni Moda, italic only, is the aside voice.
+ * Both carry their optical-size axis, so small and large settings each get
+ * the cut drawn for them.
+ */
+const bricolage = Bricolage_Grotesque({
+  variable: '--font-bricolage',
   subsets: ['latin'],
-  weight: ['400', '700'],
+  axes: ['opsz', 'wdth'],
+});
+
+const bodoni = Bodoni_Moda({
+  variable: '--font-bodoni',
+  subsets: ['latin'],
+  style: 'italic',
+  axes: ['opsz'],
 });
 
 /**
@@ -138,18 +156,18 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/favicon.ico?v=4',
+        url: '/favicon.ico?v=6',
         sizes: 'any',
         type: 'image/x-icon',
       },
       {
-        url: '/icon.png?v=4',
+        url: '/icon.png?v=6',
         type: 'image/png',
         sizes: '512x512',
       },
     ],
-    shortcut: '/favicon.ico?v=4',
-    apple: '/icon.png?v=4',
+    shortcut: '/favicon.ico?v=6',
+    apple: '/icon.png?v=6',
   },
 };
 
@@ -159,27 +177,14 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    // suppressHydrationWarning: the script below may add the theme class to
-    // <html> before React hydrates it.
-    <html lang='en' data-scroll-behavior='smooth' suppressHydrationWarning>
-      <head>
-        {/* Restore the visitor's saved theme before first paint, so there is
-            no flash of the default. `.dark` is the cream theme. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}",
-          }}
-        />
-      </head>
+    <html lang='en' data-scroll-behavior='smooth'>
       <body
-        className={`${syne.variable} ${projectFontVariables} antialiased text-text-primary font-normal`}
+        className={`${bricolage.variable} ${bodoni.variable} ${projectFontVariables} antialiased text-text-primary font-normal`}
       >
+        <IntroCover />
         <Navbar />
         <main>{children}</main>
-        {/* Extra bottom room on phones so the fixed theme button never sits
-            on top of the footer. */}
-        <footer className='px-6 pb-28 pt-8 text-center text-sm font-bold text-text-muted md:pb-8'>
+        <footer className='type-aside px-6 py-8 text-center text-base text-text-muted'>
           Designed and coded by Jeffrey Ko
         </footer>
       </body>

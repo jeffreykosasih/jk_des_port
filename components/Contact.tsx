@@ -23,7 +23,7 @@ const itemClass =
 
 /* Shared with the "Email copied" bubble so the two read as one component. */
 const bubbleClass =
-  'absolute bottom-full left-1/2 mb-4 rounded-xl border-2 border-text-primary bg-primary shadow-lg';
+  'absolute bottom-full left-1/2 mb-4 rounded-control border-2 border-text-primary bg-primary shadow-lg';
 
 const BubbleTail = () => (
   <svg
@@ -105,7 +105,7 @@ const ResumeMenu = () => {
                 target='_blank'
                 rel='noopener noreferrer'
                 onClick={() => setOpen(false)}
-                className='block whitespace-nowrap rounded-lg px-5 py-2.5 text-base font-bold transition-colors hover:bg-accent hover:text-accent-ink'
+                className='block whitespace-nowrap rounded-control px-5 py-2.5 text-base font-bold transition-colors hover:bg-accent hover:text-accent-ink'
               >
                 {resume.label}
               </a>
@@ -214,7 +214,10 @@ export const Contact = () => {
   };
 
   return (
-    <section id='contact' className='scroll-mt-16 py-24 px-6 flex items-center'>
+    <section
+      id='contact'
+      className='tone-violet scroll-mt-16 py-24 px-6 flex items-center'
+    >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -224,7 +227,7 @@ export const Contact = () => {
       >
         <div className='flex flex-col gap-8 md:flex-row md:items-center md:justify-between'>
           <div className='flex flex-col gap-5'>
-            <h2 className='text-[clamp(3rem,7vw,4.75rem)] font-bold uppercase leading-[0.95] tracking-tight text-text-primary'>
+            <h2 className='type-display text-[clamp(4rem,10vw,7.5rem)] uppercase leading-[0.9] tracking-[-0.02em] text-essence'>
               Connect
             </h2>
             {/* The address itself, readable and selectable, not only behind an icon. */}

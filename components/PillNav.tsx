@@ -23,7 +23,7 @@ type PillNavProps = {
 };
 
 const shellClassName =
-  'rounded-xl bg-primary/90 p-2 shadow-lg backdrop-blur-xl';
+  'rounded-control bg-primary/90 p-2 shadow-lg backdrop-blur-xl';
 
 export const PillNav = ({
   items,
@@ -50,7 +50,7 @@ export const PillNav = ({
       >
         {items.map((item) => {
           const isActive = item.id === activeId;
-          const itemClassName = `relative rounded-lg text-sm font-bold transition-colors duration-200 ${
+          const itemClassName = `relative rounded-control text-sm font-bold transition-colors duration-200 ${
             isVertical || isGrid
               ? 'inline-flex h-9 w-9 items-center justify-center md:h-10 md:w-10'
               : 'px-3 py-2 md:px-4'

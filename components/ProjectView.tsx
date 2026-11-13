@@ -198,7 +198,7 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
                   target='_blank'
                   rel='noopener noreferrer'
                   aria-label={`${heroTitle}: ${link.label} (opens in a new tab)`}
-                  className='inline-flex items-center gap-1.5 rounded-2xl bg-text-primary px-4 py-2.5 text-base font-bold text-primary transition-all hover:-translate-y-1 hover:bg-accent hover:text-accent-ink'
+                  className='inline-flex items-center gap-1.5 rounded-control bg-text-primary px-4 py-2.5 text-base font-bold text-primary transition-all hover:-translate-y-1 hover:bg-accent hover:text-accent-ink'
                 >
                   {link.label}
                   <ArrowUpRight
@@ -255,11 +255,11 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
                 </p>
 
                 {stageContent.video ? (
-                  <div className='relative mt-8 aspect-video w-full overflow-hidden rounded-xl border border-highlight bg-black/10 shadow-2xl'>
+                  <div className='relative mt-8 aspect-video w-full overflow-hidden rounded-frame border border-highlight bg-black/10 shadow-2xl'>
                     <StageVideo src={stageContent.video} poster={stageContent.image} />
                   </div>
                 ) : hasImage ? (
-                  <div className='relative mt-8 aspect-video w-full overflow-hidden rounded-xl border border-highlight bg-black/10 shadow-2xl'>
+                  <div className='relative mt-8 aspect-video w-full overflow-hidden rounded-frame border border-highlight bg-black/10 shadow-2xl'>
                     <AnimatePresence mode='wait'>
                       <motion.div
                         key={`${stage}-${visibleImage}`}
@@ -354,7 +354,7 @@ export const ProjectView = ({ slug }: ProjectViewProps) => {
         <button
           type='button'
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className={`fixed bottom-28 right-6 z-50 ${iconControlClassName}`}
+          className={`fixed bottom-6 right-6 z-50 ${iconControlClassName}`}
           aria-label='Back to top'
         >
           <ArrowUp className='h-6 w-6 md:h-8 md:w-8' />

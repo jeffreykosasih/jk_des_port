@@ -84,10 +84,23 @@ A brand hue that can't reach 7:1 as small text is used for large display type an
 non-text decor instead, with a darkened or lightened sibling doing the text work —
 so the colour essence survives even where the literal hex can't.
 
+### The site's own palette and corners
+
+Away from the project pages the site uses three colours: paper `#f4f4f4`, ink
+`#101010` and a signal blue `#0038ff`. They are set by hand in
+`app/globals.css` (`:root` for the dark theme, `.dark` for the light one), with
+the measured contrast noted beside them. The pure blue can't reach 7:1 as small
+text on either surface, so each theme has its own solved accent, and the pure
+blue is kept for decoration: the intro curtain and the reveal covers.
+
+Corners are square. Two tokens in the same file say so, `--radius-control` and
+`--radius-frame`, used as `rounded-control` and `rounded-frame`. Change them
+there rather than per component.
+
 ### One naming quirk
 
-In this codebase the `.dark` class on `<html>` is the **cream/light** theme, not
-the dark one. The default (no class) is the dark theme. It's inverted relative to
+In this codebase the `.dark` class on `<html>` is the **light** theme, not the
+dark one. The default (no class) is the dark theme. It's inverted relative to
 what the name suggests — worth knowing before editing `globals.css`.
 
 ## Deploying

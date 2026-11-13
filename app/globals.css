@@ -12,10 +12,12 @@
   --color-highlight: var(--site-highlight);
   --color-accent: var(--site-accent);
   --color-accent-ink: var(--site-accent-ink);
+  /* A section's own colour at full strength, for display type and shapes. */
+  --color-essence: var(--essence);
 
-  --font-sans: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   /* Falls back to the site face on any page that is not a project page. */
-  --font-project: var(--project-font, var(--font-syne)), ui-sans-serif,
+  --font-project: var(--project-font, var(--font-bricolage)), ui-sans-serif,
     system-ui, sans-serif;
 
   --text-xs: 0.75rem;
@@ -24,45 +26,97 @@
   --text-lg: 1.25rem;
   --text-xl: 2rem;
   --text-2xl: 3rem;
+
+  /* Corners. The site is square-cornered, and these two tokens are the only
+     place that says so: `rounded-control` for things you press (button-like
+     links, menus, the logo tile) and `rounded-frame` for things you look at
+     (previews, video, screenshots). */
+  --radius-control: 0px;
+  --radius-frame: 0px;
 }
 
-/* Cream and charcoal, taken from the logo mark: #f1e2d1 on #222222.
-   Dark is the default; `.dark` is the CREAM/light theme (see Navbar).
-   Cream on charcoal measures 12.53:1 both ways — AAA at every size.
-   Muted values are solved against the brightest point of the surface
-   gradient, not the flat fill, which is ~1.5:1 more forgiving. */
+/* The site has no light or dark mode. Black is the ground everything sits
+   on: the footer, and the fixed nav on every page, are read against it. On
+   the home page each section then lays its own surface over that ground,
+   white and black in turn, and brings one colour of its own (the tones
+   below). Text on either surface is plain black or white, 21:1. */
 :root {
-  --site-primary: #222222;
-  --site-text-primary: #f1e2d1;
-  --site-text-muted: #d4cbc0;
-  --site-highlight: #4a433d;
-  --site-accent: #e3ca89;
-  --site-accent-ink: #222222;
-  --site-surface-gradient: linear-gradient(#222222, #222222);
+  /* The lead colour: the curtain the site opens behind, and the tone of the
+     first section. */
+  --signal: #5b2eff;
+  --essence: var(--signal);
+  --site-primary: #000000;
+  --site-text-primary: #ffffff;
+  --site-text-muted: #b8b8b8;
+  --site-highlight: #333333;
+  --site-accent: #b3a4ff;
+  --site-accent-ink: #000000;
+  --site-surface-gradient: linear-gradient(#000000, #000000);
   --background: var(--site-primary);
   --foreground: var(--site-text-primary);
-  /* The logo mark inverts with the theme: the tile takes the page colour and
-     the lettering takes the text colour. Kept as its own pair rather than
-     reusing --site-* so a project theme never repaints the brand. */
-  --logo-surface: #222222;
-  --logo-ink: #f1e2d1;
+  /* The logo mark is black and white on every page, so it sits on a white
+     section, a black one and any project colour alike. Kept as its own pair
+     rather than reusing --site-* so no section or project repaints it. */
+  --logo-surface: #000000;
+  --logo-ink: #ffffff;
 }
 
-.dark {
-  --site-primary: #f1e2d1;
-  --site-text-primary: #222222;
-  --site-text-muted: #3c3a37;
-  --site-highlight: #c7b7a6;
-  --site-accent: #533130;
-  --site-accent-ink: #f1e2d1;
-  --site-surface-gradient:
-    radial-gradient(circle at 12% 8%, rgba(74, 67, 61, 0.11), transparent 34%),
-    radial-gradient(circle at 92% 18%, rgba(122, 112, 103, 0.08), transparent 30%),
-    linear-gradient(135deg, #f1e2d1 0%, #eadac8 48%, #f1e2d1 100%);
-  --background: var(--site-primary);
-  --foreground: var(--site-text-primary);
-  --logo-surface: #f1e2d1;
-  --logo-ink: #222222;
+/* Section tones. Each re-points the same tokens a project page does, for the
+   section it is set on, and adds --essence: that section's colour at full
+   strength.
+
+   Two rules keep them honest. --site-accent is the colour as small text or
+   under a small label, so it clears 7:1 on its surface. --essence is for
+   display type and shapes only, so it need only clear 4.5:1. On black the
+   two are one colour. On white the full-strength colour is too light to be
+   small text, so the accent is a deeper cut of it.
+
+   Measured: violet 6.4:1 as essence and 7.64:1 as accent; vermilion 4.7:1
+   and 7.64:1; marigold 12.13:1; aqua 12.58:1. */
+.tone-violet,
+.tone-vermilion {
+  --site-primary: #ffffff;
+  --site-text-primary: #000000;
+  --site-text-muted: #4d4d4d;
+  --site-highlight: #d0d0d0;
+  --site-accent-ink: #ffffff;
+}
+
+.tone-marigold,
+.tone-aqua {
+  --site-primary: #000000;
+  --site-text-primary: #ffffff;
+  --site-text-muted: #b8b8b8;
+  --site-highlight: #333333;
+  --site-accent-ink: #000000;
+}
+
+.tone-violet {
+  --essence: #5b2eff;
+  --site-accent: #4f22ea;
+}
+
+.tone-vermilion {
+  --essence: #dd2e0c;
+  --site-accent: #a51a00;
+}
+
+.tone-marigold {
+  --essence: #ffb81f;
+  --site-accent: #ffb81f;
+}
+
+.tone-aqua {
+  --essence: #27e0c8;
+  --site-accent: #27e0c8;
+}
+
+.tone-violet,
+.tone-vermilion,
+.tone-marigold,
+.tone-aqua {
+  background-color: var(--site-primary);
+  color: var(--site-text-primary);
 }
 
 html {
@@ -70,13 +124,34 @@ html {
   font-size: 16px;
 }
 
+/* The family is named here rather than through var(--font-sans): that token
+   is declared `inline` above, so no such custom property exists at runtime,
+   and a font-family that points at it silently falls back to the system
+   font. */
 body {
   background: var(--site-surface-gradient);
   background-attachment: fixed;
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   font-weight: 400;
   line-height: 1.6;
+}
+
+/* Two voices. The display voice is the site face pulled narrow and heavy,
+   for names and section titles. The aside voice is an italic serif, for the
+   lines that describe or comment rather than name: lead-ins, what a project
+   is, a result, the sign-off. Everything else is the site face as it comes. */
+.type-display {
+  font-stretch: 75%;
+  font-weight: 800;
+}
+
+.type-aside {
+  font-family: var(--font-bodoni), Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* Project pages paint their own surface across the full viewport so the
@@ -86,40 +161,6 @@ body {
   inset: 0;
   z-index: -1;
   background: var(--site-surface-gradient);
-}
-
-/* Theme cross-fade.
-
-   Done with View Transitions rather than a blanket `transition: color` on `*`.
-   Theme changes here come from custom properties being redefined, and Chrome
-   does not animate var()-derived colours reliably when that happens — it keeps
-   reporting the previous computed value for the duration. The view transition
-   sidesteps the question: it snapshots the old and new frames and dissolves
-   between them, so every colour on the page fades together at one rate,
-   including the body surface and the per-project palettes.
-
-   Browsers without the API (Firefox today) switch instantly; see Navbar.tsx. */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 420ms;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  /* Held opaque underneath — see the note above on image flicker. */
-  animation: none;
-  opacity: 1;
-}
-
-::view-transition-new(root) {
-  animation-name: theme-fade-in;
-}
-
-@keyframes theme-fade-in {
-  from {
-    opacity: 0;
-  }
 }
 
 /* Route entrance — see app/template.tsx for why this is CSS, not Framer. */
@@ -136,6 +177,176 @@ body {
   }
 }
 
+/* Home-page load sequence: one moment, then stillness.
+
+   A curtain in the lead colour is swept off in the order the logo is drawn, across
+   the top and back along the bottom, and the name rises letter by letter
+   behind it. The two bands hand over at full speed (ease-in out of the first,
+   ease-out into the second), so they read as one stroke turning a corner
+   just off screen.
+
+   All of it is CSS, so it starts at first paint, before React hydrates, and
+   cannot strand the page behind the curtain if a script fails. Nothing here
+   hides content at rest: every hidden state lives in a keyframe, so with
+   animations off (reduced motion, below) the hero is simply there. */
+.intro-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 70; /* over the fixed nav, which sits at 60 */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.intro-cover__band {
+  position: absolute;
+  height: 50.5%; /* the half-percent overlap hides the seam */
+  background: var(--signal);
+}
+
+/* Each band runs past one edge of the screen by more than half its own
+   height, so its rounded nose starts out of sight and crosses the screen
+   last. translateX(100%) is the band's own width, which is exactly the
+   distance that takes the nose off the far side. */
+.intro-cover__band--top {
+  top: 0;
+  right: 0;
+  left: -30vh;
+  border-radius: 9999px 0 0 9999px;
+  animation: intro-band-top 0.5s cubic-bezier(0.55, 0, 1, 0.45) 0.3s both;
+}
+
+.intro-cover__band--bottom {
+  right: -30vh;
+  bottom: 0;
+  left: 0;
+  border-radius: 0 9999px 9999px 0;
+  animation: intro-band-bottom 0.55s cubic-bezier(0, 0.55, 0.45, 1) 0.75s both;
+}
+
+@keyframes intro-band-top {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes intro-band-bottom {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* The hero keeps time with the curtain by noticing it is in the page: while
+   it is, everything waits until the top band has cleared the name. With no
+   curtain (coming back from a project) there is nothing to wait for. Each
+   piece then adds its own offset as --d. */
+.intro {
+  --intro-wait: 0s;
+}
+
+html:has(.intro-cover) .intro {
+  --intro-wait: 0.6s;
+}
+
+/* A window the letters rise into. The padding and matching negative margin
+   widen the window past the tight line box, which would otherwise crop the
+   letterforms, without moving anything. */
+.intro-mask {
+  display: inline-block;
+  overflow: hidden;
+  margin: -0.12em -0.06em;
+  padding: 0.12em 0.06em;
+  vertical-align: top;
+}
+
+.intro-char,
+.intro-line {
+  display: inline-block;
+  animation: intro-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--intro-wait) + var(--d, 0s));
+}
+
+.intro-line {
+  display: block;
+}
+
+.intro-fade {
+  animation: intro-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--intro-wait) + var(--d, 0s));
+}
+
+/* Starts as the curtain starts to move, so the photo is still easing back
+   into place when the band uncovers it. */
+.intro-portrait {
+  animation: intro-settle 2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--intro-wait) / 2);
+}
+
+@keyframes intro-rise {
+  from {
+    transform: translateY(120%);
+  }
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+@keyframes intro-settle {
+  from {
+    transform: scale(1.12);
+  }
+}
+
+/* Scroll reveals: the load sequence's two moves, for a section further down
+   the page. Text rises into its window, and each frame starts under a cover
+   in the section's own colour that lifts off, round nose last.
+
+   Nothing is hidden until components/Reveal.tsx arms the section, which it
+   does only from the browser and only while the section is still below the
+   screen. With no script, or with reduced motion, the section is simply
+   there. Each piece sets its own offset as --d. */
+.reveal-line {
+  display: block;
+}
+
+.reveal-cover {
+  display: none;
+}
+
+[data-reveal] .reveal-line {
+  animation: intro-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+/* A quarter taller than the frame it covers. The extra hangs below the
+   frame, out of sight, and is the rounded nose. translateY(-100%) is the
+   cover's own height, which is exactly what it takes to clear the frame. */
+[data-reveal] .reveal-cover {
+  position: absolute;
+  inset: 0 0 -25% 0;
+  z-index: 1;
+  display: block;
+  border-radius: 0 0 50% 50% / 0 0 20% 20%;
+  background: var(--essence);
+  pointer-events: none;
+  animation: reveal-lift 0.9s cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+[data-reveal='armed'] .reveal-line,
+[data-reveal='armed'] .reveal-cover {
+  animation-play-state: paused;
+}
+
+@keyframes reveal-lift {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
 a:focus-visible,
 button:focus-visible,
 [tabindex]:focus-visible {
@@ -148,12 +359,23 @@ button:focus-visible,
     scroll-behavior: auto;
   }
 
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none !important;
+  .page-enter {
+    animation: none;
   }
 
-  .page-enter {
+  .intro-cover,
+  [data-reveal] .reveal-cover {
+    display: none;
+  }
+
+  [data-reveal] .reveal-line {
+    animation: none;
+  }
+
+  .intro-char,
+  .intro-line,
+  .intro-fade,
+  .intro-portrait {
     animation: none;
   }
 }

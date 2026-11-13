@@ -1,3 +1,7 @@
+import type { CSSProperties } from 'react';
+import { Reveal } from '@/components/Reveal';
+import { ShortCard } from '@/components/ShortCard';
+
 /**
  * The clips in the row, left to right.
  *
@@ -13,47 +17,56 @@ const CLIPS = [
   { id: 'vEcsTJFBWik', title: 'In The Summer' },
 ];
 
+/* Where a piece joins the reveal, counted from the moment the section scrolls
+   into view. The classes and the timing live under "Scroll reveals" in
+   globals.css. */
+const joinsAt = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
+
 export const ReelsShowcase = () => {
   return (
-    <section className='px-6 pb-10 pt-20'>
-      <div className='mb-10 px-6 text-center'>
-        <p className='text-sm font-bold uppercase tracking-[0.35em] text-text-muted'>
-          Beyond design
-        </p>
-        <p className='mx-auto mt-3 max-w-[70ch] text-lg leading-[1.6] text-text-primary'>
-          Live looping music I make on the spot.
-        </p>
-      </div>
+    <section className='tone-aqua px-6 pb-10 pt-20'>
+      {/* The intro's two moves again, on arrival: the two lines rise into
+          place, then a cover lifts off each clip in turn. */}
+      <Reveal>
+        <div className='mb-10 px-6 text-center'>
+          {/* The padding gives the italic's descenders room inside the
+              window the line rises into. */}
+          <p className='type-aside overflow-hidden pb-1.5 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.15] text-accent'>
+            <span className='reveal-line'>Beyond design</span>
+          </p>
+          <p className='mx-auto mt-3 max-w-[70ch] overflow-hidden text-lg leading-[1.6] text-text-primary'>
+            <span className='reveal-line' style={joinsAt(80)}>
+              Live looping music I make on the spot.
+            </span>
+          </p>
+        </div>
 
-      <div className='mx-auto max-w-7xl'>
-        {/* One row at every width. The cards share it down to 280px each;
-            below that the row scrolls sideways inside itself, so the page
-            never does. -mx-6/px-6 lets it scroll out to the screen edge, and
-            pb-10 leaves room for the card shadows, which a scroll container
-            would otherwise clip. */}
-        <ul className='-mx-6 flex snap-x snap-mandatory scroll-px-6 gap-6 overflow-x-auto px-6 pb-10 [scrollbar-color:var(--site-highlight)_transparent] [scrollbar-width:thin]'>
-          {CLIPS.map((clip) => (
-            <li
-              key={clip.id}
-              className='min-w-70 max-w-80 flex-1 snap-start first:ml-auto last:mr-auto'
-            >
-              <div className='aspect-[9/16] overflow-hidden rounded-2xl bg-text-primary/10 shadow-xl'>
-                <iframe
-                  className='h-full w-full'
-                  src={`https://www.youtube.com/embed/${clip.id}`}
-                  title={`${clip.title} — live loop by Jefri`}
-                  // The row is near the bottom of the page and each player is
-                  // heavy; don't make every visitor download them up front.
-                  loading='lazy'
-                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-                  referrerPolicy='strict-origin-when-cross-origin'
-                  allowFullScreen
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+        <div className='mx-auto max-w-7xl'>
+          {/* One row at every width. The cards share it down to 280px each;
+              below that the row scrolls sideways inside itself, so the page
+              never does. -mx-6/px-6 lets it scroll out to the screen edge,
+              and pb-10 leaves room for the card shadows, which a scroll
+              container would otherwise clip. */}
+          <ul className='-mx-6 flex snap-x snap-mandatory scroll-px-6 gap-6 overflow-x-auto px-6 pb-10 [scrollbar-color:var(--site-highlight)_transparent] [scrollbar-width:thin]'>
+            {CLIPS.map((clip, index) => (
+              <li
+                key={clip.id}
+                className='min-w-70 max-w-80 flex-1 snap-start first:ml-auto last:mr-auto'
+              >
+                <div className='relative aspect-[9/16] overflow-hidden rounded-frame bg-text-primary/10 shadow-xl'>
+                  {/* YouTube's player loads only when a card is pressed. */}
+                  <ShortCard id={clip.id} title={clip.title} />
+                  <span
+                    aria-hidden='true'
+                    className='reveal-cover'
+                    style={joinsAt(160 + index * 90)}
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Reveal>
     </section>
   );
 };

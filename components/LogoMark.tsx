@@ -1,6 +1,10 @@
 /* The mark is inlined rather than served as /jeffreyko-logo.svg so the tile and
-   the lettering can read the theme variables — an <img> can't see them. Paths
-   are verbatim from the source file; only the fills changed. */
+   the glyph can read the theme variables — an <img> can't see them. The glyph
+   paths are verbatim from the source file; only the fills changed.
+
+   The tile is a plain square here, not the source file's rounded one, so its
+   corners follow the site's `rounded-control` token on the element that
+   wraps the mark (see LogoButton in Navbar.tsx) instead of being baked in. */
 export const LogoMark = ({ className }: { className?: string }) => (
   <svg
     viewBox='0 0 1067 1067'
@@ -9,10 +13,7 @@ export const LogoMark = ({ className }: { className?: string }) => (
     className={className}
     style={{ fillRule: 'evenodd', clipRule: 'evenodd' }}
   >
-    <path
-      d='M1066.667,201.488l0,663.691c0,111.204 -90.284,201.488 -201.488,201.488l-663.691,0c-111.204,0 -201.488,-90.284 -201.488,-201.488l0,-663.691c0,-111.204 90.284,-201.488 201.488,-201.488l663.691,0c111.204,0 201.488,90.284 201.488,201.488Z'
-      fill='var(--logo-surface)'
-    />
+    <rect width='1067' height='1067' fill='var(--logo-surface)' />
     <g fill='var(--logo-ink)'>
       <path d='M331.754,210.417c0,0 61.996,87.853 61.996,125.504c0,34.217 -27.779,61.996 -61.996,61.996c-34.217,0 -61.996,-27.779 -61.996,-61.996c0,-37.651 61.996,-125.504 61.996,-125.504Z' />
       <path d='M718.837,232.295l10.395,45.55c3.573,15.657 -6.237,31.269 -21.894,34.842l-354.482,80.9c-15.657,3.573 -31.269,-6.237 -34.842,-21.894l-10.395,-45.55c-3.573,-15.657 6.237,-31.269 21.894,-34.842l354.482,-80.9c15.657,-3.573 31.269,6.237 34.842,21.894Z' />
