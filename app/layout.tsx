@@ -138,7 +138,7 @@ export const metadata: Metadata = {
     // replaces came out as a cropped strip of trees.
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.jpg?v=2',
         width: 1200,
         height: 630,
         alt: 'Jeffrey Ko, UX/UI designer in Melbourne',
@@ -150,7 +150,7 @@ export const metadata: Metadata = {
     title: 'Jeffrey Ko — UX/UI Designer',
     description:
       'UX/UI designer in Melbourne. I design products that are easy to use and I sit with engineering without a translator.',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.jpg?v=2'],
   },
   alternates: { canonical: '/' },
   icons: {
