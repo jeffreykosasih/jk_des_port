@@ -225,18 +225,17 @@ export const PROJECTS: ProjectData[] = [
       Problem: {
         content: `Restaurant sites pick a side: pretty but vague, or useful but flat. Visitors want food, mood, location and booking, fast.`,
         image: '/pj_04/pj_04_home_01.png',
-        video: '/pj_04/rec_katsu.mp4',
       },
       Constraint: {
         content: `Minimal couldn't mean empty. A Japanese-inspired look still had to read clearly and point to the next step.`,
         image: '/pj_04/pj_04_home_02.png',
       },
       Decision: {
-        content: `Fewer elements, more intention: spacing and imagery set the mood, and booking is one action from every section.`,
+        content: `One hero photo, a three-dish menu with prices and tags, and a "Book a table" button that follows you. The form picks location, date and time, checks each field and confirms on the spot.`,
         image: '/pj_04/pj_04_home_03.png',
       },
       Outcome: {
-        content: `Feedback on hierarchy and contrast made it cleaner without losing the practical details.`,
+        content: `The rebuild removed the old blank sections and doubled hero photo. Every location now has directions and tap-to-call.`,
       },
     },
   },
@@ -265,5 +264,5 @@ export const PROJECTS: ProjectData[] = [
 
 /** The four that lead the Work section. */
 export const FEATURED_PROJECTS = PROJECTS.slice(0, 4);
-/** The four behind the "more" disclosure — same shape, own pages. */
+/** The rest, behind the "more" disclosure — same shape, own pages. */
 export const SECONDARY_PROJECTS = PROJECTS.slice(4);
