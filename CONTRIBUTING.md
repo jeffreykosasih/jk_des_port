@@ -91,11 +91,8 @@ npx tsc --noEmit
 npm run build      # catches font and image issues that dev mode hides
 ```
 
-If you touched a project's `accent` in `lib/data.ts`, also run:
-
-```bash
-npm run theme      # regenerates app/project-themes.css and re-checks contrast
-```
+If you change a project's colours (`--pj-dark` / `--pj-light` in
+`app/globals.css`), check each still clears 7:1 against black and white.
 
 Never `git push --force` to `main`. It's the deploy branch, and Vercel will
 happily ship whatever lands there.

@@ -1,6 +1,6 @@
-import type { CSSProperties } from 'react';
 import { Reveal } from '@/components/Reveal';
 import { ShortCard } from '@/components/ShortCard';
+import { joinsAt } from '@/components/motion';
 
 /**
  * The clips in the row, left to right.
@@ -12,19 +12,16 @@ import { ShortCard } from '@/components/ShortCard';
  */
 const CLIPS = [
   { id: '6nVGH-dI_oQ', title: 'Bisa' },
-  { id: 'FiLmzJQYyS8', title: 'Aqua' },
-  { id: 'v8TviL3pqnk', title: 'Lala' },
+  // YouTube's own frames of Aqua and Lala all carry a title, dots or a
+  // subtitle, so these two use stills taken from a clean moment instead.
+  { id: 'FiLmzJQYyS8', title: 'Aqua', cover: '/shorts/aqua.jpg' },
+  { id: 'v8TviL3pqnk', title: 'Lala', cover: '/shorts/lala.jpg' },
   { id: 'vEcsTJFBWik', title: 'In The Summer' },
 ];
 
-/* Where a piece joins the reveal, counted from the moment the section scrolls
-   into view. The classes and the timing live under "Scroll reveals" in
-   globals.css. */
-const joinsAt = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
-
 export const ReelsShowcase = () => {
   return (
-    <section className='tone-aqua px-6 pb-10 pt-20'>
+    <section className='tone-red px-6 pb-10 pt-20'>
       {/* The intro's two moves again, on arrival: the two lines rise into
           place, then a cover lifts off each clip in turn. */}
       <Reveal>
@@ -55,7 +52,11 @@ export const ReelsShowcase = () => {
               >
                 <div className='relative aspect-[9/16] overflow-hidden rounded-frame bg-text-primary/10 shadow-xl'>
                   {/* YouTube's player loads only when a card is pressed. */}
-                  <ShortCard id={clip.id} title={clip.title} />
+                  <ShortCard
+                    id={clip.id}
+                    title={clip.title}
+                    cover={'cover' in clip ? clip.cover : undefined}
+                  />
                   <span
                     aria-hidden='true'
                     className='reveal-cover'

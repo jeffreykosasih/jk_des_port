@@ -12,16 +12,20 @@ import { useState } from 'react';
  * way on each.
  *
  * `frame` picks which of YouTube's automatic frames to use: 'oar1', 'oar2'
- * or 'oar3', taken a quarter, half and three quarters of the way in.
+ * or 'oar3', taken a quarter, half and three quarters of the way in, or
+ * 'frame0', the opening frame (smaller, 268px wide, so a little softer).
  */
 export const ShortCard = ({
   id,
   title,
   frame = 'oar2',
+  cover,
 }: {
   id: string;
   title: string;
-  frame?: 'oar1' | 'oar2' | 'oar3';
+  frame?: 'oar1' | 'oar2' | 'oar3' | 'frame0';
+  /** A still of our own in public/shorts, used instead of YouTube's frame. */
+  cover?: string;
 }) => {
   const [playing, setPlaying] = useState(false);
 
@@ -49,7 +53,7 @@ export const ShortCard = ({
           row loads them lazily as it scrolls into view. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`https://i.ytimg.com/vi/${id}/${frame}.jpg`}
+        src={cover ?? `https://i.ytimg.com/vi/${id}/${frame}.jpg`}
         alt=''
         loading='lazy'
         className='absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'

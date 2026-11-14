@@ -9,6 +9,8 @@ import { IoDocumentText, IoMail } from 'react-icons/io5';
 type ContactItem = {
   label: string;
   icon: IconType;
+  /** The colour the icon turns on hover: the service's own. */
+  brand: string;
   href?: string;
   onClick?: () => void;
 };
@@ -18,8 +20,14 @@ const RESUMES = [
   { id: 'dev', label: 'Developer', href: '/Jeffrey-Ko-Developer-Resume.pdf' },
 ];
 
+/* Each icon turns its own service's colour on hover (--brand, set per item).
+   All of them keep at least 3:1 against the white section, the contrast an
+   icon needs. */
 const itemClass =
-  'inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-accent';
+  'inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-[var(--brand,var(--site-accent))] focus-visible:text-[var(--brand,var(--site-accent))]';
+
+const brandStyle = (brand: string) =>
+  ({ '--brand': brand }) as React.CSSProperties;
 
 /* Shared with the "Email copied" bubble so the two read as one component. */
 const bubbleClass =
@@ -138,11 +146,13 @@ export const Contact = () => {
       label: 'LinkedIn',
       href: 'https://www.linkedin.com/in/jeffreykosasih/',
       icon: FaLinkedin,
+      brand: '#0a66c2',
     },
     {
       label: 'Email',
       onClick: copyEmail,
       icon: IoMail,
+      brand: '#ea4335',
     },
   ];
 
@@ -151,16 +161,19 @@ export const Contact = () => {
       label: 'Instagram',
       href: 'https://instagram.com/sijefriii',
       icon: FaInstagram,
+      brand: '#e1306c',
     },
     {
       label: 'TikTok',
       href: 'https://www.tiktok.com/@sijefrii',
       icon: FaTiktok,
+      brand: '#fe2c55',
     },
     {
       label: 'YouTube',
       href: 'https://youtube.com/@sijefri',
       icon: FaYoutube,
+      brand: '#ff0000',
     },
   ];
 
@@ -177,6 +190,7 @@ export const Contact = () => {
             aria-label={item.label === 'Email' ? 'Copy email address' : item.label}
             title={item.label === 'Email' ? 'Copy email address' : item.label}
             className={itemClass}
+            style={brandStyle(item.brand)}
           >
             {iconEl}
           </button>
@@ -207,6 +221,7 @@ export const Contact = () => {
         aria-label={item.label}
         title={item.label}
         className={itemClass}
+        style={brandStyle(item.brand)}
       >
         {iconEl}
       </a>

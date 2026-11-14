@@ -35,73 +35,22 @@ Then open <http://localhost:3000>.
 | `npm run dev` | Dev server |
 | `npm run build` | Production build — catches font and image problems dev mode hides |
 | `npm run lint` | ESLint |
-| `npm run theme` | Regenerates the per-project theme CSS (see below) |
 
 ## How the theming works
 
-Every project page has its own background, display face, and accent colour, in
-both themes. It's driven entirely by CSS custom properties, so no component
-hard-codes a colour.
+There is no light or dark mode. Everything is CSS custom properties in
+`app/globals.css`, so no component hard-codes a colour.
 
-```
-lib/data.ts                    accent: '#e04848'   ← source of truth
-        │
-        ▼
-scripts/palette.py             solves a full palette from that one hue
-        │                      and audits every pair for WCAG AAA
-        ▼
-app/project-themes.css         [data-project='01'] { --site-*: … }   (generated)
-        │
-        ▼
-components/ProjectView.tsx     <section data-project="01">
-                               everything inside inherits the project's tokens
-```
-
-To change a project's colour, edit its `accent` in `lib/data.ts` and run:
-
-```bash
-npm run theme
-```
-
-That regenerates `app/project-themes.css` and re-runs the contrast audit. Don't
-hand-edit the generated file — the next run will overwrite it.
-
-### On the contrast targets
-
-Small text clears **7:1** and large display text clears **4.5:1** — WCAG AAA — on
-every project page in both themes. Two things the generator handles that are easy
-to get wrong by hand:
-
-- **Opacity is not a colour.** `text-primary/70` looked muted and landed around
-  5.3–6.9:1, which fails AAA. Muted text uses solved `--site-text-muted` /
-  `--site-text-faint` tokens instead.
-- **The background isn't flat.** Two brand-tinted radial glows sit on top of the
-  surface, so text near a glow centre is on a lighter colour than the surface
-  token suggests. Everything is solved against the worst-case composite, not the
-  flat fill.
-
-A brand hue that can't reach 7:1 as small text is used for large display type and
-non-text decor instead, with a darkened or lightened sibling doing the text work —
-so the colour essence survives even where the literal hex can't.
-
-### The site's own palette and corners
-
-Away from the project pages the site uses three colours: paper `#f4f4f4`, ink
-`#101010` and a signal blue `#0038ff`. They are set by hand in
-`app/globals.css` (`:root` for the dark theme, `.dark` for the light one), with
-the measured contrast noted beside them. The pure blue can't reach 7:1 as small
-text on either surface, so each theme has its own solved accent, and the pure
-blue is kept for decoration: the intro curtain and the reveal covers.
-
-Corners are square. Two tokens in the same file say so, `--radius-control` and
-`--radius-frame`, used as `rounded-control` and `rounded-frame`. Change them
-there rather than per component.
-
-### One naming quirk
-
-In this codebase the `.dark` class on `<html>` is the **light** theme, not the
-dark one. The default (no class) is the dark theme. It's inverted relative to
-what the name suggests — worth knowing before editing `globals.css`.
+- **Home page:** sections alternate white and black, and each brings one
+  colour of its own through a `tone-*` class (violet, marigold, vermilion,
+  and a YouTube red for the Shorts row). `--essence` is that colour at full strength for display type and
+  shapes; `--site-accent` is the cut that clears 7:1 as small text.
+- **Project pages:** `[data-project='<slug>']` sets two cuts of the project's
+  colour, `--pj-dark` for black sections and `--pj-light` for white ones, each
+  measured at 7:1 or better. `tone-pj-dark` and `tone-pj-light` apply them.
+- **Type:** Bricolage Grotesque for text, the same face narrow and heavy for
+  display (`type-display`), and Instrument Serif for asides (`type-aside`).
+- **Corners** are square, set by `--radius-control` and `--radius-frame`.
 
 ## Deploying
 

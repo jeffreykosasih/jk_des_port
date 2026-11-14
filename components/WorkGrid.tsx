@@ -11,7 +11,6 @@ export const WorkGrid = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showAlsoBuilt, setShowAlsoBuilt] = useState(false);
   const activeProject = FEATURED_PROJECTS[activeIndex] ?? FEATURED_PROJECTS[0];
-  const activeImage = activeProject.workImage;
 
   return (
     <section id='work' className='tone-marigold py-20 md:py-28'>
@@ -54,7 +53,7 @@ export const WorkGrid = () => {
                         {project.title}
                       </h3>
                       {/* Concept or real build, readable before anyone clicks. */}
-                      <p className='type-aside text-base text-text-muted'>
+                      <p className='type-aside text-lg leading-tight text-text-muted'>
                         {project.kind}
                       </p>
                     </div>
@@ -126,50 +125,74 @@ export const WorkGrid = () => {
           </li>
         </ul>
 
-        <div className='hidden md:sticky md:top-32 md:block'>
-          <Link
-            href={`/pj/${activeProject.slug}`}
-            aria-label={`${activeProject.title} project`}
-            className='block'
-          >
-            <div className='relative aspect-video w-full overflow-hidden rounded-frame border border-highlight bg-black/10 shadow-2xl'>
-              <AnimatePresence mode='wait'>
+        {/* A deck of the four project cards, one in each project's colour,
+            squared up and centred. The hovered project sits in front; the
+            other three wait behind it, each a step higher and a step
+            narrower, so only an even band of each shows. Every card stays
+            mounted and only moves, so hovering another project glides it to
+            the front while the rest shuffle back a place. */}
+        <div className='hidden md:block'>
+          <div className='grid px-4 pt-20 lg:px-8'>
+            {FEATURED_PROJECTS.map((project, index) => {
+              // 0 is the front card, 3 the one furthest back.
+              const depth =
+                (index - activeIndex + FEATURED_PROJECTS.length) %
+                FEATURED_PROJECTS.length;
+              const isFront = depth === 0;
+
+              return (
                 <motion.div
-                  key={activeProject.slug}
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4, ease: 'easeOut' }}
-                  className='absolute inset-0'
+                  key={project.slug}
+                  data-project={project.slug}
+                  aria-hidden={!isFront}
+                  className='col-start-1 row-start-1'
+                  style={{
+                    zIndex: FEATURED_PROJECTS.length - depth,
+                    transformOrigin: '50% 0%',
+                    pointerEvents: isFront ? 'auto' : 'none',
+                  }}
+                  initial={false}
+                  animate={{ y: -depth * 18, scale: 1 - depth * 0.06 }}
+                  transition={{ type: 'spring', stiffness: 170, damping: 24 }}
+                  whileHover={isFront ? { y: -6 } : undefined}
                 >
-                  {activeImage ? (
-                    <Image
-                      src={activeImage}
-                      alt={`${activeProject.title} preview`}
-                      fill
-                      sizes='(min-width: 768px) 45vw, 100vw'
-                      className='object-cover'
-                      priority
-                    />
-                  ) : null}
+                  <Link
+                    href={`/pj/${project.slug}`}
+                    aria-label={`${project.title} project`}
+                    tabIndex={isFront ? undefined : -1}
+                    className='group block bg-[var(--pj-dark)] p-4 text-center text-black shadow-2xl lg:p-5'
+                  >
+                    <div className='relative aspect-video w-full overflow-hidden bg-black'>
+                      {project.workImage ? (
+                        <Image
+                          src={project.workImage}
+                          alt={`${project.title} preview`}
+                          fill
+                          sizes='(min-width: 768px) 45vw, 100vw'
+                          className='object-cover transition-transform duration-700 ease-out group-hover:scale-105'
+                          priority={index === 0}
+                        />
+                      ) : null}
+                    </div>
+                    <p className='type-aside pt-4 text-[1.5rem] leading-tight lg:pt-5'>
+                      {project.outcome}
+                    </p>
+                  </Link>
                 </motion.div>
-              </AnimatePresence>
-            </div>
-          </Link>
+              );
+            })}
+          </div>
           <AnimatePresence mode='wait'>
-            <motion.div
+            <motion.p
               key={activeProject.slug}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className='mt-8 max-w-[70ch] space-y-3 text-lg leading-[1.6] text-text-primary'
+              className='mt-10 max-w-[60ch] text-lg leading-[1.6] text-text-primary'
             >
-              <p>{activeProject.blurb}</p>
-              <p className='type-aside text-[1.5rem] leading-snug text-accent'>
-                {activeProject.outcome}
-              </p>
-            </motion.div>
+              {activeProject.blurb}
+            </motion.p>
           </AnimatePresence>
         </div>
       </div>

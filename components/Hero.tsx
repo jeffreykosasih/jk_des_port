@@ -1,10 +1,10 @@
-import { Fragment, type CSSProperties } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { LetterByLetter, joinsAt } from '@/components/motion';
 
 const DESIGN_RESUME = '/Jeffrey-Ko-Design-Resume.pdf';
 
-const NAME = ['Jeffrey', 'Ko'];
+const NAME = 'Jeffrey Ko';
 
 const pillBase =
   'intro-fade whitespace-nowrap rounded-control px-4 py-2.5 transition-all hover:-translate-y-1 lg:px-4 xl:px-5 xl:py-3';
@@ -12,11 +12,6 @@ const pillClass = `${pillBase} bg-text-primary text-primary hover:bg-accent hove
 /* The resume is the one thing this page most wants opened, so it alone wears
    the accent at rest; the section links only take it on hover. */
 const resumePillClass = `${pillBase} bg-accent text-accent-ink hover:bg-text-primary hover:text-primary`;
-
-/* Where a piece joins the load sequence, counted from the moment the curtain
-   has cleared the name. The classes and the timing live under "Home-page load
-   sequence" in globals.css. */
-const joinsAt = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
 
 export const Hero = () => {
   return (
@@ -27,38 +22,17 @@ export const Hero = () => {
       <div className='grid min-h-screen md:grid-cols-[minmax(0,1fr)_minmax(300px,40vw)]'>
         <div className='flex flex-col justify-between px-6 pb-12 pt-32 md:px-10 md:pt-40 lg:px-12 xl:px-16'>
           <div className='py-10'>
-            {/* The padding gives the italic's descenders and overhang room
-                inside the window the line rises into. */}
+            {/* The padding gives the serif's descenders room inside the
+                window the line rises into. */}
             <p className='type-aside -mx-1 mb-4 overflow-hidden px-1 pb-1.5 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.15] text-accent'>
-              <span className='intro-line'>UX/UI designer in Melbourne</span>
+              <span className='intro-line'>UX/UI designer</span>
             </p>
-            {/* Each letter is its own box so it can rise on its own beat. The
-                label gives screen readers the name as one word pair instead
-                of ten letters. */}
             <h1
-              aria-label={NAME.join(' ')}
+              aria-label={NAME}
               className='type-display max-w-4xl text-[17vw] uppercase leading-[0.82] tracking-[-0.03em] text-text-primary sm:text-[13vw] md:text-[7.5rem] lg:text-[9.5rem] xl:text-[11rem]'
             >
-              {NAME.map((word, wordIndex) => {
-                const lettersBefore = NAME.slice(0, wordIndex).join('').length;
-
-                return (
-                  <Fragment key={word}>
-                    {wordIndex > 0 ? ' ' : null}
-                    <span aria-hidden='true' className='intro-mask'>
-                      {Array.from(word).map((letter, letterIndex) => (
-                        <span
-                          key={letterIndex}
-                          className='intro-char'
-                          style={joinsAt(60 + (lettersBefore + letterIndex) * 40)}
-                        >
-                          {letter}
-                        </span>
-                      ))}
-                    </span>
-                  </Fragment>
-                );
-              })}
+              {/* Delays count from when the curtain clears the name. */}
+              <LetterByLetter text={NAME} startMs={60} stepMs={40} />
             </h1>
           </div>
 

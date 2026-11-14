@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PROJECTS } from '@/lib/data';
-import { PillNav } from '@/components/PillNav';
+import { ProjectPager } from '@/components/ProjectPager';
 import { LogoMark } from '@/components/LogoMark';
 
 const LogoButton = ({ isHome }: { isHome: boolean }) => {
@@ -26,10 +26,10 @@ const LogoButton = ({ isHome }: { isHome: boolean }) => {
     <Link
       href='/'
       onClick={handleClick}
-      className='inline-flex h-24 w-24 items-center justify-center overflow-hidden rounded-control bg-transparent shadow-2xl drop-shadow-2xl transition-all duration-200 hover:scale-105 md:h-28 md:w-28'
+      className='inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-control bg-transparent shadow-2xl drop-shadow-2xl transition-all duration-200 hover:scale-105 md:h-28 md:w-28'
       aria-label={isHome ? 'Back to top' : 'Jeffrey Ko home'}
     >
-      <LogoMark className='h-24 w-24 md:h-28 md:w-28' />
+      <LogoMark className='h-14 w-14 md:h-28 md:w-28' />
     </Link>
   );
 };
@@ -39,28 +39,17 @@ export const Navbar = () => {
   const activeSlug = pathname.match(/^\/pj\/([^/]+)/)?.[1] ?? null;
   const activeProject = PROJECTS.find((project) => project.slug === activeSlug);
 
-  /* The nav is fixed and lives outside ProjectView, so without this it kept
-     the site palette while `.project-surface` painted the project colour
-     behind it. Carrying data-project here re-points the same tokens the rest
-     of the page already uses. No attribute off a project route, so the home
-     page falls back to the site palette untouched. */
+  /* The nav is fixed and lives outside ProjectView, so it carries
+     data-project itself: that gives the project pager the project's colour.
+     No attribute off a project route, so the home page keeps the site
+     palette. */
   return (
     <div data-project={activeProject?.slug}>
       {/* One fixed row: the project pager sits beside the logo, centred on it. */}
-      <div className='fixed top-6 left-6 z-[60] flex items-center gap-3'>
+      <div className='fixed top-4 left-4 z-[60] md:top-6 md:left-6 flex items-center gap-3'>
         <LogoButton isHome={pathname === '/'} />
         {activeProject ? (
-          <PillNav
-            aria-label='Jump to project'
-            orientation='grid'
-            activeId={activeProject.slug}
-            items={PROJECTS.map((project) => ({
-              id: project.slug,
-              label: project.id,
-              title: project.title,
-              href: `/pj/${project.slug}`,
-            }))}
-          />
+          <ProjectPager activeSlug={activeProject.slug} />
         ) : null}
       </div>
     </div>

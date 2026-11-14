@@ -3,6 +3,7 @@ import { WorkGrid } from '@/components/WorkGrid';
 import { About } from '@/components/About';
 import { ReelsShowcase } from '@/components/ReelsShowcase';
 import { Contact } from '@/components/Contact';
+import { SectionDock } from '@/components/SectionDock';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <About />
       <ReelsShowcase />
       <Contact />
+      <SectionDock />
     </div>
   );
 }

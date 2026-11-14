@@ -46,18 +46,18 @@ export const PROJECTS: ProjectData[] = [
     workImage: '/pj_02/pj_01_test_02.png',
     stages: {
       Problem: {
-        content: `Newspaper drivers were losing time to an app that felt older than the vans. Suburb lists were buried, a compliance check gated every login, and proof-of-delivery photos were not clearly tied to the address they belonged to. On a run, that uncertainty is not a UX nit — it is a delayed street and a photo that might not stand up if a customer complains.`,
+        content: `Drivers lost time to an old app. Every login hit a compliance check, suburb lists were buried, and delivery photos weren't tied to an address.`,
         image: '/pj_02/pj_02_test_01.png',
       },
       Constraint: {
-        content: `Drivers change how they navigate as a run gets familiar: map when the suburb is new, list when they already know the streets. The app had to support both without adding a mode to learn. Delivery happens from the driver's seat, so every extra tap is time the paper is still in the van.`,
+        content: `Drivers use the map on new suburbs and the list on familiar ones. The app had to serve both without a new mode, from the driver's seat.`,
         image: '/pj_02/pj_02_empathize.png',
       },
       Decision: {
-        content: `I rebuilt the flow around the run, not the menu. The per-login compliance gate came out. Map and list sit together, with package counts and delivered status on every stop, so a photo is taken against the address it belongs to. Drivers who already know the area can stay in the list; drivers who don't can stay on the map.`,
+        content: `I rebuilt the flow around the run. The login check came out, map and list sit together, and each photo is taken on its own stop.`,
       },
       Outcome: {
-        content: `Drivers who walked the prototype understood the flow from the first screen. In the prototype there is no compliance check to repeat before a run, and drivers can see yesterday's performance before they leave the depot. Login-to-route is 2 steps instead of 4.`,
+        content: `Testers understood the flow from the first screen and could see yesterday's results before leaving the depot.`,
         image: '/pj_02/pj_02_test_01.png',
         images: ['/pj_02/pj_02_test_01.png', '/pj_02/pj_01_test_02.png'],
       },
@@ -75,18 +75,18 @@ export const PROJECTS: ProjectData[] = [
     workImage: '/pj_03/pj_03_island.jpg',
     stages: {
       Problem: {
-        content: `A grid of IT projects gets scanned and skipped. Recruiters decide in seconds whether a portfolio is worth opening, and a list that looks like every other student site does not get that second.`,
+        content: `Recruiters decide in seconds. A grid of student projects gets scanned and skipped.`,
         image: '/pj_03/pj_03_profile.png',
         video: '/pj_03/rec_jefri.mp4',
       },
       Constraint: {
-        content: `The island had to stay readable as a portfolio, not a game. If a visitor could not tell what an object was, the 3D idea would hide the work it was meant to show.`,
+        content: `It had to stay a portfolio, not a game. If visitors can't tell what an object is, the 3D hides the work.`,
       },
       Decision: {
-        content: `I built the portfolio in Three.js and put the project name on every object. The camera, spacing, and labels do the explaining. Exploration is optional; identification is not.`,
+        content: `I built it in Three.js and put a project name on every object. Exploring is optional; knowing what you're looking at isn't.`,
       },
       Outcome: {
-        content: `People who tried it remembered the island. They also needed the labels — without names, the objects were decoration. With names, a visitor can point at a landmark and know which project it is. 4 labelled landmarks. One look, no extra click.`,
+        content: `People remembered the island, and the labels did the work: point at a landmark, know the project.`,
       },
     },
   },
@@ -101,19 +101,19 @@ export const PROJECTS: ProjectData[] = [
     workImage: '/pj_07/card.png',
     stages: {
       Problem: {
-        content: `Paying for street parking in Melbourne means installing whichever app that street's operator uses. CarePark, EasyPark, PayStay, Secure Parking, Wilson — each wants its own account, card, and interface. Drivers keep four or five of them, re-enter the same plate and card, and still get fined for paying the wrong zone.`,
+        content: `Street parking in Melbourne means one app per operator. Drivers keep four or five, re-enter the same plate and card, and still get fined.`,
         image: '/pj_07/pj_07_1.png',
       },
       Constraint: {
-        content: `The driver should never have to know which operator owns the street. Any screen that makes them think about the operator fails the brief. Setup cannot ask for more than a plate and a card.`,
+        content: `Drivers should never need to know who owns the street. Setup asks for a plate and a card, nothing more.`,
         image: '/pj_07/pj_07_3.png',
       },
       Decision: {
-        content: `Peter sits on top of every operator. GPS suggests nearby zones; the driver confirms against the number printed on the pole. The saved card carries through, so starting a session is confirm zone, confirm card, pick duration. The live timer takes that operator's colour — Wilson red, EasyPark purple, PayStay green — so they can see who is being paid without opening another app.`,
+        content: `Peter pays every operator. GPS suggests the zone, the driver confirms the number on the pole, and the timer wears that operator's colour.`,
         image: '/pj_07/pj_07_2.png',
       },
       Outcome: {
-        content: `Friends who drive daily could set up in a minute and felt safer matching the pole than picking from GPS alone. The operator-coloured session screen was the detail they trusted. Setup is once (plate + card). Paying is 3 taps — not a fifth app.`,
+        content: `Daily drivers set up in a minute and trusted matching the pole over GPS alone.`,
         image: '/pj_07/pj_07_4.png',
       },
     },
@@ -130,21 +130,21 @@ export const PROJECTS: ProjectData[] = [
     credit: 'Mockup by Mockuuups Studio',
     stages: {
       Problem: {
-        content: `Finance apps report what you already spent. By then the money is gone. Budgets think in months; people spend in days, at a terminal, with a lock screen in the way.`,
+        content: `Finance apps report what you already spent. Budgets think in months; people spend in seconds at a terminal.`,
         image: '/pj_08/pj_08_3.jpg',
       },
       Constraint: {
-        content: `The intervention has to happen at the moment of payment, on the phone, in one decision. Anything longer and it gets dismissed. Sigma cannot ask people to open another finance app while the tap-and-go is waiting.`,
+        content: `It has to work at the moment of payment, in one decision, without opening another app.`,
         image: '/pj_08/pj_08_1.png',
         images: ['/pj_08/pj_08_1.png', '/pj_08/pj_08_2.png'],
         imageFit: 'contain',
       },
       Decision: {
-        content: `Every phone payment pauses for one tap. Sigma pre-fills merchant, amount, and category, then prices the purchase in hours worked and goals delayed. Yes or no — the decision lands while the money can still stay put.`,
+        content: `Each phone payment pauses for one tap. Sigma shows the purchase in hours worked and goals delayed, then asks yes or no.`,
         image: '/pj_08/pj_08_4.jpg',
       },
       Outcome: {
-        content: `The spend decision moves from a monthly review to the lock screen. Goals stay live against actual behaviour, not a number set in January. Every payment is 1 tap to approve or reject.`,
+        content: `The spending decision moves from a monthly review to the lock screen.`,
         image: '/pj_08/pj_08_6.jpg',
       },
     },
@@ -161,19 +161,19 @@ export const PROJECTS: ProjectData[] = [
     workImage: '/pj_01/pj_01_test_01.png',
     stages: {
       Problem: {
-        content: `Revo is the gym I actually train at, and the app never matched the energy of the brand. It leaned on a single-page approach, so membership perks and general information — news, shop, updates — sat together with nothing to separate them. I spoke with five members and they raised the same two things: the visual style felt inconsistent, and it was not obvious what their plan actually included.`,
+        content: `Revo is my gym. Its app mixed member perks with public news and shop updates, and five members told me they couldn't tell what their plan included.`,
         image: '/pj_01/pj_01_overview.png',
       },
       Constraint: {
-        content: `The problem was structural, not only visual. Anything I changed had to keep the Revo look and energy intact while making access levels legible: what belongs to a member, and what is open to everyone. Adding pages could not mean adding scrolling — the app had to feel more complete without feeling more crowded.`,
+        content: `Keep Revo's look and energy, make access levels clear, and add pages without adding scrolling.`,
         image: '/pj_01/pj_01_define.png',
       },
       Decision: {
-        content: `I used Affinity to group features by access level, then built the pages out in Figma from the loading screen through to the profile. Home carries what anyone can reach and treats it as information rather than an exclusive perk. Workout and Member sections hold the plan-specific benefits. Button sizing and spacing were tuned so each screen stays scannable at a glance.`,
+        content: `I grouped features by access level, then built it in Figma: Home for what anyone can see, Workout and Member for plan perks.`,
         image: '/pj_01/pj_01_prototype.png',
       },
       Outcome: {
-        content: `I took the screens back to the same members between sets. They read the split between information and perks correctly, and said the structure was a stronger starting point than the current app while still looking like Revo. The feedback pointed at depth as the next step — more features per section rather than more sections.`,
+        content: `The same members read the split correctly and said it still felt like Revo. Next step: more depth per section, not more sections.`,
         image: '/pj_01/pj_01_test_01.png',
         images: ['/pj_01/pj_01_test_01.png', '/pj_01/pj_01_test_02.png'],
       },
@@ -190,7 +190,7 @@ export const PROJECTS: ProjectData[] = [
     workImage: '/pj_05/pj_05_1.png',
     stages: {
       Problem: {
-        content: `Most habit apps I looked at feel overwhelming and stay too general about what a habit actually is. Discipline matters, but so does clarity — without a clear sense of what they are working on, people stop being consistent. A streak counter tells you how long you have kept going; it does not tell you what you are building or why.`,
+        content: `Habit apps feel overwhelming and vague. A streak counts days; it doesn't say what you're building or why.`,
         image: '/pj_05/pj_05_1.png',
         images: [
           '/pj_05/pj_05_1.png',
@@ -201,14 +201,14 @@ export const PROJECTS: ProjectData[] = [
         ],
       },
       Constraint: {
-        content: `Habits are not one shape. Some are meant to last; some only need to run for a set period. The app had to let a short-term habit finish and leave cleanly, so users get a mental reset instead of an entry they feel obliged to keep forever.`,
+        content: `Some habits last, some only need a set run. A short habit had to be able to finish cleanly.`,
       },
       Decision: {
-        content: `I framed the whole system as a garden. "Grow" and "Uproot" do the job of "build" and "break", but the gardening language gives each action an image to hold onto — planting and nurturing a seed, or pulling a weed that has already taken hold. Habits split by intended lifespan, so finishing is a state the app understands. I rebuilt the Figma file around a clearer naming system and structure so each path stayed easy to review.`,
+        content: `I framed it as a garden: grow a habit or uproot one. Each habit has a lifespan, so finishing is something the app understands.`,
         image: '/pj_05/pj_05_6.png',
       },
       Outcome: {
-        content: `I tested the concept with five college friends. Four responded positively to the grow/uproot framing. Two asked for a widget or notifications to make checking the habit list quicker — the metaphor landed, but the daily loop still needed a shortcut outside the app.`,
+        content: `Four of five testers liked the framing. Two wanted a widget for a quicker daily check.`,
       },
     },
   },
@@ -223,20 +223,20 @@ export const PROJECTS: ProjectData[] = [
     workImage: '/pj_04/pj_04_home_01.png',
     stages: {
       Problem: {
-        content: `People land on a restaurant site to work out the food, the atmosphere, the location, and how to book — usually in that order, usually fast. The sites I looked at picked one side: attractive but hiding the practical information, or informative with no mood at all. Colour choices between type and background quietly decide whether a place reads premium, calm, or just hard to read.`,
+        content: `Restaurant sites pick a side: pretty but vague, or useful but flat. Visitors want food, mood, location and booking, fast.`,
         image: '/pj_04/pj_04_home_01.png',
         video: '/pj_04/rec_katsu.mp4',
       },
       Constraint: {
-        content: `Minimal could not mean empty. The site had to carry a Japanese-inspired identity and stay legible, which made contrast between font colour and background a hard requirement rather than a styling preference. Every section still had to leave the next action obvious.`,
+        content: `Minimal couldn't mean empty. A Japanese-inspired look still had to read clearly and point to the next step.`,
         image: '/pj_04/pj_04_home_02.png',
       },
       Decision: {
-        content: `I used fewer elements with more intention — spacing, imagery, and simple navigation doing the work instead of decoration. Booking is never more than one action away, so the path from first impression to reservation has no detour. Type, background, and image placement were tuned together so no section creates visual noise.`,
+        content: `Fewer elements, more intention: spacing and imagery set the mood, and booking is one action from every section.`,
         image: '/pj_04/pj_04_home_03.png',
       },
       Outcome: {
-        content: `Feedback focused on hierarchy, spacing, and text-on-background contrast, and the design got cleaner in response without losing the practical information. The result reads as a calm introduction to the restaurant that still tells you where to go next.`,
+        content: `Feedback on hierarchy and contrast made it cleaner without losing the practical details.`,
       },
     },
   },
@@ -252,12 +252,12 @@ export const PROJECTS: ProjectData[] = [
     workImage: '/pj_06/pj_06_1.png',
     stages: {
       Problem: {
-        content: `Looking up whether a fruit or vegetable is good for you turns into a tab-sorting exercise — nutrition on one site, warnings on another, recipes somewhere else. There is no single place that answers "what does this do to me, and what do I make with it" in one read.`,
+        content: `Checking if produce is good for you means one tab for nutrition, one for warnings, one for recipes.`,
         image: '/pj_06/pj_06_1.png',
         video: '/pj_06/rec_fruitea.mp4',
       },
       Decision: {
-        content: `Fruitea is a streamlined reference: one page per item covering the benefits, the risks, and what you can cook with it. It is built to be scanned rather than read end to end, so it works as a lookup while you are already in the kitchen.`,
+        content: `One page per item: benefits, risks and what to cook, built to scan while you're already in the kitchen.`,
       },
     },
   },

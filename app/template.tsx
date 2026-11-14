@@ -8,11 +8,9 @@ import { usePathname } from 'next/navigation';
  * moving between case studies all get the same entrance.
  *
  * Opacity only, no transform. A transformed ancestor becomes the containing
- * block for its fixed-position descendants, and ProjectView's
- * `.project-surface` is fixed — translating this wrapper would re-anchor the
- * project background to the wrapper's full height mid-fade, then snap it back.
- * Opacity creates a stacking context but leaves fixed positioning alone, so
- * the surface stays pinned to the viewport throughout.
+ * block for its fixed-position descendants, so translating this wrapper would
+ * move the project page's fixed back-to-top button mid-fade. Opacity leaves
+ * fixed positioning alone.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

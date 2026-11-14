@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "theme": "python3 scripts/generate-theme-css.py"
+    "lint": "eslint"
   },
   "dependencies": {
     "framer-motion": "^12.23.25",

@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import './project-themes.css';
 
 /* `inline` matters: without it Tailwind emits --color-* custom properties that
    resolve --site-* once at :root, so per-project overrides on a descendant
@@ -16,9 +15,6 @@
   --color-essence: var(--essence);
 
   --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  /* Falls back to the site face on any page that is not a project page. */
-  --font-project: var(--project-font, var(--font-bricolage)), ui-sans-serif,
-    system-ui, sans-serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -72,7 +68,8 @@
    small text, so the accent is a deeper cut of it.
 
    Measured: violet 6.4:1 as essence and 7.64:1 as accent; vermilion 4.7:1
-   and 7.64:1; marigold 12.13:1; aqua 12.58:1. */
+   and 7.64:1; marigold 12.13:1; red (the Shorts row, after YouTube's own
+   red, lifted to read on black) 7.4:1. */
 .tone-violet,
 .tone-vermilion {
   --site-primary: #ffffff;
@@ -83,7 +80,7 @@
 }
 
 .tone-marigold,
-.tone-aqua {
+.tone-red {
   --site-primary: #000000;
   --site-text-primary: #ffffff;
   --site-text-muted: #b8b8b8;
@@ -106,15 +103,59 @@
   --site-accent: #ffb81f;
 }
 
-.tone-aqua {
-  --essence: #27e0c8;
-  --site-accent: #27e0c8;
+.tone-red {
+  --essence: #ff6673;
+  --site-accent: #ff6673;
 }
 
 .tone-violet,
 .tone-vermilion,
 .tone-marigold,
-.tone-aqua {
+.tone-red {
+  background-color: var(--site-primary);
+  color: var(--site-text-primary);
+}
+
+/* Project colours. A project page sets data-project="<slug>", which gives it
+   two cuts of its own colour: --pj-dark for black sections and --pj-light
+   for white ones. Each clears 7:1 on its surface, so it can be small text as
+   well as display type. The pager in the fixed nav reads --site-accent, so it
+   takes the project colour too. */
+[data-project='idriver'] { --pj-dark: #6aa3ff; --pj-light: #0e52b1; }
+[data-project='port-jeffrey'] { --pj-dark: #e6e14a; --pj-light: #575707; }
+[data-project='peter-parking'] { --pj-dark: #2fd3e6; --pj-light: #085f6b; }
+[data-project='sigma'] { --pj-dark: #8aa9ff; --pj-light: #104dc1; }
+[data-project='revo-fitness'] { --pj-dark: #ff6b5e; --pj-light: #ac0e0e; }
+[data-project='rooted'] { --pj-dark: #4fd64a; --pj-light: #126308; }
+[data-project='katsu-seiba'] { --pj-dark: #ff7a52; --pj-light: #a3270d; }
+[data-project='fruitea'] { --pj-dark: #ff9a2e; --pj-light: #84440b; }
+
+[data-project] {
+  --site-accent: var(--pj-dark);
+}
+
+.tone-pj-light {
+  --site-primary: #ffffff;
+  --site-text-primary: #000000;
+  --site-text-muted: #4d4d4d;
+  --site-highlight: #d0d0d0;
+  --site-accent: var(--pj-light);
+  --site-accent-ink: #ffffff;
+  --essence: var(--pj-light);
+}
+
+.tone-pj-dark {
+  --site-primary: #000000;
+  --site-text-primary: #ffffff;
+  --site-text-muted: #b8b8b8;
+  --site-highlight: #333333;
+  --site-accent: var(--pj-dark);
+  --site-accent-ink: #000000;
+  --essence: var(--pj-dark);
+}
+
+.tone-pj-light,
+.tone-pj-dark {
   background-color: var(--site-primary);
   color: var(--site-text-primary);
 }
@@ -138,7 +179,7 @@ body {
 }
 
 /* Two voices. The display voice is the site face pulled narrow and heavy,
-   for names and section titles. The aside voice is an italic serif, for the
+   for names and section titles. The aside voice is a narrow serif, for the
    lines that describe or comment rather than name: lead-ins, what a project
    is, a result, the sign-off. Everything else is the site face as it comes. */
 .type-display {
@@ -147,20 +188,11 @@ body {
 }
 
 .type-aside {
-  font-family: var(--font-bodoni), Georgia, 'Times New Roman', serif;
-  font-style: italic;
-  font-weight: 500;
+  font-family: var(--font-serif), Georgia, 'Times New Roman', serif;
+  font-style: normal;
+  font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
-}
-
-/* Project pages paint their own surface across the full viewport so the
-   shared footer and nav sit on the project colour, not the site default. */
-.project-surface {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: var(--site-surface-gradient);
 }
 
 /* Route entrance — see app/template.tsx for why this is CSS, not Framer. */
@@ -281,6 +313,28 @@ html:has(.intro-cover) .intro {
   animation-delay: calc(var(--intro-wait) / 2);
 }
 
+/* The case-study name: each letter turns down from its top edge into place,
+   like a split-flap board. The word gets the perspective so the turn reads
+   as depth rather than a squash. */
+.intro-flip {
+  display: inline-block;
+  perspective: 600px;
+}
+
+.intro-flip-char {
+  display: inline-block;
+  transform-origin: 50% 0;
+  animation: intro-flip 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  animation-delay: calc(var(--intro-wait) + var(--d, 0s));
+}
+
+@keyframes intro-flip {
+  from {
+    opacity: 0;
+    transform: rotateX(-95deg);
+  }
+}
+
 @keyframes intro-rise {
   from {
     transform: translateY(120%);
@@ -300,14 +354,19 @@ html:has(.intro-cover) .intro {
   }
 }
 
-/* Scroll reveals: the load sequence's two moves, for a section further down
-   the page. Text rises into its window, and each frame starts under a cover
-   in the section's own colour that lifts off, round nose last.
+/* Scroll reveals, played once as a section first scrolls into view.
 
    Nothing is hidden until components/Reveal.tsx arms the section, which it
    does only from the browser and only while the section is still below the
    screen. With no script, or with reduced motion, the section is simply
-   there. Each piece sets its own offset as --d. */
+   there. Each piece sets its own offset as --d.
+
+   Two families, so the home page and the case studies don't repeat each
+   other:
+   - Home (the Shorts row): .reveal-line text rises into its window, and a
+     .reveal-cover in the section's colour lifts off each frame.
+   - Project stages: .reveal-focus text comes into focus from a blur, and a
+     .reveal-wipe frame opens from the left edge like a shutter. */
 .reveal-line {
   display: block;
 }
@@ -336,14 +395,37 @@ html:has(.intro-cover) .intro {
   animation-delay: var(--d, 0s);
 }
 
-[data-reveal='armed'] .reveal-line,
-[data-reveal='armed'] .reveal-cover {
+[data-reveal] .reveal-focus {
+  animation: reveal-focus 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+[data-reveal] .reveal-wipe {
+  animation: reveal-wipe 1.1s cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+[data-reveal='armed'] :is(.reveal-line, .reveal-cover, .reveal-focus, .reveal-wipe) {
   animation-play-state: paused;
 }
 
 @keyframes reveal-lift {
   to {
     transform: translateY(-100%);
+  }
+}
+
+@keyframes reveal-focus {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(1.5rem);
+  }
+}
+
+@keyframes reveal-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
   }
 }
 
@@ -368,11 +450,12 @@ button:focus-visible,
     display: none;
   }
 
-  [data-reveal] .reveal-line {
+  [data-reveal] :is(.reveal-line, .reveal-focus, .reveal-wipe) {
     animation: none;
   }
 
   .intro-char,
+  .intro-flip-char,
   .intro-line,
   .intro-fade,
   .intro-portrait {
