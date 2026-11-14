@@ -1,161 +1,296 @@
-export type Stage =
-  | 'Overview'
-  | 'Empathize'
-  | 'Define'
-  | 'Ideate'
-  | 'Prototype'
-  | 'Test';
+export type Stage = 'Problem' | 'Constraint' | 'Decision' | 'Outcome';
 
 export interface ProjectData {
   id: string;
+  slug: string;
   title: string;
+  /** What it is and how far it went (concept, redesign, built), shown with the title. */
+  kind: string;
+  blurb: string;
+  /** One interview-defensible number, shown under the title. */
+  outcome: string;
   externalUrl?: string;
   workImage?: string;
-  stages: Record<
-    Stage,
-    {
-      content: string;
-      image?: string;
-      images?: string[];
-    }
+  credit?: string;
+  /** Thin entries render only the stages they have. */
+  stages: Partial<
+    Record<
+      Stage,
+      {
+        content: string;
+        image?: string;
+        images?: string[];
+        video?: string;
+        imageFit?: 'contain';
+      }
+    >
   >;
 }
 
 export const STAGES: Stage[] = [
-  'Overview',
-  'Empathize',
-  'Define',
-  'Ideate',
-  'Prototype',
-  'Test',
+  'Problem',
+  'Constraint',
+  'Decision',
+  'Outcome',
 ];
 
 export const PROJECTS: ProjectData[] = [
   {
     id: '01',
-    title: 'Revo Fitness',
-    workImage: '/cs_01/cs_01_test_01.png',
+    slug: 'idriver',
+    title: 'iDriver',
+    kind: 'Delivery app · Self-initiated redesign',
+    blurb:
+      'Newspaper delivery, redesigned so drivers start a run in two steps — with the map, the list, and proof-of-delivery on the right stop.',
+    outcome: 'Login-to-route is 2 steps instead of 4.',
+    workImage: '/pj_02/pj_01_test_02.png',
     stages: {
-      Overview: {
-        content: `As someone who enjoys going to the gym and staying fit, Revo Fitness is one of the places I enjoy working out. My experience with the mobile app made me curious about how the experience could be improved and how the visual style could better match the brand. At the time, the app experience felt limited and mostly focused on a single-page approach. I wanted to expand the rest of the key pages while keeping the same Revo style and energy. The goal was to improve ease of use, create a stronger design system, and make the app feel more complete for members.`,
-        image: '/cs_01/cs_01_overview.png',
+      Problem: {
+        content: `Drivers lost time to an old app. Every login hit a compliance check, suburb lists were buried, and delivery photos weren't tied to an address.`,
+        image: '/pj_02/pj_02_test_01.png',
       },
-      Empathize: {
-        content: `I started by approaching five gym members for a small conversation about their experience using the app. The conversations went smoothly because they shared similar concerns about style consistency and how the app separates membership access from non-member information. This helped me understand that the issue was not only visual, but also structural. Members needed a clearer way to understand what belonged to their access level and what information was available to everyone. These insights became the foundation for improving the navigation and content structure.`,
-        image: '/cs_01/cs_01_emphatize.png',
+      Constraint: {
+        content: `Drivers use the map on new suburbs and the list on familiar ones. The app had to serve both without a new mode, from the driver's seat.`,
+        image: '/pj_02/pj_02_empathize.png',
       },
-      Define: {
-        content: `After understanding the issue, I defined the problem around access levels, content placement, and feature clarity. I needed to decide which features belonged to each membership level and which features should stay open to everyone. For example, general content such as news, shop information, and updates should be easy to access without confusing it with member-only perks. This helped separate the app into clearer sections with a stronger purpose for each page. The design direction became focused on making access easier to understand while keeping the experience consistent.`,
-        image: '/cs_01/cs_01_define.png',
+      Decision: {
+        content: `I rebuilt the flow around the run. The login check came out, map and list sit together, and each photo is taken on its own stop.`,
       },
-      Ideate: {
-        content: `For the design exploration, I used Affinity to organise which parts belonged to each feature group and to adjust the visual direction. I focused on button sizing, spacing, and how much information could fit clearly on screen without forcing unnecessary scrolling. The challenge was making the interface feel complete while still keeping it easy to scan. I explored how the Revo visual style could be carried across new pages without making the app feel crowded. This stage helped me understand which layouts were practical before moving into the full prototype.`,
-        image: '/cs_01/cs_01_ideate.png',
-      },
-      Prototype: {
-        content: `Once I understood the structure, I moved into Figma and created the pages from the loading screen through to the profile experience. For the Home page, I placed features that can be accessed at any level and treated them more as information than exclusive perks. For Workout and Member sections, I focused on where the membership-related benefits should live. This made the app feel more organised and easier to understand from the first screen. The prototype connected each page into a clearer flow so the overall experience felt more complete.`,
-        image: '/cs_01/cs_01_prototype.png',
-      },
-      Test: {
-        content: `After creating the designs, I showed them to the members while they were resting and asked for their thoughts. The response was supportive, and they felt the new pages were a strong starting point for improving the app experience. They liked that the structure separated information and perks more clearly while still matching the Revo Fitness style. The feedback also suggested that the idea could continue on a deeper scale if more features were developed. This helped confirm that the redesign direction improved clarity, consistency, and the overall approach to using the app.`,
-        image: '/cs_01/cs_01_test_01.png',
-        images: ['/cs_01/cs_01_test_01.png', '/cs_01/cs_01_test_02.png'],
+      Outcome: {
+        content: `Testers understood the flow from the first screen and could see yesterday's results before leaving the depot.`,
+        image: '/pj_02/pj_02_test_01.png',
+        images: ['/pj_02/pj_02_test_01.png', '/pj_02/pj_01_test_02.png'],
       },
     },
   },
   {
     id: '02',
-    title: 'iDriver',
-    workImage: '/cs_02/cs_01_test_02.png',
+    slug: 'port-jeffrey',
+    title: 'Port Jeffrey',
+    kind: '3D portfolio · Designed and built',
+    blurb:
+      'A Three.js island where every project is labelled in the scene — visitors know what they are looking at without opening a menu.',
+    outcome: '4 labelled landmarks. One look, no extra click.',
+    externalUrl: 'https://portjeffrey.vercel.app/',
+    workImage: '/pj_03/pj_03_island.jpg',
     stages: {
-      Overview: {
-        content: `iDriver is a delivery app made specifically for newspaper delivery, helping drivers understand which suburbs and customer addresses have active subscriptions. The main challenge was that the experience and visual design felt outdated, required too many steps, and did not include several features that could make delivery easier. I wanted to modernise the app while adding practical tools that support drivers during their route. The goal was to make suburb access, address checking, and delivery status easier to understand. The final concept supports faster work, clearer route awareness, and a more confident delivery experience.`,
-        image: '/cs_02/cs_02_test_01.png',
+      Problem: {
+        content: `Recruiters decide in seconds. A grid of student projects gets scanned and skipped.`,
+        image: '/pj_03/pj_03_profile.png',
+        video: '/pj_03/rec_jefri.mp4',
       },
-      Empathize: {
-        content: `Each driver is assigned to different suburbs, but one issue with the app was that accessing those suburbs took more time than it should. Drivers also became confused when a customer required a delivery photo because the interface did not clearly show whether the photo belonged to the correct address. This created uncertainty during a task that should feel direct and reliable. I focused on understanding where drivers slowed down, where confusion happened, and what information needed to be visible at the right moment. These findings showed that the app needed clearer structure, better status feedback, and more confidence around proof of delivery.`,
-        image: '/cs_02/cs_02_emphatize.png',
+      Constraint: {
+        content: `It had to stay a portfolio, not a game. If visitors can't tell what an object is, the 3D hides the work.`,
       },
-      Define: {
-        content: `To define the problem, I needed to understand what drivers struggled to access, where they needed to go, what step they had to complete, and what they needed to deliver. The app had to support drivers before and during the route instead of making them search for basic information. I defined the main opportunity as improving task clarity once the access and navigation issues were solved. This meant identifying which features could reduce repeated effort and which features could give drivers more confidence. The design direction became focused on faster access, clearer instructions, and better delivery visibility.`,
+      Decision: {
+        content: `I built it in Three.js and put a project name on every object. Exploring is optional; knowing what you're looking at isn't.`,
       },
-      Ideate: {
-        content: `Because this is a delivery app, I explored how map navigation could work together with list views to help drivers understand their route better. One interesting insight was that drivers often become more comfortable using list view during the last two weeks of a run because they are already familiar with the area. I wanted the app to support both behaviours instead of forcing one navigation style. Adding package counts, route visibility, and delivered status would help drivers understand the situation faster. This strategy made the app more flexible for both new routes and familiar delivery routines.`,
-      },
-      Prototype: {
-        content: `I used Figma to create the design flow from run selection to route checking. The prototype focused on making the app feel immediate, modern, and easier to understand from the first interaction. Small visual details mattered because the previous app did not use font, logo placement, buttons, and spacing in a consistent way. I redesigned these elements so the interface felt cleaner and more reliable during delivery. The prototype helped show how drivers could move through the app with fewer interruptions and clearer feedback.`,
-      },
-      Test: {
-        content: `When I showed the designs to drivers, they could understand the flow faster from the start. They liked that they did not have to complete a compliance check every time they were about to log in. They also found it useful to see previous-day performance and appreciated having bright and dark mode available directly in the app. From their perspective, these additions made the app feel more practical and more pleasant to use. The feedback confirmed that the redesign improved access, reduced repeated steps, and made delivery work feel more confident.`,
-        image: '/cs_02/cs_02_test_01.png',
-        images: ['/cs_02/cs_02_test_01.png', '/cs_02/cs_01_test_02.png'],
+      Outcome: {
+        content: `People remembered the island, and the labels did the work: point at a landmark, know the project.`,
       },
     },
   },
   {
     id: '03',
-    title: 'Port Jeffrey',
-    externalUrl: 'https://www.jefri.dev',
-    workImage: '/cs_03/cs_03_profile.png',
+    slug: 'peter-parking',
+    title: 'Peter Parking',
+    kind: 'Parking app · Concept',
+    blurb:
+      'One app that pays every street-parking operator, so drivers stop installing a new parking app for every street.',
+    outcome: 'Setup once. Paying is 3 taps — not a fifth app.',
+    workImage: '/pj_07/card.png',
     stages: {
-      Overview: {
-        content: `Creating projects is one of the ways to stand out when it comes to job applications. Port Jeffrey was built as a 3D model portfolio using Three.js to showcase Jeffrey's project ideas in a more memorable way. The technical challenge was learning how to use 3D objects while still making the experience clear for users. From a design perspective, the challenge was making the objects easy to explore without confusing the object itself with the meaning behind it. Since the project used an island theme, the strategy was to make each object more obvious by adding names above them and shaping the whole experience like a small digital world.`,
-        image: '/cs_03/cs_03_profile.png',
-        images: [
-          '/cs_03/cs_03_profile.png',
-          '/cs_03/cs_03_home_01.png',
-          '/cs_03/cs_03_home_02.png',
-          '/cs_03/cs_03_welcome_01.png',
-          '/cs_03/cs_03_welcome_02.png',
-        ],
+      Problem: {
+        content: `Street parking in Melbourne means one app per operator. Drivers keep four or five, re-enter the same plate and card, and still get fined.`,
+        image: '/pj_07/pj_07_1.png',
       },
-      Empathize: {
-        content: `I considered how recruiters and visitors often scan portfolio projects quickly before deciding whether to explore deeper. A regular list of technical projects can be useful, but it may not always show the creator's personality or creative thinking. I wanted Port Jeffrey to create curiosity from the first moment while still making the projects easy to access. The island concept gave the portfolio a stronger sense of identity, but it also introduced the risk of users not knowing what each object meant. This helped me focus on balancing personality with clear interaction cues.`,
+      Constraint: {
+        content: `Drivers should never need to know who owns the street. Setup asks for a plate and a card, nothing more.`,
+        image: '/pj_07/pj_07_3.png',
       },
-      Define: {
-        content: `The main problem was presenting IT projects in a way that felt engaging without hiding the actual work behind the 3D concept. I defined the goal as creating a digital space where each project object could be discovered naturally and understood quickly. The experience needed to feel playful, but not confusing. It also needed to explain what each object represented before users lost interest. This definition helped keep the 3D direction purposeful rather than purely decorative.`,
+      Decision: {
+        content: `Peter pays every operator. GPS suggests the zone, the driver confirms the number on the pole, and the timer wears that operator's colour.`,
+        image: '/pj_07/pj_07_2.png',
       },
-      Ideate: {
-        content: `I explored how the island theme could turn the portfolio into a small world where each object represented a project idea. The key strategy was to make the object names visible so users did not have to guess what they were looking at. I considered how the camera, object placement, and labels could guide attention without overwhelming the scene. The goal was to make exploration feel fun while keeping the project structure readable. This direction helped the portfolio feel more memorable while still supporting job-application storytelling.`,
-      },
-      Prototype: {
-        content: `The prototype focused on combining Three.js objects with a clear portfolio navigation structure. I tested how users could move through the scene, recognise objects, and understand what each project represented. The challenge was making the 3D environment feel interactive without making users work too hard. I used labels, spacing, and a clear visual hierarchy to support exploration. The prototype made the portfolio feel more like an experience while still keeping the content accessible.`,
-      },
-      Test: {
-        content: `Testing focused on whether users understood that Port Jeffrey was still a portfolio and not only a 3D experiment. Feedback showed that the concept felt memorable, but project access needed to stay obvious. Adding names above objects helped users connect each visual element with its meaning more quickly. I refined the experience so visitors could enjoy the island theme while still reaching project information without confusion. The result is a portfolio that communicates Jeffrey's ideas through a more distinctive digital space.`,
+      Outcome: {
+        content: `Daily drivers set up in a minute and trusted matching the pole over GPS alone.`,
+        image: '/pj_07/pj_07_4.png',
       },
     },
   },
   {
     id: '04',
-    title: 'Katsu Seiba',
-    externalUrl: 'https://katsuseiba.vercel.app',
-    workImage: '/cs_04/cs_04_home_01.png',
+    slug: 'sigma',
+    title: 'Sigma',
+    kind: 'Finance app · Concept',
+    blurb:
+      'Most finance apps tell you what you spent. Sigma tells you what you can spend — before you spend it.',
+    outcome: 'Every payment is 1 tap to approve or reject.',
+    workImage: '/pj_08/pj_08_4.jpg',
+    credit: 'Mockup by Mockuuups Studio',
     stages: {
-      Overview: {
-        content: `Katsu Seiba is a Japanese restaurant website concept that I wanted to make minimalistic but still useful. Some restaurant websites I found had issues with how they presented themselves and how seamless the booking experience felt. I also noticed that colour choices between fonts and backgrounds can strongly affect whether a restaurant site feels premium, calm, or difficult to read. The challenge was creating a site that looked refined while still helping users find what they need quickly. The final concept focuses on simple navigation, clean presentation, and a smoother path toward booking.`,
-        image: '/cs_04/cs_04_home_01.png',
+      Problem: {
+        content: `Finance apps report what you already spent. Budgets think in months; people spend in seconds at a terminal.`,
+        image: '/pj_08/pj_08_3.jpg',
+      },
+      Constraint: {
+        content: `It has to work at the moment of payment, in one decision, without opening another app.`,
+        image: '/pj_08/pj_08_1.png',
+        images: ['/pj_08/pj_08_1.png', '/pj_08/pj_08_2.png'],
+        imageFit: 'contain',
+      },
+      Decision: {
+        content: `Each phone payment pauses for one tap. Sigma shows the purchase in hours worked and goals delayed, then asks yes or no.`,
+        image: '/pj_08/pj_08_4.jpg',
+      },
+      Outcome: {
+        content: `The spending decision moves from a monthly review to the lock screen.`,
+        image: '/pj_08/pj_08_6.jpg',
+      },
+    },
+  },
+
+  {
+    id: '05',
+    slug: 'revo-fitness',
+    title: 'Revo Fitness',
+    kind: 'Gym app · Self-initiated redesign',
+    blurb:
+      'Restructured the member app so plan perks and public info are no longer on the same screen.',
+    outcome: 'Perks and public info split into separate screens.',
+    workImage: '/pj_01/pj_01_test_01.png',
+    stages: {
+      Problem: {
+        content: `Revo is my gym. Its app mixed member perks with public news and shop updates, and five members told me they couldn't tell what their plan included.`,
+        image: '/pj_01/pj_01_overview.png',
+      },
+      Constraint: {
+        content: `Keep Revo's look and energy, make access levels clear, and add pages without adding scrolling.`,
+        image: '/pj_01/pj_01_define.png',
+      },
+      Decision: {
+        content: `I grouped features by access level, then built it in Figma: Home for what anyone can see, Workout and Member for plan perks.`,
+        image: '/pj_01/pj_01_prototype.png',
+      },
+      Outcome: {
+        content: `The same members read the split correctly and said it still felt like Revo. Next step: more depth per section, not more sections.`,
+        image: '/pj_01/pj_01_test_01.png',
+        images: ['/pj_01/pj_01_test_01.png', '/pj_01/pj_01_test_02.png'],
+      },
+    },
+  },
+  {
+    id: '06',
+    slug: 'rooted',
+    title: 'Rooted',
+    kind: 'Habit app · Concept',
+    blurb:
+      'A habit app that splits what you grow from what you uproot, with a plant metaphor instead of a streak counter.',
+    outcome: '5 testers, 4 positive — 2 asked for a widget.',
+    workImage: '/pj_05/pj_05_1.png',
+    stages: {
+      Problem: {
+        content: `Habit apps feel overwhelming and vague. A streak counts days; it doesn't say what you're building or why.`,
+        image: '/pj_05/pj_05_1.png',
         images: [
-          '/cs_04/cs_04_home_01.png',
-          '/cs_04/cs_04_home_02.png',
-          '/cs_04/cs_04_home_03.png',
+          '/pj_05/pj_05_1.png',
+          '/pj_05/pj_05_2.png',
+          '/pj_05/pj_05_3.png',
+          '/pj_05/pj_05_4.png',
+          '/pj_05/pj_05_5.png',
         ],
       },
-      Empathize: {
-        content: `I considered how people use restaurant websites when deciding where to eat or whether to make a booking. Users usually want to understand the food, the atmosphere, the location, and the booking process without searching too much. The issue with many restaurant websites is that they either look attractive but hide practical information, or they show information without creating a strong mood. I wanted Katsu Seiba to feel calm and minimal while still being helpful. This helped guide a design that values presentation and usability equally.`,
+      Constraint: {
+        content: `Some habits last, some only need a set run. A short habit had to be able to finish cleanly.`,
       },
-      Define: {
-        content: `The defined problem was to create a restaurant website that presents the brand clearly while making booking feel seamless. Users need to understand the restaurant identity, browse key information, and know what action to take next. I also needed to choose colours that made the typography readable while still matching a Japanese-inspired visual direction. The site had to feel minimal, but not empty. This gave the concept a balance between calm branding, useful information, and clear action.`,
+      Decision: {
+        content: `I framed it as a garden: grow a habit or uproot one. Each habit has a lifespan, so finishing is something the app understands.`,
+        image: '/pj_05/pj_05_6.png',
       },
-      Ideate: {
-        content: `I explored layouts that made the restaurant feel refined through spacing, imagery, and simple navigation. The goal was to make the site feel like a smooth introduction to the restaurant rather than just a page of information. I tested how background colour, font colour, and image placement could work together without creating visual noise. The strongest direction used fewer elements with more intention so each section felt calm and readable. This approach helped the restaurant identity feel more polished and easier to trust.`,
+      Outcome: {
+        content: `Four of five testers liked the framing. Two wanted a widget for a quicker daily check.`,
       },
-      Prototype: {
-        content: `The prototype focused on building a smooth browsing and booking experience across the website. I used consistent spacing, readable typography, and clear section structure to make the site feel complete. The challenge was keeping the design minimal while still giving users enough information to feel confident. I refined the page flow so the user could move from first impression to practical details without friction. The prototype showed how Katsu Seiba could present itself with both clarity and style.`,
+    },
+  },
+  {
+    id: '07',
+    slug: 'katsu-seiba',
+    title: 'Katsu Seiba',
+    kind: 'Restaurant website · Concept',
+    blurb: 'A restaurant site built around booking, not atmosphere for its own sake.',
+    outcome: 'Booking stays one action away from every section.',
+    externalUrl: 'https://katsuseiba.vercel.app',
+    workImage: '/pj_04/pj_04_home_01.png',
+    stages: {
+      Problem: {
+        content: `Restaurant sites pick a side: pretty but vague, or useful but flat. Visitors want food, mood, location and booking, fast.`,
+        image: '/pj_04/pj_04_home_01.png',
       },
-      Test: {
-        content: `Testing focused on whether the website communicated the restaurant mood clearly and made booking feel easy. I looked at whether users could understand the restaurant style, read the content comfortably, and find the next action without hesitation. Feedback helped refine hierarchy, spacing, and contrast between text and background. The design became cleaner while still keeping the useful information visible. The final result supports a polished restaurant impression and a smoother decision-making process for users.`,
+      Constraint: {
+        content: `Minimal couldn't mean empty. A Japanese-inspired look still had to read clearly and point to the next step.`,
+        image: '/pj_04/pj_04_home_02.png',
+      },
+      Decision: {
+        content: `One hero photo, a three-dish menu with prices and tags, and a "Book a table" button that follows you. The form picks location, date and time, checks each field and confirms on the spot.`,
+        image: '/pj_04/pj_04_home_03.png',
+      },
+      Outcome: {
+        content: `The rebuild removed the old blank sections and doubled hero photo. Every location now has directions and tap-to-call.`,
+      },
+    },
+  },
+  {
+    id: '08',
+    slug: 'fruitea',
+    title: 'Fruitea',
+    kind: 'Food reference website',
+    blurb:
+      'A produce reference that answers what something does to you and what to make with it, in one read.',
+    outcome: 'One page per item: benefits, risks, and what to cook.',
+    externalUrl: 'https://fruitea.vercel.app',
+    workImage: '/pj_06/pj_06_1.png',
+    stages: {
+      Problem: {
+        content: `Checking if produce is good for you means one tab for nutrition, one for warnings, one for recipes.`,
+        image: '/pj_06/pj_06_1.png',
+        video: '/pj_06/rec_fruitea.mp4',
+      },
+      Decision: {
+        content: `One page per item: benefits, risks and what to cook, built to scan while you're already in the kitchen.`,
+      },
+    },
+  },
+  {
+    id: '09',
+    slug: 'muscle-memory',
+    title: 'Muscle Memory',
+    kind: 'Workout web app · Designed and built',
+    blurb:
+      'An exercise library you can follow mid-session: pick a muscle group, get the moves, tick them off.',
+    outcome: '42 exercises. 25 need no equipment.',
+    externalUrl: 'https://musclememo.vercel.app',
+    workImage: '/pj_09/pj_09_1.png',
+    stages: {
+      Problem: {
+        content: `Workout lists either bury you in options or skip the how. Between sets, you want the next move and how to do it, nothing else.`,
+        image: '/pj_09/pj_09_1.png',
+      },
+      Constraint: {
+        content: `It gets used at home and in busy gyms, on a phone, so it had to show at a glance which moves need equipment.`,
+        image: '/pj_09/pj_09_2.png',
+      },
+      Decision: {
+        content: `Seven muscle groups, six moves each, every move with sets, reps, equipment and numbered steps. Search and an equipment filter get you to one move fast, and you tick moves off as you go.`,
+        image: '/pj_09/pj_09_3.png',
+      },
+      Outcome: {
+        content: `Seven near-identical pages became one template driven by a single data file, so adding an exercise is one edit.`,
       },
     },
   },
 ];
+
+/** The four that lead the Work section. */
+export const FEATURED_PROJECTS = PROJECTS.slice(0, 4);
+/** The rest, behind the "more" disclosure — same shape, own pages. */
+export const SECONDARY_PROJECTS = PROJECTS.slice(4);
