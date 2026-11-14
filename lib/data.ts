@@ -260,6 +260,34 @@ export const PROJECTS: ProjectData[] = [
       },
     },
   },
+  {
+    id: '09',
+    slug: 'muscle-memory',
+    title: 'Muscle Memory',
+    kind: 'Workout web app · Designed and built',
+    blurb:
+      'An exercise library you can follow mid-session: pick a muscle group, get the moves, tick them off.',
+    outcome: '42 exercises. 25 need no equipment.',
+    externalUrl: 'https://musclememo.vercel.app',
+    workImage: '/pj_09/pj_09_1.png',
+    stages: {
+      Problem: {
+        content: `Workout lists either bury you in options or skip the how. Between sets, you want the next move and how to do it, nothing else.`,
+        image: '/pj_09/pj_09_1.png',
+      },
+      Constraint: {
+        content: `It gets used at home and in busy gyms, on a phone, so it had to show at a glance which moves need equipment.`,
+        image: '/pj_09/pj_09_2.png',
+      },
+      Decision: {
+        content: `Seven muscle groups, six moves each, every move with sets, reps, equipment and numbered steps. Search and an equipment filter get you to one move fast, and you tick moves off as you go.`,
+        image: '/pj_09/pj_09_3.png',
+      },
+      Outcome: {
+        content: `Seven near-identical pages became one template driven by a single data file, so adding an exercise is one edit.`,
+      },
+    },
+  },
 ];
 
 /** The four that lead the Work section. */
