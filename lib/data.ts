@@ -47,24 +47,23 @@ export const PROJECTS: ProjectData[] = [
     kind: 'Delivery app · Self-initiated redesign',
     blurb:
       'Newspaper delivery, redesigned so drivers start a run in two steps — with the map, the list, and proof-of-delivery on the right stop.',
-    outcome: 'Login-to-route is 2 steps instead of 4.',
-    workImage: '/pj_02/pj_01_test_02.png',
+    outcome: 'A simpler, clearer delivery app for every driver, new or experienced.',
+    workImage: '/pj_02/idriver_card.png',
     stages: {
       Problem: {
         content: `Drivers lost time to an old app. Every login hit a compliance check, suburb lists were buried, and delivery photos weren't tied to an address.`,
-        image: '/pj_02/pj_02_test_01.png',
-      },
-      Constraint: {
-        content: `Drivers use the map on new suburbs and the list on familiar ones. The app had to serve both without a new mode, from the driver's seat.`,
         image: '/pj_02/pj_02_empathize.png',
       },
+      Constraint: {
+        content: `Drivers learn a new run on the map, then switch to a simple list once they know it. The old app only had the list.`,
+      },
       Decision: {
-        content: `I rebuilt the flow around the run. The login check came out, map and list sit together, and each photo is taken on its own stop.`,
+        content: `I built one smooth flow, so drivers can easily find their run, their next stop and its delivery details.`,
+        image: '/pj_02/idriver_before_the_run.png',
+        images: ['/pj_02/idriver_before_the_run.png', '/pj_02/idriver_during_the_run.png'],
       },
       Outcome: {
-        content: `Testers understood the flow from the first screen and could see yesterday's results before leaving the depot.`,
-        image: '/pj_02/pj_02_test_01.png',
-        images: ['/pj_02/pj_02_test_01.png', '/pj_02/pj_01_test_02.png'],
+        content: `Testers understood how it works from the first screen, got through a run smoothly, and were happy with the details at each stop.`,
       },
     },
   },
