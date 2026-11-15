@@ -1,34 +1,44 @@
 import Link from 'next/link';
+import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
 import { PROJECTS } from '@/lib/data';
 
-/**
- * The grid of project numbers that sits beside the logo on a project page,
- * four to a row. The current project is filled with the project's colour;
- * the others take it on hover.
- */
-export const ProjectPager = ({ activeSlug }: { activeSlug: string }) => (
-  <nav aria-label='Jump to project'>
-    <div className='grid grid-cols-4 gap-1.5 rounded-control bg-primary/90 p-2 shadow-lg backdrop-blur-xl'>
-      {PROJECTS.map((project) => {
-        const isActive = project.slug === activeSlug;
+const buttonClass =
+  'inline-flex h-9 w-9 items-center justify-center rounded-control text-text-muted transition-colors duration-200 hover:bg-accent hover:text-accent-ink md:h-10 md:w-10';
 
-        return (
-          <Link
-            key={project.slug}
-            href={`/pj/${project.slug}`}
-            title={project.title}
-            aria-label={`${project.title}${isActive ? ' (current)' : ''}`}
-            aria-current={isActive ? 'page' : undefined}
-            className={`inline-flex h-9 w-9 items-center justify-center rounded-control text-sm font-bold transition-colors duration-200 md:h-10 md:w-10 ${
-              isActive
-                ? 'bg-accent text-accent-ink'
-                : 'text-text-muted hover:bg-accent hover:text-accent-ink'
-            }`}
-          >
-            {project.id}
-          </Link>
-        );
-      })}
-    </div>
-  </nav>
-);
+/**
+ * Sits beside the logo on a project page: previous project, back to all work,
+ * next project. Three controls instead of a number for every project, so it
+ * stays the same size however many case studies there are. Each control takes
+ * the project's colour on hover.
+ */
+export const ProjectPager = ({ activeSlug }: { activeSlug: string }) => {
+  const index = PROJECTS.findIndex((project) => project.slug === activeSlug);
+  const prev = PROJECTS[(index - 1 + PROJECTS.length) % PROJECTS.length];
+  const next = PROJECTS[(index + 1) % PROJECTS.length];
+
+  return (
+    <nav aria-label='Projects'>
+      <div className='flex items-center gap-1.5 rounded-control bg-primary/90 p-2 shadow-lg backdrop-blur-xl'>
+        <Link
+          href={`/pj/${prev.slug}`}
+          title={`Previous: ${prev.title}`}
+          aria-label={`Previous project: ${prev.title}`}
+          className={buttonClass}
+        >
+          <ArrowLeft className='h-5 w-5' aria-hidden='true' />
+        </Link>
+        <Link href='/#work' title='All work' aria-label='All work' className={buttonClass}>
+          <LayoutGrid className='h-5 w-5' aria-hidden='true' />
+        </Link>
+        <Link
+          href={`/pj/${next.slug}`}
+          title={`Next: ${next.title}`}
+          aria-label={`Next project: ${next.title}`}
+          className={buttonClass}
+        >
+          <ArrowRight className='h-5 w-5' aria-hidden='true' />
+        </Link>
+      </div>
+    </nav>
+  );
+};
