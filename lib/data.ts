@@ -235,16 +235,10 @@ export const PROJECTS: ProjectData[] = [
         content: `Restaurant sites pick a side: pretty but vague, or useful but flat. Visitors want food, mood, location and booking, fast.`,
         image: '/pj_04/pj_04_home_01.png',
       },
-      Constraint: {
-        content: `Minimal couldn't mean empty. A Japanese-inspired look still had to read clearly and point to the next step.`,
-        image: '/pj_04/pj_04_home_02.png',
-      },
       Decision: {
         content: `One hero photo, a three-dish menu with prices and tags, and a "Book a table" button that follows you. The form picks location, date and time, checks each field and confirms on the spot.`,
-        image: '/pj_04/pj_04_home_03.png',
-      },
-      Outcome: {
-        content: `The rebuild removed the old blank sections and doubled hero photo. Every location now has directions and tap-to-call.`,
+        image: '/pj_04/pj_04_home_02.png',
+        images: ['/pj_04/pj_04_home_02.png', '/pj_04/pj_04_home_03.png'],
       },
     },
   },
@@ -286,16 +280,10 @@ export const PROJECTS: ProjectData[] = [
         content: `Workout lists either bury you in options or skip the how. Between sets, you want the next move and how to do it, nothing else.`,
         image: '/pj_09/pj_09_1.png',
       },
-      Constraint: {
-        content: `It gets used at home and in busy gyms, on a phone, so it had to show at a glance which moves need equipment.`,
-        image: '/pj_09/pj_09_2.png',
-      },
       Decision: {
         content: `Seven muscle groups, six moves each, every move with sets, reps, equipment and numbered steps. Search and an equipment filter get you to one move fast, and you tick moves off as you go.`,
-        image: '/pj_09/pj_09_3.png',
-      },
-      Outcome: {
-        content: `Seven near-identical pages became one template driven by a single data file, so adding an exercise is one edit.`,
+        image: '/pj_09/pj_09_2.png',
+        images: ['/pj_09/pj_09_2.png', '/pj_09/pj_09_3.png'],
       },
     },
   },
