@@ -129,6 +129,7 @@
 [data-project='rooted'] { --pj-dark: #4fd64a; --pj-light: #126308; }
 [data-project='katsu-seiba'] { --pj-dark: #ff7a52; --pj-light: #a3270d; }
 [data-project='fruitea'] { --pj-dark: #ff9a2e; --pj-light: #84440b; }
+[data-project='muscle-memory'] { --pj-dark: #c6f432; --pj-light: #3d4f00; }
 
 [data-project] {
   --site-accent: var(--pj-dark);
