@@ -3,19 +3,22 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { FEATURED_PROJECTS, SECONDARY_PROJECTS } from '@/lib/data';
+import { FEATURED_PROJECTS, MORE_PROJECTS } from '@/lib/data';
+import { Reveal } from '@/components/Reveal';
+import { joinsAt } from '@/components/motion';
 
 export const WorkGrid = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showAlsoBuilt, setShowAlsoBuilt] = useState(false);
-  const activeProject = FEATURED_PROJECTS[activeIndex] ?? FEATURED_PROJECTS[0];
 
   return (
     <section id='work' className='tone-marigold py-20 md:py-28'>
-      <h2 className='type-display px-6 pb-10 pt-10 text-center text-[clamp(4rem,10vw,7.5rem)] uppercase leading-[0.9] tracking-[-0.02em] text-essence md:pb-20 md:pt-16'>
-        Work
+      {/* On arrival the title rises into place, each featured row follows a
+          beat apart, and a cover lifts off the card deck. */}
+      <Reveal>
+      <h2 className='type-display overflow-hidden px-6 pb-10 pt-10 text-center text-[clamp(4rem,10vw,7.5rem)] uppercase leading-[0.9] tracking-[-0.02em] text-essence md:pb-20 md:pt-16'>
+        <span className='reveal-line'>Work</span>
       </h2>
 
       <div className='mx-auto grid max-w-[1400px] gap-10 px-6 sm:px-8 md:grid-cols-2 md:items-start md:gap-16 md:px-16'>
@@ -28,8 +31,9 @@ export const WorkGrid = () => {
               <li
                 key={project.slug}
                 onMouseEnter={() => setActiveIndex(index)}
-                className='group border-b border-highlight first:border-t'
+                className='group overflow-hidden border-b border-highlight first:border-t'
               >
+                <div className='reveal-line' style={joinsAt(150 + index * 90)}>
                 <div className='flex items-center gap-4 py-5 md:py-6'>
                   <Link
                     href={`/pj/${project.slug}`}
@@ -74,6 +78,7 @@ export const WorkGrid = () => {
                     </a>
                   ) : null}
                 </div>
+                </div>
 
                 <Link
                   href={`/pj/${project.slug}`}
@@ -103,26 +108,6 @@ export const WorkGrid = () => {
             );
           })}
 
-          {/* Ellipsis disclosure — the smaller builds stay folded away until
-              asked for, so the four case studies keep the section's weight. */}
-          <li className='border-b border-highlight'>
-            <button
-              type='button'
-              onClick={() => setShowAlsoBuilt((open) => !open)}
-              aria-expanded={showAlsoBuilt}
-              aria-controls='also-built'
-              className='flex w-full items-center gap-4 py-5 text-left md:gap-6 md:py-6'
-            >
-              <span className='text-base font-bold leading-none text-text-muted'>
-                {showAlsoBuilt ? '\u2013' : '\u22ef'}
-              </span>
-              <span className='text-sm font-bold uppercase tracking-[0.2em] text-text-muted transition-colors hover:text-text-primary'>
-                {showAlsoBuilt
-                  ? 'Show fewer'
-                  : `${SECONDARY_PROJECTS.length} more projects`}
-              </span>
-            </button>
-          </li>
         </ul>
 
         {/* A deck of the four project cards, one in each project's colour,
@@ -131,7 +116,7 @@ export const WorkGrid = () => {
             narrower, so only an even band of each shows. Every card stays
             mounted and only moves, so hovering another project glides it to
             the front while the rest shuffle back a place. */}
-        <div className='hidden md:block'>
+        <div className='reveal-focus hidden md:block' style={joinsAt(250)}>
           <div className='grid px-4 pt-20 lg:px-8'>
             {FEATURED_PROJECTS.map((project, index) => {
               // 0 is the front card, 3 the one furthest back.
@@ -182,71 +167,82 @@ export const WorkGrid = () => {
               );
             })}
           </div>
-          <AnimatePresence mode='wait'>
-            <motion.p
-              key={activeProject.slug}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-              className='mt-10 max-w-[60ch] text-lg leading-[1.6] text-text-primary'
-            >
-              {activeProject.blurb}
-            </motion.p>
-          </AnimatePresence>
+          {/* Every blurb sits in the same grid cell and only the active one
+              shows, so the cell is always as tall as the longest blurb and
+              switching projects never moves the content below. */}
+          <div className='mt-10 grid max-w-[60ch]'>
+            {FEATURED_PROJECTS.map((project, index) => {
+              const isActive = index === activeIndex;
+              return (
+                <p
+                  key={project.slug}
+                  aria-hidden={!isActive}
+                  className={`col-start-1 row-start-1 text-lg leading-[1.6] text-text-primary transition-[opacity,transform] duration-400 ease-out ${
+                    isActive ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'
+                  }`}
+                >
+                  {project.blurb}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </div>
+      </Reveal>
 
-      <AnimatePresence initial={false}>
-        {showAlsoBuilt && (
-          <motion.div
-            id='also-built'
-            key='also-built'
-            initial={{ opacity: 0, y: 24, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: 24, height: 0 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className='overflow-hidden'
-          >
-            <div className='mx-auto mt-16 max-w-[70ch] px-6 sm:px-8 md:px-16'>
-              <h3 className='type-display text-xl uppercase tracking-[-0.01em] text-text-primary'>
-                Also built
-              </h3>
-              <ul className='mt-6 space-y-4'>
-                {SECONDARY_PROJECTS.map((project, index) => (
-                  <motion.li
-                    key={project.slug}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    // Staggered so the list resolves upward rather than
-                    // arriving as one block.
-                    transition={{
-                      duration: 0.4,
-                      delay: 0.12 + index * 0.07,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className='text-base leading-[1.6] text-text-primary'
-                  >
+      {/* Everything else, sorted into apps and websites, so the four case
+          studies above keep the section's weight. */}
+      <Reveal className='mx-auto mt-20 max-w-[1400px] px-6 sm:px-8 md:mt-28 md:px-16'>
+        <h3 className='type-display overflow-hidden text-[clamp(2rem,4vw,3rem)] uppercase leading-none tracking-[-0.01em] text-text-primary'>
+          <span className='reveal-line'>More work</span>
+        </h3>
+        <div className='mt-8 grid gap-12 md:grid-cols-2 md:gap-16'>
+          {MORE_PROJECTS.map((group, groupIndex) => (
+            <div key={group.category}>
+              <h4 className='flex items-baseline justify-between border-b border-highlight pb-3 text-sm font-bold uppercase tracking-[0.2em] text-text-muted'>
+                {group.label}
+                <span aria-hidden='true'>{String(group.projects.length).padStart(2, '0')}</span>
+              </h4>
+              <ul>
+                {group.projects.map((project, index) => (
+                  <li key={project.slug} className='overflow-hidden border-b border-highlight'>
+                    <div className='reveal-line' style={joinsAt(120 + groupIndex * 60 + index * 90)}>
                     <Link
                       href={`/pj/${project.slug}`}
-                      className='font-bold text-accent underline-offset-4 hover:underline'
+                      className='group flex items-center gap-4 py-4 md:gap-5'
                     >
-                      {project.title}
+                      <span className='relative aspect-[16/10] w-24 shrink-0 overflow-hidden rounded-control border border-highlight bg-black/10 sm:w-28'>
+                        {project.workImage ? (
+                          <Image
+                            src={project.workImage}
+                            alt=''
+                            fill
+                            sizes='112px'
+                            className='object-cover transition-transform duration-500 ease-out group-hover:scale-105'
+                          />
+                        ) : null}
+                      </span>
+                      <span className='flex min-w-0 flex-1 flex-col gap-1'>
+                        <span className='type-display text-[1.75rem] uppercase leading-none tracking-[-0.01em] text-text-primary transition-colors group-hover:text-accent'>
+                          {project.title}
+                        </span>
+                        <span className='type-aside text-base leading-tight text-text-muted'>
+                          {project.kind}
+                        </span>
+                      </span>
+                      <ArrowUpRight
+                        aria-hidden='true'
+                        className='h-5 w-5 shrink-0 text-text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent'
+                      />
                     </Link>
-                    <span className='type-aside text-base text-text-muted'>
-                      {' '}
-                      · {project.kind}
-                    </span>
-                    <span className='block text-text-muted'>
-                      {project.blurb}
-                    </span>
-                  </motion.li>
+                    </div>
+                  </li>
                 ))}
               </ul>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+        </div>
+      </Reveal>
     </section>
   );
 };

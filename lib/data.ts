@@ -1,8 +1,12 @@
 export type Stage = 'Problem' | 'Constraint' | 'Decision' | 'Outcome';
 
+export type Category = 'App' | 'Website';
+
 export interface ProjectData {
   id: string;
   slug: string;
+  /** Groups the projects under the featured four on the home page. */
+  category: Category;
   title: string;
   /** What it is and how far it went (concept, redesign, built), shown with the title. */
   kind: string;
@@ -38,6 +42,7 @@ export const PROJECTS: ProjectData[] = [
   {
     id: '01',
     slug: 'idriver',
+    category: 'App',
     title: 'iDriver',
     kind: 'Delivery app · Self-initiated redesign',
     blurb:
@@ -65,34 +70,8 @@ export const PROJECTS: ProjectData[] = [
   },
   {
     id: '02',
-    slug: 'port-jeffrey',
-    title: 'Port Jeffrey',
-    kind: '3D portfolio · Designed and built',
-    blurb:
-      'A Three.js island where every project is labelled in the scene — visitors know what they are looking at without opening a menu.',
-    outcome: '4 labelled landmarks. One look, no extra click.',
-    externalUrl: 'https://portjeffrey.vercel.app/',
-    workImage: '/pj_03/pj_03_island.jpg',
-    stages: {
-      Problem: {
-        content: `Recruiters decide in seconds. A grid of student projects gets scanned and skipped.`,
-        image: '/pj_03/pj_03_profile.png',
-        video: '/pj_03/rec_jefri.mp4',
-      },
-      Constraint: {
-        content: `It had to stay a portfolio, not a game. If visitors can't tell what an object is, the 3D hides the work.`,
-      },
-      Decision: {
-        content: `I built it in Three.js and put a project name on every object. Exploring is optional; knowing what you're looking at isn't.`,
-      },
-      Outcome: {
-        content: `People remembered the island, and the labels did the work: point at a landmark, know the project.`,
-      },
-    },
-  },
-  {
-    id: '03',
     slug: 'peter-parking',
+    category: 'App',
     title: 'Peter Parking',
     kind: 'Parking app · Concept',
     blurb:
@@ -119,8 +98,9 @@ export const PROJECTS: ProjectData[] = [
     },
   },
   {
-    id: '04',
+    id: '03',
     slug: 'sigma',
+    category: 'App',
     title: 'Sigma',
     kind: 'Finance app · Concept',
     blurb:
@@ -149,10 +129,38 @@ export const PROJECTS: ProjectData[] = [
       },
     },
   },
-
+  {
+    id: '04',
+    slug: 'port-jeffrey',
+    category: 'Website',
+    title: 'Port Jeffrey',
+    kind: '3D portfolio · Designed and built',
+    blurb:
+      'A Three.js island where every project is labelled in the scene — visitors know what they are looking at without opening a menu.',
+    outcome: '4 labelled landmarks. One look, no extra click.',
+    externalUrl: 'https://portjeffrey.vercel.app/',
+    workImage: '/pj_03/pj_03_island.jpg',
+    stages: {
+      Problem: {
+        content: `Recruiters decide in seconds. A grid of student projects gets scanned and skipped.`,
+        image: '/pj_03/pj_03_profile.png',
+        video: '/pj_03/rec_jefri.mp4',
+      },
+      Constraint: {
+        content: `It had to stay a portfolio, not a game. If visitors can't tell what an object is, the 3D hides the work.`,
+      },
+      Decision: {
+        content: `I built it in Three.js and put a project name on every object. Exploring is optional; knowing what you're looking at isn't.`,
+      },
+      Outcome: {
+        content: `People remembered the island, and the labels did the work: point at a landmark, know the project.`,
+      },
+    },
+  },
   {
     id: '05',
     slug: 'revo-fitness',
+    category: 'App',
     title: 'Revo Fitness',
     kind: 'Gym app · Self-initiated redesign',
     blurb:
@@ -182,6 +190,7 @@ export const PROJECTS: ProjectData[] = [
   {
     id: '06',
     slug: 'rooted',
+    category: 'App',
     title: 'Rooted',
     kind: 'Habit app · Concept',
     blurb:
@@ -215,6 +224,7 @@ export const PROJECTS: ProjectData[] = [
   {
     id: '07',
     slug: 'katsu-seiba',
+    category: 'Website',
     title: 'Katsu Seiba',
     kind: 'Restaurant website · Concept',
     blurb: 'A restaurant site built around booking, not atmosphere for its own sake.',
@@ -242,6 +252,7 @@ export const PROJECTS: ProjectData[] = [
   {
     id: '08',
     slug: 'fruitea',
+    category: 'Website',
     title: 'Fruitea',
     kind: 'Food reference website',
     blurb:
@@ -263,6 +274,7 @@ export const PROJECTS: ProjectData[] = [
   {
     id: '09',
     slug: 'muscle-memory',
+    category: 'Website',
     title: 'Muscle Memory',
     kind: 'Workout web app · Designed and built',
     blurb:
@@ -290,7 +302,11 @@ export const PROJECTS: ProjectData[] = [
   },
 ];
 
-/** The four that lead the Work section. */
+/** The four strongest case studies, which lead the Work section. */
 export const FEATURED_PROJECTS = PROJECTS.slice(0, 4);
-/** The rest, behind the "more" disclosure — same shape, own pages. */
-export const SECONDARY_PROJECTS = PROJECTS.slice(4);
+
+/** Everything else, grouped by what it is, listed under the featured four. */
+export const MORE_PROJECTS: { category: Category; label: string; projects: ProjectData[] }[] = [
+  { category: 'App', label: 'Apps', projects: PROJECTS.slice(4).filter((p) => p.category === 'App') },
+  { category: 'Website', label: 'Websites', projects: PROJECTS.slice(4).filter((p) => p.category === 'Website') },
+];
