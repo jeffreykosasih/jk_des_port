@@ -233,12 +233,11 @@ export const PROJECTS: ProjectData[] = [
     stages: {
       Problem: {
         content: `Restaurant sites pick a side: pretty but vague, or useful but flat. Visitors want food, mood, location and booking, fast.`,
-        image: '/pj_04/pj_04_home_01.png',
       },
       Decision: {
         content: `One hero photo, a three-dish menu with prices and tags, and a "Book a table" button that follows you. The form picks location, date and time, checks each field and confirms on the spot.`,
-        image: '/pj_04/pj_04_home_02.png',
-        images: ['/pj_04/pj_04_home_02.png', '/pj_04/pj_04_home_03.png'],
+        image: '/pj_04/pj_04_home_01.png',
+        images: ['/pj_04/pj_04_home_01.png', '/pj_04/pj_04_home_02.png', '/pj_04/pj_04_home_03.png'],
       },
     },
   },
@@ -256,11 +255,11 @@ export const PROJECTS: ProjectData[] = [
     stages: {
       Problem: {
         content: `Checking if produce is good for you means one tab for nutrition, one for warnings, one for recipes.`,
-        image: '/pj_06/pj_06_1.png',
-        video: '/pj_06/rec_fruitea.mp4',
       },
       Decision: {
         content: `One page per item: benefits, risks and what to cook, built to scan while you're already in the kitchen.`,
+        image: '/pj_06/pj_06_1.png',
+        video: '/pj_06/rec_fruitea.mp4',
       },
     },
   },
@@ -278,12 +277,11 @@ export const PROJECTS: ProjectData[] = [
     stages: {
       Problem: {
         content: `Workout lists either bury you in options or skip the how. Between sets, you want the next move and how to do it, nothing else.`,
-        image: '/pj_09/pj_09_1.png',
       },
       Decision: {
         content: `Seven muscle groups, six moves each, every move with sets, reps, equipment and numbered steps. Search and an equipment filter get you to one move fast, and you tick moves off as you go.`,
-        image: '/pj_09/pj_09_2.png',
-        images: ['/pj_09/pj_09_2.png', '/pj_09/pj_09_3.png'],
+        image: '/pj_09/pj_09_1.png',
+        images: ['/pj_09/pj_09_1.png', '/pj_09/pj_09_2.png', '/pj_09/pj_09_3.png'],
       },
     },
   },
