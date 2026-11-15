@@ -65,6 +65,12 @@ export const metadata: Metadata = {
   // reaches browsers that cached the old one without a manual ?v= bump.
 };
 
+// Only on a reload: drop any #section, go to the top, and for a moment after
+// the page loads undo the browser's own scroll restore, until the visitor
+// scrolls themselves. scrollRestoration is left alone, so Back still returns
+// people to where they were.
+const RELOAD_TO_TOP = `(function(){try{var n=performance.getEntriesByType('navigation')[0];if(!n||n.type!=='reload')return;if(location.hash)history.replaceState(null,'',location.pathname+location.search);var done=false,top=function(){if(!done&&window.scrollY!==0)window.scrollTo({top:0,left:0,behavior:'instant'})},stop=function(){done=true;removeEventListener('scroll',top)};['wheel','touchstart','keydown','pointerdown'].forEach(function(t){addEventListener(t,stop,{once:true,passive:true})});addEventListener('scroll',top,{passive:true});top();addEventListener('load',function(){top();setTimeout(stop,1500)})}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -72,6 +78,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' data-scroll-behavior='smooth'>
+      <head>
+        {/* A refresh starts at the top, so the intro and the scroll reveals
+            play again instead of the browser dropping the visitor back
+            mid-page. Only reloads: a shared link to /#work still lands on
+            Work. Runs before first paint so there is no jump. */}
+        <script dangerouslySetInnerHTML={{ __html: RELOAD_TO_TOP }} />
+      </head>
       <body
         className={`${bricolage.variable} ${serif.variable} antialiased text-text-primary font-normal`}
       >
