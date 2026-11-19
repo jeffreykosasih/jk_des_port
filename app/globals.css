@@ -121,7 +121,7 @@
    for white ones. Each clears 7:1 on its surface, so it can be small text as
    well as display type. The pager in the fixed nav reads --site-accent, so it
    takes the project colour too. */
-[data-project='idriver'] { --pj-dark: #6aa3ff; --pj-light: #0e52b1; }
+[data-project='idriver'] { --pj-dark: #ffb547; --pj-light: #7a4100; }
 [data-project='port-jeffrey'] { --pj-dark: #e6e14a; --pj-light: #575707; }
 [data-project='peter-parking'] { --pj-dark: #2fd3e6; --pj-light: #085f6b; }
 [data-project='sigma'] { --pj-dark: #8aa9ff; --pj-light: #104dc1; }

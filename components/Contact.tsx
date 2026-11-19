@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { IconType } from 'react-icons';
 import { FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from 'react-icons/fa';
@@ -9,16 +9,16 @@ import { IoDocumentText, IoMail } from 'react-icons/io5';
 type ContactItem = {
   label: string;
   icon: IconType;
-  /** The colour the icon turns on hover: the service's own. */
-  brand: string;
+  /** The colour the icon turns on hover: the service's own. Without one it
+   *  takes the section accent. */
+  brand?: string;
+  /** Spoken name when it should say more than the label. */
+  ariaLabel?: string;
   href?: string;
   onClick?: () => void;
 };
 
-const RESUMES = [
-  { id: 'des', label: 'Design', href: '/Jeffrey-Ko-Design-Resume.pdf' },
-  { id: 'dev', label: 'Developer', href: '/Jeffrey-Ko-Developer-Resume.pdf' },
-];
+const DESIGN_RESUME = '/Jeffrey-Ko-Design-Resume.pdf';
 
 /* Each icon turns its own service's colour on hover (--brand, set per item).
    All of them keep at least 3:1 against the white section, the contrast an
@@ -26,10 +26,10 @@ const RESUMES = [
 const itemClass =
   'inline-flex p-2 text-text-primary transition-all duration-200 hover:-translate-y-1 hover:text-[var(--brand,var(--site-accent))] focus-visible:text-[var(--brand,var(--site-accent))]';
 
-const brandStyle = (brand: string) =>
-  ({ '--brand': brand }) as React.CSSProperties;
+const brandStyle = (brand?: string) =>
+  (brand ? { '--brand': brand } : {}) as React.CSSProperties;
 
-/* Shared with the "Email copied" bubble so the two read as one component. */
+/* The "Email copied" bubble. */
 const bubbleClass =
   'absolute bottom-full left-1/2 mb-4 rounded-control border-2 border-text-primary bg-primary shadow-lg';
 
@@ -50,80 +50,6 @@ const BubbleTail = () => (
     />
   </svg>
 );
-
-/** Two resumes behind one icon: pick a version, then open it in its own tab
- *  where the browser's PDF viewer handles saving. */
-const ResumeMenu = () => {
-  const [open, setOpen] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const onPointerDown = (event: PointerEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) setOpen(false);
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'Escape') return;
-      setOpen(false);
-      // Send focus back to the trigger, or it lands on <body>.
-      buttonRef.current?.focus();
-    };
-
-    document.addEventListener('pointerdown', onPointerDown);
-    document.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.removeEventListener('pointerdown', onPointerDown);
-      document.removeEventListener('keydown', onKeyDown);
-    };
-  }, [open]);
-
-  return (
-    <div ref={wrapperRef} className='relative'>
-      <button
-        ref={buttonRef}
-        type='button'
-        onClick={() => setOpen((value) => !value)}
-        aria-label='Resume'
-        aria-haspopup='menu'
-        aria-expanded={open}
-        title='Resume'
-        className={itemClass}
-      >
-        <IoDocumentText className='h-10 w-10 md:h-12 md:w-12' />
-      </button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            role='menu'
-            aria-label='Choose a resume'
-            initial={{ opacity: 0, y: 10, x: '-50%', scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
-            exit={{ opacity: 0, y: 10, x: '-50%', scale: 0.95 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className={`${bubbleClass} min-w-max p-1.5`}
-          >
-            {RESUMES.map((resume) => (
-              <a
-                key={resume.id}
-                role='menuitem'
-                href={resume.href}
-                target='_blank'
-                rel='noopener noreferrer'
-                onClick={() => setOpen(false)}
-                className='block whitespace-nowrap rounded-control px-5 py-2.5 text-base font-bold transition-colors hover:bg-accent hover:text-accent-ink'
-              >
-                {resume.label}
-              </a>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
 
 export const Contact = () => {
   const [copied, setCopied] = useState(false);
@@ -153,6 +79,12 @@ export const Contact = () => {
       onClick: copyEmail,
       icon: IoMail,
       brand: '#ea4335',
+    },
+    {
+      label: 'Resume',
+      ariaLabel: 'Design resume (PDF, opens in a new tab)',
+      href: DESIGN_RESUME,
+      icon: IoDocumentText,
     },
   ];
 
@@ -218,7 +150,7 @@ export const Contact = () => {
         href={item.href}
         target='_blank'
         rel='noopener noreferrer'
-        aria-label={item.label}
+        aria-label={item.ariaLabel ?? item.label}
         title={item.label}
         className={itemClass}
         style={brandStyle(item.brand)}
@@ -264,7 +196,6 @@ export const Contact = () => {
           <div className='flex flex-col gap-6 md:items-end'>
             <div className='flex flex-wrap items-center gap-5 md:justify-end md:gap-7'>
               {workLinks.map(renderItem)}
-              <ResumeMenu />
             </div>
             <div className='flex flex-wrap items-center gap-5 md:justify-end md:gap-7'>
               {socialLinks.map(renderItem)}

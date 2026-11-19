@@ -44,11 +44,11 @@ export const PROJECTS: ProjectData[] = [
     slug: 'idriver',
     category: 'App',
     title: 'iDriver',
-    kind: 'Delivery app · Self-initiated redesign',
+    kind: 'Delivery app · Redesign',
     blurb:
       'Newspaper delivery, redesigned so drivers start a run in two steps — with the map, the list, and proof-of-delivery on the right stop.',
     outcome: 'A simpler, clearer delivery app for every driver, new or experienced.',
-    workImage: '/pj_02/idriver_card.png',
+    workImage: '/pj_02/idriver_card.aa6009ef.png',
     stages: {
       Problem: {
         content: `Drivers lost time to an old app. Every login hit a compliance check, suburb lists were buried, and delivery photos weren't tied to an address.`,
@@ -59,11 +59,11 @@ export const PROJECTS: ProjectData[] = [
       },
       Decision: {
         content: `I built one smooth flow, so drivers can easily find their run, their next stop and its delivery details.`,
-        image: '/pj_02/idriver_before_the_run.png',
-        images: ['/pj_02/idriver_before_the_run.png', '/pj_02/idriver_during_the_run.png'],
       },
       Outcome: {
         content: `Testers understood how it works from the first screen, got through a run smoothly, and were happy with the details at each stop.`,
+        image: '/pj_02/idriver_before_the_run.71046541.png',
+        images: ['/pj_02/idriver_before_the_run.71046541.png', '/pj_02/idriver_during_the_run.9827f84a.png'],
       },
     },
   },
@@ -133,7 +133,7 @@ export const PROJECTS: ProjectData[] = [
     slug: 'port-jeffrey',
     category: 'Website',
     title: 'Port Jeffrey',
-    kind: '3D portfolio · Designed and built',
+    kind: '3D portfolio website',
     blurb:
       'A Three.js island where every project is labelled in the scene — visitors know what they are looking at without opening a menu.',
     outcome: '4 labelled landmarks. One look, no extra click.',
@@ -161,11 +161,11 @@ export const PROJECTS: ProjectData[] = [
     slug: 'revo-fitness',
     category: 'App',
     title: 'Revo Fitness',
-    kind: 'Gym app · Self-initiated redesign',
+    kind: 'Gym app · Redesign',
     blurb:
-      'Restructured the member app so plan perks and public info are no longer on the same screen.',
-    outcome: 'Perks and public info split into separate screens.',
-    workImage: '/pj_01/pj_01_test_01.png',
+      'Redesigned the member app around what members do every visit: scan in, train, and use their perks.',
+    outcome: 'Scan to enter and today’s workout sit one tap from Home.',
+    workImage: '/pj_01/revo_card.189de419.png',
     stages: {
       Problem: {
         content: `Revo is my gym. Its app mixed member perks with public news and shop updates, and five members told me they couldn't tell what their plan included.`,
@@ -176,13 +176,12 @@ export const PROJECTS: ProjectData[] = [
         image: '/pj_01/pj_01_define.png',
       },
       Decision: {
-        content: `I grouped features by access level, then built it in Figma: Home for what anyone can see, Workout and Member for plan perks.`,
-        image: '/pj_01/pj_01_prototype.png',
+        content: `Home now leads with Scan to enter, the one thing members do every visit, and shows occupancy, streak and today's workout as real numbers. Workout logs sets, reps and weight. Perks sit in one list under a member card. A floating, icon-only tab bar keeps the screens clean.`,
       },
       Outcome: {
-        content: `The same members read the split correctly and said it still felt like Revo. Next step: more depth per section, not more sections.`,
-        image: '/pj_01/pj_01_test_01.png',
-        images: ['/pj_01/pj_01_test_01.png', '/pj_01/pj_01_test_02.png'],
+        content: `The same members read the split correctly and said it still felt like Revo. They asked for more depth, not more sections, so this version follows one visit end to end: scan in, log each set, see the summary.`,
+        image: '/pj_01/revo_main_screens.c7c490db.png',
+        images: ['/pj_01/revo_main_screens.c7c490db.png', '/pj_01/revo_one_visit.0f7dffd9.png'],
       },
     },
   },
@@ -195,28 +194,21 @@ export const PROJECTS: ProjectData[] = [
     blurb:
       'A habit app that splits what you grow from what you uproot, with a plant metaphor instead of a streak counter.',
     outcome: '5 testers, 4 positive — 2 asked for a widget.',
-    workImage: '/pj_05/pj_05_1.png',
+    workImage: '/pj_05/rooted_card.7cb24616.png',
     stages: {
       Problem: {
         content: `Habit apps feel overwhelming and vague. A streak counts days; it doesn't say what you're building or why.`,
-        image: '/pj_05/pj_05_1.png',
-        images: [
-          '/pj_05/pj_05_1.png',
-          '/pj_05/pj_05_2.png',
-          '/pj_05/pj_05_3.png',
-          '/pj_05/pj_05_4.png',
-          '/pj_05/pj_05_5.png',
-        ],
       },
       Constraint: {
         content: `Some habits last, some only need a set run. A short habit had to be able to finish cleanly.`,
       },
       Decision: {
-        content: `I framed it as a garden: grow a habit or uproot one. Each habit has a lifespan, so finishing is something the app understands.`,
-        image: '/pj_05/pj_05_6.png',
+        content: `I framed it as a garden: grow a habit or uproot one, and each habit has a lifespan. The redesign gives it a palette to match: warm paper, forest green, one bright sprout for progress, soft clay for slips. Today is one list with a ring to tap, and a missed day is clay, not alarm red.`,
       },
       Outcome: {
         content: `Four of five testers liked the framing. Two wanted a widget for a quicker daily check.`,
+        image: '/pj_05/rooted_main_screens.b5bbb155.png',
+        images: ['/pj_05/rooted_main_screens.b5bbb155.png', '/pj_05/rooted_tend_or_uproot.bd681fb4.png'],
       },
     },
   },
@@ -225,7 +217,7 @@ export const PROJECTS: ProjectData[] = [
     slug: 'katsu-seiba',
     category: 'Website',
     title: 'Katsu Seiba',
-    kind: 'Restaurant website · Concept',
+    kind: 'Japanese restaurant website',
     blurb: 'A restaurant site built around booking, not atmosphere for its own sake.',
     outcome: 'Booking stays one action away from every section.',
     externalUrl: 'https://katsuseiba.vercel.app',
@@ -246,7 +238,7 @@ export const PROJECTS: ProjectData[] = [
     slug: 'fruitea',
     category: 'Website',
     title: 'Fruitea',
-    kind: 'Food reference website',
+    kind: 'Fruit and veg info site',
     blurb:
       'A produce reference that answers what something does to you and what to make with it, in one read.',
     outcome: 'One page per item: benefits, risks, and what to cook.',
@@ -268,18 +260,18 @@ export const PROJECTS: ProjectData[] = [
     slug: 'muscle-memory',
     category: 'Website',
     title: 'Muscle Memory',
-    kind: 'Workout web app · Designed and built',
+    kind: 'Workout website',
     blurb:
-      'An exercise library you can follow mid-session: pick a muscle group, get the moves, tick them off.',
+      'A workout web app for when you can’t decide what to train: open it, pick a muscle group, follow the moves.',
     outcome: '42 exercises. 25 need no equipment.',
     externalUrl: 'https://musclememo.vercel.app',
     workImage: '/pj_09/pj_09_1.png',
     stages: {
       Problem: {
-        content: `Workout lists either bury you in options or skip the how. Between sets, you want the next move and how to do it, nothing else.`,
+        content: `Many people stall at the start of a session because they can't decide what to train. Workout apps add more steps first: download, sign up, then a wall of options.`,
       },
       Decision: {
-        content: `Seven muscle groups, six moves each, every move with sets, reps, equipment and numbered steps. Search and an equipment filter get you to one move fast, and you tick moves off as you go.`,
+        content: `I made it a website, not an app: it opens in seconds with nothing to install, so it reaches more people. Seven muscle groups, six moves each, every move with sets, reps, equipment and numbered steps. Search and an equipment filter get you to one move fast, and you tick moves off as you go.`,
         image: '/pj_09/pj_09_1.png',
         images: ['/pj_09/pj_09_1.png', '/pj_09/pj_09_2.png', '/pj_09/pj_09_3.png'],
       },
