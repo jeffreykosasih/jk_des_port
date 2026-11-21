@@ -230,10 +230,17 @@ export const WorkGrid = () => {
                           {project.kind}
                         </span>
                       </span>
-                      <ArrowUpRight
-                        aria-hidden='true'
-                        className='h-5 w-5 shrink-0 text-text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent'
-                      />
+                      {/* The tilted arrow marks a site you can visit live;
+                          case studies without one go without. */}
+                      {project.externalUrl ? (
+                        <>
+                          <span className='sr-only'>(live website)</span>
+                          <ArrowUpRight
+                            aria-hidden='true'
+                            className='h-5 w-5 shrink-0 text-text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent'
+                          />
+                        </>
+                      ) : null}
                     </Link>
                     </div>
                   </li>

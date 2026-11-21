@@ -61,9 +61,9 @@ export const Contact = () => {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1600);
     } catch {
-      // No clipboard access (older browsers, some in-app views):
-      // open the mail app instead of failing silently.
-      window.location.assign(`mailto:${email}`);
+      // No clipboard access (older browsers, some in-app views): open the
+      // mail app in a new tab, so this page is never replaced.
+      window.open(`mailto:${email}`, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -182,6 +182,8 @@ export const Contact = () => {
               Hiring for a UX/UI or product design role? Email me at{' '}
               <a
                 href={`mailto:${email}`}
+                target='_blank'
+                rel='noopener noreferrer'
                 className='font-bold underline underline-offset-4 transition-colors hover:text-accent'
               >
                 {email}

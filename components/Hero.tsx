@@ -1,30 +1,10 @@
-import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaMicrosoft } from 'react-icons/fa';
-import { SiGoogle } from 'react-icons/si';
 import { LetterByLetter, joinsAt } from '@/components/motion';
 
 const DESIGN_RESUME = '/Jeffrey-Ko-Design-Resume.pdf';
 
 const NAME = 'Jeffrey Ko';
-
-/* Proof sits beside the job title it backs up: one small tile per issuer,
-   wearing that issuer's colour only on hover. */
-const CERTIFICATES = [
-  {
-    name: 'Google UX Design Professional Certificate',
-    href: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/7JLH4S8ORLWP',
-    Icon: SiGoogle,
-    brand: '#4285f4',
-  },
-  {
-    name: 'Microsoft UX Design Professional Certificate',
-    href: 'https://www.coursera.org/account/accomplishments/specialization/certificate/B300T348WFDU',
-    Icon: FaMicrosoft,
-    brand: '#0078d4',
-  },
-];
 
 const pillBase =
   'intro-fade whitespace-nowrap rounded-control px-4 py-2.5 transition-all hover:-translate-y-1 lg:px-4 xl:px-5 xl:py-3';
@@ -44,28 +24,9 @@ export const Hero = () => {
           <div className='py-10'>
             {/* The padding gives the serif's descenders room inside the
                 window the line rises into. */}
-            <div className='mb-4 flex flex-wrap items-center gap-x-4 gap-y-2'>
-              <p className='type-aside -mx-1 overflow-hidden px-1 pb-1.5 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.15] text-accent'>
-                <span className='intro-line'>UX/UI designer</span>
-              </p>
-              <ul aria-label='Certificates' className='flex items-center gap-2'>
-                {CERTIFICATES.map(({ name, href, Icon, brand }, index) => (
-                  <li key={name}>
-                    <a
-                      href={href}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      aria-label={`${name} (opens in a new tab)`}
-                      title={name}
-                      className='intro-fade flex size-10 items-center justify-center rounded-control bg-text-primary text-primary transition-all hover:-translate-y-1 hover:bg-[var(--brand)] hover:text-white'
-                      style={{ ...joinsAt(420 + index * 60), '--brand': brand } as CSSProperties}
-                    >
-                      <Icon aria-hidden className='size-[18px]' />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className='type-aside -mx-1 mb-4 overflow-hidden px-1 pb-1.5 text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.15] text-accent'>
+              <span className='intro-line'>UX/UI designer</span>
+            </p>
             <h1
               aria-label={NAME}
               className='type-display max-w-4xl text-[17vw] uppercase leading-[0.82] tracking-[-0.03em] text-text-primary sm:text-[13vw] md:text-[7.5rem] lg:text-[9.5rem] xl:text-[11rem]'

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { PROJECTS } from '@/lib/data';
 import { ProjectPager } from '@/components/ProjectPager';
 import { LogoMark } from '@/components/LogoMark';
+import { scrollToTop, usePastHero } from '@/components/SectionDock';
 
 const LogoButton = ({ isHome }: { isHome: boolean }) => {
   // Already home: this is a "back to the top" control, not a navigation, so
@@ -13,13 +14,7 @@ const LogoButton = ({ isHome }: { isHome: boolean }) => {
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (!isHome) return;
     event.preventDefault();
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
-    // Drop the #work / #about / #contact fragment so the URL matches where
-    // the visitor now is, without adding a history entry.
-    if (window.location.hash) {
-      window.history.replaceState(null, '', window.location.pathname);
-    }
+    scrollToTop();
   };
 
   return (
@@ -38,6 +33,10 @@ export const Navbar = () => {
   const pathname = usePathname();
   const activeSlug = pathname.match(/^\/pj\/([^/]+)/)?.[1] ?? null;
   const activeProject = PROJECTS.find((project) => project.slug === activeSlug);
+  const isHome = pathname === '/';
+  // On the home page the logo moves into the bottom-right dock once the
+  // visitor scrolls past the hero, and comes back here near the top.
+  const logoInDock = usePastHero(isHome);
 
   /* The nav is fixed and lives outside ProjectView, so it carries
      data-project itself: that gives the project pager the project's colour.
@@ -47,7 +46,15 @@ export const Navbar = () => {
     <div data-project={activeProject?.slug}>
       {/* One fixed row: the project pager sits beside the logo, centred on it. */}
       <div className='fixed top-4 left-4 z-[60] md:top-6 md:left-6 flex items-center gap-3'>
-        <LogoButton isHome={pathname === '/'} />
+        <div
+          aria-hidden={logoInDock || undefined}
+          inert={logoInDock || undefined}
+          className={`transition-[opacity,transform] duration-300 ease-out ${
+            logoInDock ? 'pointer-events-none -translate-y-3 opacity-0' : 'translate-y-0 opacity-100'
+          }`}
+        >
+          <LogoButton isHome={isHome} />
+        </div>
         {activeProject ? (
           <ProjectPager activeSlug={activeProject.slug} />
         ) : null}
