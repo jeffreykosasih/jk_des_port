@@ -1,85 +1,83 @@
-type IconProps = {
-  className?: string;
-};
+import type { CSSProperties } from 'react';
+import { FaMicrosoft } from 'react-icons/fa';
+import { SiGoogle } from 'react-icons/si';
+import { Reveal } from '@/components/Reveal';
+import { joinsAt } from '@/components/motion';
 
-const GoogleIcon = ({ className }: IconProps) => (
-  <svg
-    viewBox='0 0 24 24'
-    aria-hidden='true'
-    className={className}
-    fill='currentColor'
-  >
-    <path d='M21.35 11.1H12v2.9h5.35c-.25 1.55-1.62 4.55-5.35 4.55A6.34 6.34 0 0 1 5.65 12 6.34 6.34 0 0 1 12 5.45c1.84 0 3.08.78 3.79 1.46l2.58-2.49C16.72 2.88 14.58 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10c5.77 0 9.6-4.06 9.6-9.78 0-.66-.07-1.16-.25-1.12Z' />
-  </svg>
-);
-
-const MicrosoftIcon = ({ className }: IconProps) => (
-  <svg
-    viewBox='0 0 24 24'
-    aria-hidden='true'
-    className={className}
-    fill='currentColor'
-  >
-    <path d='M3 3h8.2v8.2H3V3Zm9.8 0H21v8.2h-8.2V3ZM3 12.8h8.2V21H3v-8.2Zm9.8 0H21V21h-8.2v-8.2Z' />
-  </svg>
-);
-
-const certificates = [
+/* The proof behind the paragraph above it: each certificate opens on
+   Coursera and takes its issuer's colour on hover. */
+const CERTIFICATES = [
   {
-    label: 'Google Certificate',
+    label: 'Google UX Design',
+    name: 'Google UX Design Professional Certificate',
     href: 'https://www.coursera.org/account/accomplishments/professional-cert/certificate/7JLH4S8ORLWP',
-    icon: GoogleIcon,
+    Icon: SiGoogle,
+    brand: '#4285f4',
   },
   {
-    label: 'Microsoft Certificate',
-    href: 'https://www.coursera.org/account/accomplishments/specialization/B300T348WFDU',
-    icon: MicrosoftIcon,
+    label: 'Microsoft UX Design',
+    name: 'Microsoft UX Design Professional Certificate',
+    href: 'https://www.coursera.org/account/accomplishments/specialization/certificate/B300T348WFDU',
+    Icon: FaMicrosoft,
+    brand: '#0078d4',
   },
 ];
 
 export const About = () => {
   return (
-    <section id='about' className='py-24 px-6'>
-      <div className='max-w-7xl mx-auto grid gap-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center'>
-        <div className='space-y-8'>
-          <div className='font-hand space-y-5 text-3xl italic leading-tight text-accent-bright md:text-4xl'>
+    <section id='about' className='tone-vermilion scroll-mt-16 px-6 py-24'>
+      {/* On arrival the title rises in first, then each paragraph comes into
+          focus a beat after the one before. */}
+      <Reveal className='mx-auto grid max-w-7xl gap-16 md:grid-cols-[minmax(0,1fr)_auto] md:items-center'>
+        <div className='max-w-[70ch] space-y-5 text-lg leading-[1.6] text-text-primary'>
+          <p className='reveal-focus' style={joinsAt(200)}>
+            Born in Indonesia, now designing in Melbourne. I studied IT at the
+            University of Ciputra and Kaplan Business School, and along the way
+            found design and chose to go deeper.
+          </p>
+          <p className='reveal-focus' style={joinsAt(320)}>
+            The Apple Developer Academy turned my path from IT towards design.
+            It also taught me to work with designers, engineers and the
+            business every day.
+          </p>
+          <div className='reveal-focus space-y-4' style={joinsAt(440)}>
             <p>
-              Born in Indonesia and barely survived in Australia, I am a designer
-              that has a unique edge: I speak the language of developers and
-              product managers.
+              I don’t have work experience yet, but I’ve built projects left
+              and right and earned UX design certificates from Google and
+              Microsoft. I hope what I’ve built leads me somewhere.
             </p>
-            <p>
-              <span className='font-medium text-text-primary'>Fun Fact:</span> I
-              also make music live on spot using loop station!
-            </p>
+            <ul aria-label='Certificates' className='flex flex-wrap gap-3'>
+              {CERTIFICATES.map(({ label, name, href, Icon, brand }) => (
+                <li key={name}>
+                  <a
+                    href={href}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    aria-label={`${name} (opens in a new tab)`}
+                    title={name}
+                    style={{ '--brand': brand } as CSSProperties}
+                    className='inline-flex items-center gap-2.5 rounded-control bg-text-primary px-4 py-2.5 text-base font-bold text-primary transition-all duration-200 hover:-translate-y-1 hover:bg-[var(--brand)] hover:text-white focus-visible:-translate-y-1 focus-visible:bg-[var(--brand)] focus-visible:text-white'
+                  >
+                    <Icon aria-hidden className='size-[18px]' />
+                    {label}
+                    <span aria-hidden='true'>↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
+          <p
+            className='reveal-focus type-aside text-[1.5rem] leading-[1.35]'
+            style={joinsAt(560)}
+          >
+            Fun fact: I also make music live on the spot using a loop station.
+          </p>
         </div>
 
-        <div className='space-y-8 text-right'>
-          <h2 className='text-[22vw] font-bold uppercase leading-[0.78] tracking-[-0.08em] text-text-primary md:text-[10rem] lg:text-[13rem] xl:text-[16rem]'>
-            About
-          </h2>
-          <div className='flex items-center justify-end gap-6'>
-            {certificates.map((certificate) => {
-              const Icon = certificate.icon;
-
-              return (
-                <a
-                  key={certificate.label}
-                  href={certificate.href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  aria-label={certificate.label}
-                  title={certificate.label}
-                  className='inline-flex text-text-primary transition-all hover:-translate-y-1 hover:text-hover'
-                >
-                  <Icon className='h-12 w-12 md:h-14 md:w-14' />
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+        <h2 className='type-display overflow-hidden text-right text-[clamp(4rem,10vw,7.5rem)] uppercase leading-[0.9] tracking-[-0.02em] text-essence'>
+          <span className='reveal-line'>About</span>
+        </h2>
+      </Reveal>
     </section>
   );
 };

@@ -36,6 +36,14 @@ yarn-error.log*
 # vercel
 .vercel
 
+# claude code
+.claude
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated theme intermediates (app/project-themes.css IS committed)
+scripts/palettes.json
+scripts/site-palette.json
+scripts/__pycache__/

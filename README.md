@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jeffrey Ko — UX/UI Portfolio
 
-## Getting Started
+Personal portfolio at **[jeffreyko.com](https://www.jeffreyko.com)**. Case studies,
+product thinking, and selected work.
 
-First, run the development server:
+Built with Next.js (App Router), TypeScript, Tailwind CSS v4, and Framer Motion.
+
+## Work
+
+| # | Project | What it is | Type | Live |
+| --- | --- | --- | --- | --- |
+| 01 | iDriver | Delivery app with clearer maps and reliable proof-of-delivery | Self-initiated redesign | — |
+| 02 | Port Jeffrey | Explorable 3D island built with Three.js | Designed and built | [portjeffrey.vercel.app](https://portjeffrey.vercel.app/) |
+| 03 | Peter Parking | One app for street parking across every operator | Concept | — |
+| 04 | Sigma | Finance app that forecasts what you *can* spend | Concept | — |
+| 05 | Revo Fitness | Gym app restructured so members can see what their plan includes | Self-initiated redesign | — |
+| 06 | Rooted | Habit tracker framed through a plant metaphor | Concept | — |
+| 07 | Katsu Seiba | Japanese restaurant concept — menu browsing and reservations | Concept | [katsuseiba.vercel.app](https://katsuseiba.vercel.app) |
+| 08 | Fruitea | Learning site for produce benefits, risks, and recipes | — | [fruitea.vercel.app](https://fruitea.vercel.app) |
+
+The numbers match the order on the site. The type label is the `kind` field
+in `lib/data.ts`.
+
+## Running it locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Dev server |
+| `npm run build` | Production build — catches font and image problems dev mode hides |
+| `npm run lint` | ESLint |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How the theming works
 
-## Learn More
+There is no light or dark mode. Everything is CSS custom properties in
+`app/globals.css`, so no component hard-codes a colour.
 
-To learn more about Next.js, take a look at the following resources:
+- **Home page:** sections alternate white and black, and each brings one
+  colour of its own through a `tone-*` class (violet, marigold, vermilion,
+  and a YouTube red for the Shorts row). `--essence` is that colour at full strength for display type and
+  shapes; `--site-accent` is the cut that clears 7:1 as small text.
+- **Project pages:** `[data-project='<slug>']` sets two cuts of the project's
+  colour, `--pj-dark` for black sections and `--pj-light` for white ones, each
+  measured at 7:1 or better. `tone-pj-dark` and `tone-pj-light` apply them.
+- **Type:** Bricolage Grotesque for text, the same face narrow and heavy for
+  display (`type-display`), and Instrument Serif for asides (`type-aside`).
+- **Corners** are square, set by `--radius-control` and `--radius-frame`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploying
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pushes to `main` deploy through Vercel to
+[jeffreyko.com](https://www.jeffreyko.com). See [CONTRIBUTING.md](CONTRIBUTING.md)
+for commit conventions and the pre-push checklist.
